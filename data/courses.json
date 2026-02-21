@@ -14,7 +14,7 @@
     ],
     "color": "bg-primary/5 border-primary/20",
     "iconColor": "text-primary",
-    "isActive": false
+    "isActive": true
   },
   {
     "id": "nazra",
@@ -31,7 +31,7 @@
     ],
     "color": "bg-secondary border-secondary-foreground/20",
     "iconColor": "text-secondary-foreground",
-    "isActive": false
+    "isActive": true
   },
   {
     "id": "tajweed",
@@ -48,7 +48,7 @@
     ],
     "color": "bg-accent/10 border-accent/30",
     "iconColor": "text-accent-foreground",
-    "isActive": false
+    "isActive": true
   },
   {
     "id": "advanced",
@@ -64,6 +64,6 @@
     ],
     "color": "bg-red-500/5 border-red-500/20",
     "iconColor": "text-red-500",
-    "isActive": false
+    "isActive": true
   }
 ]

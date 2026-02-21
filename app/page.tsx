@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ChevronRight, Star, PlayCircle, BookOpen, GraduationCap, Users, Video } from "lucide-react";
 import { motion, Variants, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -69,8 +70,8 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center overflow-hidden">
       {/* Hero Section */}
-      <section className="relative w-full py-20 md:py-32 flex flex-col items-center text-center px-4">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] md:w-[800px] h-[300px] md:h-[400px] bg-primary/20 blur-[100px] md:blur-[120px] rounded-full pointer-events-none" />
+      <section className="relative w-full py-24 md:py-40 flex flex-col items-center text-center px-4 overflow-hidden border-b border-border">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] md:w-[800px] h-[300px] md:h-[400px] bg-primary/20 blur-[100px] md:blur-[120px] rounded-full pointer-events-none z-0" />
 
         <motion.div
           initial="hidden"
@@ -78,8 +79,8 @@ export default function Home() {
           variants={staggerContainer}
           className="relative z-10 max-w-4xl mx-auto space-y-8"
         >
-          <motion.div variants={fadeUpText} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-sm font-medium mb-4 ring-1 ring-primary/20">
-            <Star className="h-4 w-4 text-accent" />
+          <motion.div variants={fadeUpText} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 text-accent font-semibold text-sm mb-6 ring-1 ring-accent/30 shadow-sm backdrop-blur-sm">
+            <Star className="h-4 w-4 fill-accent" />
             <span>Trusted by parents & students worldwide</span>
           </motion.div>
 
@@ -95,7 +96,7 @@ export default function Home() {
           <motion.div variants={fadeUpText} className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             <Link
               href="/contact"
-              className="w-full sm:w-auto px-8 py-4 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full font-semibold text-lg flex items-center justify-center gap-2 transition-all hover:scale-105 shadow-xl shadow-primary/20"
+              className="w-full sm:w-auto px-8 py-4 bg-accent text-accent-foreground hover:bg-accent/90 rounded-full font-bold text-lg flex items-center justify-center gap-2 transition-all hover:scale-105 shadow-xl shadow-accent/20"
             >
               Free Trial Class
               <ChevronRight className="h-5 w-5" />
@@ -111,7 +112,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials Banner */}
-      <section className="w-full bg-secondary/30 border-y border-border py-16 px-4">
+      <section className="relative w-full bg-secondary/10 border-b border-border py-20 px-4 overflow-hidden">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -128,7 +129,7 @@ export default function Home() {
             <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-secondary/30 to-transparent z-10 pointer-events-none" />
 
             <motion.div
-              className="flex gap-8 whitespace-nowrap px-4"
+              className="flex gap-8 whitespace-nowrap px-4 relative z-10"
               animate={{ x: ["0%", "-50%"] }}
               transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
             >

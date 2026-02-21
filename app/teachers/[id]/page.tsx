@@ -102,7 +102,7 @@ export default function TeacherProfile() {
 
                         {/* Trial CTA */}
                         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
-                            <Link href="/contact" className="w-full py-4 bg-primary text-primary-foreground font-bold rounded-2xl flex items-center justify-center gap-2 hover:bg-primary/90 hover:scale-[1.02] transition-all shadow-xl shadow-primary/20">
+                            <Link href="/contact" className="w-full py-4 bg-accent text-accent-foreground font-bold rounded-2xl flex items-center justify-center gap-2 hover:bg-accent/90 hover:scale-[1.02] transition-all shadow-xl shadow-accent/20">
                                 Book a Trial with {teacher.name.split(" ")[0]} <ChevronRight className="w-5 h-5" />
                             </Link>
                         </motion.div>

@@ -153,7 +153,7 @@ export default function ContactPage() {
                                     </div>
                                 </div>
 
-                                <button type="submit" className="w-full py-4 bg-primary text-primary-foreground rounded-xl font-bold text-lg hover:bg-primary/90 transition-transform hover:scale-[1.02] shadow-lg flex justify-center items-center gap-2">
+                                <button type="submit" className="w-full py-4 bg-accent text-accent-foreground rounded-xl font-bold text-lg hover:bg-accent/90 transition-transform hover:scale-[1.02] shadow-lg flex justify-center items-center gap-2">
                                     Submit Request
                                 </button>
                             </form>

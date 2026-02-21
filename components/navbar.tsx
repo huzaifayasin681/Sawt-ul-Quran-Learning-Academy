@@ -37,7 +37,7 @@ export function Navbar() {
                     <ThemeToggle />
                     <Link
                         href="/contact"
-                        className="bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-full text-sm font-semibold transition-all shadow-sm hover:shadow"
+                        className="bg-accent text-accent-foreground hover:bg-accent/90 px-5 py-2.5 rounded-full text-sm font-bold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
                     >
                         Free Trial
                     </Link>
@@ -68,7 +68,7 @@ export function Navbar() {
                     <Link
                         href="/contact"
                         onClick={() => setIsOpen(false)}
-                        className="block w-full text-center bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-3 rounded-md font-semibold mt-2"
+                        className="block w-full text-center bg-accent text-accent-foreground hover:bg-accent/90 px-4 py-3 rounded-xl font-bold mt-2 shadow-md"
                     >
                         Book Free Trial
                     </Link>

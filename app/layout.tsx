@@ -1,19 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "../components/theme-provider";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+        className="font-sans antialiased min-h-screen flex flex-col"
       >
         <ThemeProvider
           attribute="class"
@@ -36,9 +26,19 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          <main className="flex-1 flex flex-col">{children}</main>
-          <Footer />
+          {/* Global Background Images */}
+          <div className="fixed inset-0 z-0 pointer-events-none">
+            <Image src="/hero_bg_islamic.png" alt="Geometric Background" fill className="object-cover opacity-5 dark:opacity-10 mix-blend-luminosity" priority />
+          </div>
+          <div className="fixed inset-0 z-0 pointer-events-none">
+            <Image src="/ambient_glow.png" alt="Ambient Glow" fill className="object-cover opacity-[0.15] dark:opacity-20 mix-blend-plus-lighter" priority />
+          </div>
+
+          <div className="relative z-10 flex-1 flex flex-col min-h-screen">
+            <Navbar />
+            <main className="flex-1 flex flex-col">{children}</main>
+            <Footer />
+          </div>
         </ThemeProvider>
       </body>
     </html>
