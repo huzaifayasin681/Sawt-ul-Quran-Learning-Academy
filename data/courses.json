@@ -1,0 +1,69 @@
+[
+  {
+    "id": "qaida",
+    "title": "1️⃣ Qaida Basics",
+    "subtitle": "Start from zero and build a strong foundation.",
+    "iconName": "BookOpen",
+    "features": [
+      "Arabic letters recognition",
+      "Harakat practice",
+      "Joining letters",
+      "Pronunciation correction",
+      "Daily reading drills",
+      "Beginner quizzes"
+    ],
+    "color": "bg-primary/5 border-primary/20",
+    "iconColor": "text-primary",
+    "isActive": false
+  },
+  {
+    "id": "nazra",
+    "title": "2️⃣ Nazra Practice",
+    "subtitle": "Build fluency and confidence in recitation.",
+    "iconName": "PlayCircle",
+    "features": [
+      "Smooth Quran reading",
+      "Mistake correction",
+      "Fluency training",
+      "Speed control",
+      "Surah memorization support",
+      "Monthly progress check"
+    ],
+    "color": "bg-secondary border-secondary-foreground/20",
+    "iconColor": "text-secondary-foreground",
+    "isActive": false
+  },
+  {
+    "id": "tajweed",
+    "title": "3️⃣ Tajweed Essentials",
+    "subtitle": "Understand the rules behind beautiful recitation.",
+    "iconName": "GraduationCap",
+    "features": [
+      "Makharij (articulation points)",
+      "Noon Sakin & Tanween",
+      "Meem Sakin rules",
+      "Madd rules",
+      "Qalqalah",
+      "Practical rule application"
+    ],
+    "color": "bg-accent/10 border-accent/30",
+    "iconColor": "text-accent-foreground",
+    "isActive": false
+  },
+  {
+    "id": "advanced",
+    "title": "4️⃣ Tajweed + Nazra Focus",
+    "subtitle": "Precision. Accuracy. Confidence.",
+    "iconName": "Award",
+    "features": [
+      "Deep error correction",
+      "Advanced rule application",
+      "Voice rhythm improvement",
+      "Recorded feedback sessions",
+      "Detailed performance tracking"
+    ],
+    "color": "bg-red-500/5 border-red-500/20",
+    "iconColor": "text-red-500",
+    "isActive": false
+  }
+]
