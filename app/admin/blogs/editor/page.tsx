@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, Save, Eye, EyeOff, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { Blog } from "@/lib/db";
 
-export default function BlogEditor() {
+function BlogEditorContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const editId = searchParams.get("id");
@@ -175,5 +175,13 @@ export default function BlogEditor() {
                 </div>
             </div>
         </div>
+    );
+}
+
+export default function BlogEditor() {
+    return (
+        <Suspense fallback={<div className="p-10 text-center text-muted-foreground">Loading editor...</div>}>
+            <BlogEditorContent />
+        </Suspense>
     );
 }

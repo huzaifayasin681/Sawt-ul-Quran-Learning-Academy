@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { Suspense, useEffect, useState, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, Save, Loader2, UploadCloud, Film } from "lucide-react";
 import Link from "next/link";
 import { Teacher } from "@/lib/db";
 
-export default function TeacherEditor() {
+function TeacherEditorContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const editId = searchParams.get("id");
@@ -289,5 +289,13 @@ export default function TeacherEditor() {
                 </div>
             </div>
         </div>
+    );
+}
+
+export default function TeacherEditor() {
+    return (
+        <Suspense fallback={<div className="p-10 text-center text-muted-foreground">Loading editor...</div>}>
+            <TeacherEditorContent />
+        </Suspense>
     );
 }
