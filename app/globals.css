@@ -1,128 +1,566 @@
 @import "tailwindcss";
 
+/* ═══════════════════════════════════════════════════════
+   NOOR UL QURAN — IMMERSIVE DARK ISLAMIC DESIGN SYSTEM
+   Deep Emerald Black + Gold + Glassmorphism
+   ═══════════════════════════════════════════════════════ */
+
 @theme {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-border: var(--border);
+  /* ── Color Tokens ── */
+  --color-bg-base: #060A09;
+  --color-bg-elevated: #0D1612;
+  --color-bg-glass: rgba(255, 255, 255, 0.04);
+  --color-emerald: #0D4F3C;
+  --color-teal: #2DD4BF;
 
-  --font-sans: var(--font-sans);
-  --font-serif: var(--font-serif);
+  --color-gold: #C9A84C;
+  --color-gold-glow: rgba(201, 168, 76, 0.2);
+  --color-gold-dim: rgba(201, 168, 76, 0.53);
+
+  --color-text-primary: #EEE8D5;
+  --color-text-secondary: #A8B8B0;
+  --color-text-arabic: #F5F0E8;
+
+  --color-border-subtle: rgba(255, 255, 255, 0.07);
+  --color-border-gold: rgba(201, 168, 76, 0.25);
+
+  /* ── Semantic mapping for existing Tailwind utilities ── */
+  --color-background: var(--color-bg-base);
+  --color-foreground: var(--color-text-primary);
+  --color-primary: var(--color-gold);
+  --color-primary-foreground: #060A09;
+  --color-secondary: var(--color-bg-elevated);
+  --color-secondary-foreground: var(--color-gold);
+  --color-accent: var(--color-gold);
+  --color-accent-foreground: #060A09;
+  --color-card: var(--color-bg-elevated);
+  --color-card-foreground: var(--color-text-primary);
+  --color-muted: rgba(255, 255, 255, 0.04);
+  --color-muted-foreground: var(--color-text-secondary);
+  --color-border: var(--color-border-subtle);
+
+  /* ── Font Families ── */
+  --font-heading: 'Cormorant Garamond', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-arabic: 'Amiri', serif;
 }
 
-@layer base {
-  :root {
-    /* Premium Creamy Light Mode: Soft ivory backgrounds, vibrant emeralds, solid gold */
-    --background: #fcfaf5;
-    /* Creamy ivory / off-white */
-    --foreground: #292524;
-    /* stone-800 for warm text */
+/* ═══════════════════════════════════════════════════════
+   CSS CUSTOM PROPERTIES (direct access)
+   ═══════════════════════════════════════════════════════ */
+:root {
+  --color-bg-base: #060A09;
+  --color-bg-elevated: #0D1612;
+  --color-bg-glass: rgba(255, 255, 255, 0.04);
 
-    --primary: #047857;
-    /* emerald-700 - Vibrant */
-    --primary-foreground: #ffffff;
+  --color-accent: #C9A84C;
+  --color-accent-glow: rgba(201, 168, 76, 0.2);
+  --color-accent-dim: rgba(201, 168, 76, 0.53);
+  --color-emerald: #0D4F3C;
+  --color-teal: #2DD4BF;
 
-    --secondary: #d1fae5;
-    /* emerald-100 */
-    --secondary-foreground: #064e3b;
-    /* emerald-900 */
+  --color-text-primary: #EEE8D5;
+  --color-text-secondary: #A8B8B0;
+  --color-text-arabic: #F5F0E8;
 
-    --accent: #d97706;
-    /* amber-600 */
-    --accent-foreground: #ffffff;
+  --color-border: rgba(255, 255, 255, 0.07);
+  --color-border-accent: rgba(201, 168, 76, 0.25);
 
-    --card: #ffffff;
-    /* White cards for contrast against cream background */
-    --card-foreground: #292524;
-
-    --muted: #f5f5f4;
-    /* stone-100 */
-    --muted-foreground: #78716c;
-    /* stone-500 */
-
-    --border: #e7e5e4;
-    /* stone-200 */
-    /* slate-200 */
-    --radius: 1.5rem;
-    /* Larger border radius for premium feel */
-  }
-
-  .dark {
-    /* Extreme Dark Mode: Pure deep black, neon emeralds, glowing gold */
-    --background: #000000;
-    /* Pure black for max OLED contrast */
-    --foreground: #f8fafc;
-    /* slate-50 */
-
-    --primary: #10b981;
-    /* emerald-500 - Neon glowing green */
-    --primary-foreground: #022c22;
-
-    --secondary: #0f172a;
-    /* slate-900 */
-    --secondary-foreground: #6ee7b7;
-    /* emerald-300 */
-
-    --accent: #fbbf24;
-    /* amber-400 - Vivid Gold */
-    --accent-foreground: #451a03;
-
-    --card: #050505;
-    --card-foreground: #f8fafc;
-
-    --muted: #1e293b;
-    --muted-foreground: #94a3b8;
-
-    --border: #27272a;
-  }
+  --radius: 1.25rem;
 }
+
+/* ═══════════════════════════════════════════════════════
+   BASE STYLES
+   ═══════════════════════════════════════════════════════ */
 
 @layer base {
   * {
-    border-color: var(--border);
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   body {
-    background-color: var(--background);
-    color: var(--foreground);
-    /* Ambient luxury gradient glow */
-    background-image:
-      radial-gradient(circle at top right, color-mix(in srgb, var(--primary) 4%, transparent), transparent 40%),
-      radial-gradient(circle at bottom left, color-mix(in srgb, var(--accent) 4%, transparent), transparent 40%);
-    background-attachment: fixed;
+    background-color: var(--color-bg-base);
+    color: var(--color-text-primary);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    line-height: 1.75;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 300ms;
+    overflow-x: hidden;
+  }
+
+  /* ── Selection ── */
+  ::selection {
+    background: rgba(201, 168, 76, 0.25);
+    color: #EEE8D5;
+  }
+
+  ::-moz-selection {
+    background: rgba(201, 168, 76, 0.25);
+    color: #EEE8D5;
+  }
+
+  /* ── Focus Visible ── */
+  :focus-visible {
+    outline: 2px solid rgba(201, 168, 76, 0.6);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  /* ── Scrollbar ── */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #060A09;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(201, 168, 76, 0.27);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(201, 168, 76, 0.53);
+  }
+
+  /* Firefox scrollbar */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(201, 168, 76, 0.27) #060A09;
+  }
+
+  /* ── Typography Base ── */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    color: var(--color-text-primary);
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 1.25rem;
+  }
+
+  p {
+    color: var(--color-text-secondary);
+  }
+
+  /* Remove light theme entirely — always dark */
+  .dark {
+    --background: #060A09;
+    --foreground: #EEE8D5;
+    --primary: #C9A84C;
+    --primary-foreground: #060A09;
+    --secondary: #0D1612;
+    --secondary-foreground: #C9A84C;
+    --accent: #C9A84C;
+    --accent-foreground: #060A09;
+    --card: #0D1612;
+    --card-foreground: #EEE8D5;
+    --muted: rgba(255, 255, 255, 0.04);
+    --muted-foreground: #A8B8B0;
+    --border: rgba(255, 255, 255, 0.07);
+  }
+
+  :root {
+    --background: #060A09;
+    --foreground: #EEE8D5;
+    --primary: #C9A84C;
+    --primary-foreground: #060A09;
+    --secondary: #0D1612;
+    --secondary-foreground: #C9A84C;
+    --accent: #C9A84C;
+    --accent-foreground: #060A09;
+    --card: #0D1612;
+    --card-foreground: #EEE8D5;
+    --muted: rgba(255, 255, 255, 0.04);
+    --muted-foreground: #A8B8B0;
+    --border: rgba(255, 255, 255, 0.07);
   }
 }
+
+/* ═══════════════════════════════════════════════════════
+   UTILITIES & EFFECTS
+   ═══════════════════════════════════════════════════════ */
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 
-  /* Extreme Glassmorphism Effect */
+  /* ── Glassmorphism Card ── */
   .glass {
-    background-color: color-mix(in srgb, var(--background) 30%, transparent);
-    /* Extra transparent */
-    backdrop-filter: blur(24px) saturate(150%);
-    -webkit-backdrop-filter: blur(24px) saturate(150%);
-    border: 1px solid color-mix(in srgb, var(--border) 40%, transparent);
+    background: var(--color-bg-glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--color-border);
+    border-radius: 20px;
+    transition: all 0.35s ease;
+  }
+
+  .glass:hover {
+    border-color: var(--color-border-accent);
     box-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.1),
-      /* Stronger drop shadow */
-      inset 0 1px 0 color-mix(in srgb, var(--foreground) 15%, transparent);
-    /* Bright inner edge */
+      0 0 0 1px rgba(201, 168, 76, 0.15),
+      0 20px 60px rgba(0, 0, 0, 0.4),
+      0 0 80px rgba(201, 168, 76, 0.06);
+    transform: translateY(-6px);
+  }
+
+  /* ── Gold Glow Text ── */
+  .text-glow {
+    text-shadow:
+      0 0 20px rgba(201, 168, 76, 0.3),
+      0 0 60px rgba(201, 168, 76, 0.12);
+  }
+
+  /* ── Arabic Text Glow ── */
+  .text-glow-arabic {
+    text-shadow: 0 0 40px rgba(201, 168, 76, 0.3);
+    color: var(--color-text-arabic);
+    direction: rtl;
+  }
+
+  /* ── Button Glow (Primary CTA) ── */
+  .btn-glow {
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(201, 168, 76, 0.25);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .btn-glow:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 0 30px rgba(201, 168, 76, 0.35), 0 0 60px rgba(201, 168, 76, 0.15);
+    transform: translateY(-2px);
+  }
+
+  .btn-glow::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    animation: innerGlowPulse 3s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  /* ── Section Heading Gold Divider ── */
+  .heading-divider::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background: #C9A84C;
+    margin: 1rem auto 0;
+  }
+
+  /* ── Left-aligned heading divider ── */
+  .heading-divider-left::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background: #C9A84C;
+    margin-top: 1rem;
+  }
+
+  /* ── Eyebrow Label ── */
+  .eyebrow {
+    font-size: 0.75rem;
+    color: #C9A84C;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+  }
+
+  /* ── Section Background: Dark ── */
+  .section-dark {
+    background-color: var(--color-bg-base);
+    position: relative;
+  }
+
+  .section-dark::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  /* ── Section Background: Emerald ── */
+  .section-emerald {
+    background-color: var(--color-emerald);
+    position: relative;
+  }
+
+  .section-emerald::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30%;
+    background: linear-gradient(to bottom, transparent 0%, #060A09 100%);
+    pointer-events: none;
+  }
+
+  /* ── Section Radial Glow ── */
+  .section-glow {
+    position: relative;
+  }
+
+  .section-glow::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 40%;
+    background: radial-gradient(ellipse at center, rgba(13, 79, 60, 0.15), transparent 70%);
+    pointer-events: none;
+  }
+
+  /* ── Badge / Tag ── */
+  .badge-gold {
+    background: rgba(201, 168, 76, 0.1);
+    border: 1px solid rgba(201, 168, 76, 0.2);
+    color: #C9A84C;
+    border-radius: 100px;
+    padding: 0.2rem 0.8rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* ── Icon Container ── */
+  .icon-container {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(201, 168, 76, 0.12), rgba(201, 168, 76, 0.04));
+    border: 1px solid rgba(201, 168, 76, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #C9A84C;
+  }
+
+  /* ── Card Top Accent Line ── */
+  .card-accent-top {
+    border-top: 1px solid transparent;
+    transition: border-top 0.35s ease;
+  }
+
+  .card-accent-top:hover {
+    border-image: linear-gradient(90deg, transparent, #C9A84C, transparent) 1;
+    border-top-width: 1px;
+    border-top-style: solid;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   KEYFRAME ANIMATIONS
+   ═══════════════════════════════════════════════════════ */
+
+/* Inner glow pulse for buttons */
+@keyframes innerGlowPulse {
+
+  0%,
+  100% {
+    box-shadow: inset 0 0 15px rgba(201, 168, 76, 0.1);
+  }
+
+  50% {
+    box-shadow: inset 0 0 30px rgba(201, 168, 76, 0.2);
+  }
+}
+
+/* Stardust particle float */
+@keyframes floatParticle {
+  0% {
+    transform: translateY(100vh) scale(0);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-10vh) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Geometric pattern rotation */
+@keyframes rotateGeometric {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+  }
+
+  33% {
+    transform: translate(-50%, -50%) rotate(60deg) scale(1.05);
+  }
+
+  66% {
+    transform: translate(-50%, -50%) rotate(120deg) scale(0.95);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(180deg) scale(1);
+  }
+}
+
+/* Mushaf page flutter */
+@keyframes pageFlutter {
+
+  0%,
+  100% {
+    transform: perspective(800px) rotateY(0deg) skewY(0deg);
+  }
+
+  25% {
+    transform: perspective(800px) rotateY(2deg) skewY(0.5deg);
+  }
+
+  50% {
+    transform: perspective(800px) rotateY(-1.5deg) skewY(-0.3deg);
+  }
+
+  75% {
+    transform: perspective(800px) rotateY(1deg) skewY(0.2deg);
+  }
+}
+
+/* Slow ambient pulse */
+@keyframes ambientPulse {
+
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+}
+
+/* Gentle shimmer */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Scroll fade-in */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Floating animation */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+/* Stars twinkle */
+@keyframes twinkle {
+
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Breathing border */
+@keyframes breathingBorder {
+
+  0%,
+  100% {
+    border-color: rgba(201, 168, 76, 0.1);
+  }
+
+  50% {
+    border-color: rgba(201, 168, 76, 0.3);
+  }
+}
+
+/* Golden radiance for mushaf */
+@keyframes goldenRadiance {
+
+  0%,
+  100% {
+    box-shadow:
+      0 0 30px rgba(201, 168, 76, 0.15),
+      0 0 60px rgba(201, 168, 76, 0.07);
+  }
+
+  50% {
+    box-shadow:
+      0 0 50px rgba(201, 168, 76, 0.25),
+      0 0 100px rgba(201, 168, 76, 0.1),
+      0 0 150px rgba(201, 168, 76, 0.04);
+  }
+}
+
+/* Logo shimmer */
+@keyframes logoShimmer {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
   }
 }

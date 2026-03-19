@@ -85,7 +85,7 @@ export default function QuizPage() {
     };
 
     return (
-        <div className="flex flex-col items-center min-h-[80vh] justify-center py-20 px-4 bg-muted/20 overflow-hidden">
+        <div className="flex flex-col items-center min-h-[80vh] justify-center overflow-hidden" style={{ padding: 'clamp(5rem, 10vw, 8rem) clamp(1.5rem, 5vw, 5rem)', background: '#060A09' }}>
 
             <AnimatePresence mode="wait">
                 {!level ? (
@@ -98,10 +98,10 @@ export default function QuizPage() {
                         className="max-w-3xl w-full text-center space-y-8"
                     >
                         <div className="mb-12">
-                            <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-balance">
+                            <h1 className="text-balance mb-4" style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, color: '#EEE8D5', letterSpacing: '-0.01em' }}>
                                 Start Small. Feel Confident.
                             </h1>
-                            <p className="text-lg text-muted-foreground w-full md:w-3/4 mx-auto text-balance">
+                            <p className="w-full md:w-3/4 mx-auto text-balance" style={{ fontSize: '1.125rem', color: '#A8B8B0', lineHeight: 1.75, fontFamily: "'DM Sans', sans-serif" }}>
                                 Not sure what Tajweed or Noon Sakin means? No problem.
                                 Our beginner quizzes are designed to make learning simple, friendly, and stress-free.
                                 You don&apos;t need prior knowledge — just curiosity.
@@ -109,20 +109,20 @@ export default function QuizPage() {
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => startQuiz(1)} className="glass p-8 rounded-2xl border hover:border-primary/50 text-left transition-colors hover:shadow-lg group bg-card">
-                                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4 text-primary font-bold transition-transform group-hover:-translate-y-1">1</div>
-                                <h3 className="font-bold text-xl mb-2 group-hover:text-primary transition-colors">Beginner Level</h3>
-                                <p className="text-sm text-muted-foreground">Complete basics. No Arabic required.</p>
+                            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => startQuiz(1)} className="p-8 text-left transition-all group card-accent-top" style={{ borderRadius: '20px', background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.07)' }}>
+                                <div className="icon-container mb-4 transition-transform group-hover:-translate-y-1" style={{ fontWeight: 600 }}>1</div>
+                                <h3 style={{ fontSize: '1.25rem', fontFamily: "'DM Sans', sans-serif", fontWeight: 500, color: '#EEE8D5' }} className="mb-2">Beginner Level</h3>
+                                <p style={{ fontSize: '0.875rem', color: '#A8B8B0', fontFamily: "'DM Sans', sans-serif" }}>Complete basics. No Arabic required.</p>
                             </motion.button>
-                            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => startQuiz(2)} className="glass p-8 rounded-2xl border hover:border-primary/50 text-left transition-colors hover:shadow-lg group bg-card">
-                                <div className="w-12 h-12 bg-secondary/80 rounded-full flex items-center justify-center mb-4 text-secondary-foreground font-bold transition-transform group-hover:-translate-y-1">2</div>
-                                <h3 className="font-bold text-xl mb-2 group-hover:text-primary transition-colors">Intermediate Level</h3>
-                                <p className="text-sm text-muted-foreground">First Arabic letters and basic rules.</p>
+                            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => startQuiz(2)} className="p-8 text-left transition-all group card-accent-top" style={{ borderRadius: '20px', background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.07)' }}>
+                                <div className="icon-container mb-4 transition-transform group-hover:-translate-y-1" style={{ fontWeight: 600 }}>2</div>
+                                <h3 style={{ fontSize: '1.25rem', fontFamily: "'DM Sans', sans-serif", fontWeight: 500, color: '#EEE8D5' }} className="mb-2">Intermediate Level</h3>
+                                <p style={{ fontSize: '0.875rem', color: '#A8B8B0', fontFamily: "'DM Sans', sans-serif" }}>First Arabic letters and basic rules.</p>
                             </motion.button>
-                            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => startQuiz(3)} className="glass p-8 rounded-2xl border hover:border-primary/50 text-left transition-colors hover:shadow-lg group bg-card">
-                                <div className="w-12 h-12 bg-accent/30 rounded-full flex items-center justify-center mb-4 text-accent-foreground font-bold transition-transform group-hover:-translate-y-1">3</div>
-                                <h3 className="font-bold text-xl mb-2 group-hover:text-primary transition-colors">Advanced Tajweed</h3>
-                                <p className="text-sm text-muted-foreground">Tajweed and articulation introduction.</p>
+                            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => startQuiz(3)} className="p-8 text-left transition-all group card-accent-top" style={{ borderRadius: '20px', background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.07)' }}>
+                                <div className="icon-container mb-4 transition-transform group-hover:-translate-y-1" style={{ fontWeight: 600 }}>3</div>
+                                <h3 style={{ fontSize: '1.25rem', fontFamily: "'DM Sans', sans-serif", fontWeight: 500, color: '#EEE8D5' }} className="mb-2">Advanced Tajweed</h3>
+                                <p style={{ fontSize: '0.875rem', color: '#A8B8B0', fontFamily: "'DM Sans', sans-serif" }}>Tajweed and articulation introduction.</p>
                             </motion.button>
                         </div>
                     </motion.div>
@@ -132,28 +132,29 @@ export default function QuizPage() {
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                        className="max-w-2xl w-full glass p-10 rounded-3xl text-center shadow-lg border-primary/20 bg-primary/5"
+                        className="max-w-2xl w-full p-10 text-center"
+                        style={{ borderRadius: '24px', background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(20px)', border: '1px solid rgba(201,168,76,0.25)' }}
                     >
                         <motion.div
                             initial={{ rotate: -180, scale: 0 }}
                             animate={{ rotate: 0, scale: 1 }}
                             transition={{ delay: 0.2, type: "spring" }}
                         >
-                            <Sparkles className="w-16 h-16 text-accent mx-auto mb-6" />
+                            <Sparkles className="w-16 h-16 mx-auto mb-6" style={{ color: '#C9A84C' }} />
                         </motion.div>
 
-                        <h2 className="text-3xl font-bold mb-4">Quiz Completed!</h2>
-                        <p className="text-xl font-medium text-primary mb-2">You got {score} / {quizzes[level].questions.length} right!</p>
-                        <p className="text-muted-foreground mb-8 text-lg">{quizzes[level].successMessage}</p>
+                        <h2 style={{ fontSize: '1.875rem', fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, color: '#EEE8D5' }} className="mb-4">Quiz Completed!</h2>
+                        <p style={{ fontSize: '1.25rem', fontWeight: 500, color: '#C9A84C', fontFamily: "'DM Sans', sans-serif" }} className="mb-2">You got {score} / {quizzes[level].questions.length} right!</p>
+                        <p style={{ color: '#A8B8B0', fontSize: '1.125rem', fontFamily: "'DM Sans', sans-serif" }} className="mb-8">{quizzes[level].successMessage}</p>
 
-                        <div className="bg-card p-6 rounded-2xl shadow-sm border border-border mt-8">
-                            <h3 className="font-bold text-xl mb-3">Would you like a free assessment class to improve further?</h3>
-                            <p className="text-sm text-muted-foreground mb-6">Let our expert teachers evaluate your level in 15 minutes.</p>
+                        <div className="p-6 mt-8" style={{ borderRadius: '16px', background: '#0D1612', border: '1px solid rgba(255,255,255,0.07)' }}>
+                            <h3 style={{ fontSize: '1.25rem', fontFamily: "'DM Sans', sans-serif", fontWeight: 500, color: '#EEE8D5' }} className="mb-3">Would you like a free assessment class to improve further?</h3>
+                            <p style={{ fontSize: '0.875rem', color: '#A8B8B0', fontFamily: "'DM Sans', sans-serif" }} className="mb-6">Let our expert teachers evaluate your level in 15 minutes.</p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                                <Link onClick={handleBookTrial} href="/contact" className="px-8 py-3 bg-primary text-primary-foreground font-bold rounded-full hover:bg-primary/90 transition-transform hover:scale-105 shadow-md">
+                                <Link onClick={handleBookTrial} href="/contact" className="rounded-full btn-glow hover:scale-105 transition-all" style={{ padding: '0.7rem 1.8rem', background: '#C9A84C', color: '#060A09', fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>
                                     Book Free Trial
                                 </Link>
-                                <button onClick={() => setLevel(null)} className="px-8 py-3 bg-transparent border border-border font-medium rounded-full hover:bg-muted transition-colors">
+                                <button onClick={() => setLevel(null)} className="rounded-full transition-colors" style={{ padding: '0.7rem 1.8rem', border: '1px solid rgba(255,255,255,0.07)', color: '#A8B8B0', fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>
                                     Back to Quizzes
                                 </button>
                             </div>
@@ -166,18 +167,20 @@ export default function QuizPage() {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -50 }}
                         transition={{ type: "tween", ease: "easeInOut", duration: 0.3 }}
-                        className="max-w-2xl w-full glass p-8 md:p-12 rounded-3xl shadow-sm border-border"
+                        className="max-w-2xl w-full p-8 md:p-12"
+                        style={{ borderRadius: '24px', background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.07)' }}
                     >
                         <div className="flex justify-between items-center mb-8">
-                            <span className="text-sm font-semibold tracking-wider text-muted-foreground uppercase">{quizzes[level].title}</span>
-                            <span className="text-sm bg-primary/10 text-primary px-3 py-1 rounded-full font-medium">Question {currentQuestion + 1} of {quizzes[level].questions.length}</span>
+                            <span className="eyebrow">{quizzes[level].title}</span>
+                            <span className="badge-gold">Question {currentQuestion + 1} of {quizzes[level].questions.length}</span>
                         </div>
 
                         <motion.h2
                             key={`q-${currentQuestion}`}
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="text-2xl md:text-3xl font-bold mb-8"
+                            className="mb-8"
+                            style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, color: '#EEE8D5' }}
                         >
                             {quizzes[level].questions[currentQuestion].q}
                         </motion.h2>
@@ -189,10 +192,13 @@ export default function QuizPage() {
                                     whileHover={{ scale: 1.02, x: 5 }}
                                     whileTap={{ scale: 0.98 }}
                                     onClick={() => handleAnswer(i)}
-                                    className="w-full text-left p-5 rounded-2xl border border-border bg-card hover:border-primary hover:bg-primary/5 transition-colors font-medium text-lg flex justify-between items-center group shadow-sm"
+                                    className="w-full text-left p-5 transition-colors flex justify-between items-center group"
+                                    style={{ borderRadius: '16px', border: '1px solid rgba(255,255,255,0.07)', background: '#0D1612', fontWeight: 500, fontSize: '1rem', fontFamily: "'DM Sans', sans-serif", color: '#EEE8D5' }}
+                                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(201,168,76,0.4)' }}
+                                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)' }}
                                 >
                                     {opt}
-                                    <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                                    <ChevronRight className="w-5 h-5 transition-colors" style={{ color: '#A8B8B0' }} />
                                 </motion.button>
                             ))}
                         </div>

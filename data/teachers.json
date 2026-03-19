@@ -11,5 +11,22 @@
     "experience": "",
     "languages": [],
     "featuredQuote": ""
+  },
+  {
+    "id": "6d31cff6-57dd-40ed-81e7-7734d8773778",
+    "name": "Tayyab",
+    "role": "Quran Instructor",
+    "bio": "Testing name",
+    "imagePath": "/uploads/1772260013323-927101859-licensed-image.jpeg",
+    "videoPath": "https://youtu.be/EjKlUZFLVuI?si=pKzHOhnJ2PAqNk36",
+    "isActive": true,
+    "qualifications": [
+      "sd"
+    ],
+    "experience": "10",
+    "languages": [
+      "english"
+    ],
+    "featuredQuote": "fsd"
   }
 ]

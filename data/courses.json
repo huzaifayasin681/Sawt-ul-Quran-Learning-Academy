@@ -14,7 +14,7 @@
     ],
     "color": "bg-primary/5 border-primary/20",
     "iconColor": "text-primary",
-    "isActive": true
+    "isActive": false
   },
   {
     "id": "nazra",
@@ -48,7 +48,7 @@
     ],
     "color": "bg-accent/10 border-accent/30",
     "iconColor": "text-accent-foreground",
-    "isActive": true
+    "isActive": false
   },
   {
     "id": "advanced",
