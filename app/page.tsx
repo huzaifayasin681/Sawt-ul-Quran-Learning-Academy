@@ -197,8 +197,8 @@ function AyatSlider() {
 
             {/* Bismillah header — always visible */}
             <div className="text-center">
-              <p className="text-primary/50 text-xs tracking-[0.3em] uppercase mb-3 font-medium">بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</p>
-              <div className="w-24 h-[1px] mx-auto bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+              <p className="text-[#C9A84C]/60 text-xs tracking-[0.3em] uppercase mb-3 font-medium">بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</p>
+              <div className="w-24 h-[1px] mx-auto bg-gradient-to-r from-transparent via-[#C9A84C]/30 to-transparent" />
             </div>
 
             {/* ── Arabic verses with typewriter ── */}
@@ -214,7 +214,7 @@ function AyatSlider() {
                 {slide.arabic.map((line, i) => (
                   <p
                     key={`${currentSlide}-${i}`}
-                    className="text-primary/80 font-serif leading-[1.8]"
+                    className="text-[#C9A84C]/90 font-serif leading-[1.8]"
                     dir="rtl"
                     style={{
                       fontFamily: "'Amiri', serif",
@@ -238,7 +238,7 @@ function AyatSlider() {
                 transition={{ duration: 0.6, delay: 1.5, ease: "easeOut" }}
                 className="text-center max-w-sm"
               >
-                <p className="text-foreground/40 text-sm leading-relaxed italic">
+                <p className="text-white/60 text-sm leading-relaxed italic">
                   "{slide.translation}"
                 </p>
               </motion.div>
@@ -254,8 +254,8 @@ function AyatSlider() {
                 transition={{ duration: 0.5, delay: 2 }}
                 className="text-center mt-2"
               >
-                <div className="w-20 h-[1px] mx-auto bg-gradient-to-r from-transparent via-primary/20 to-transparent mb-3" />
-                <p className="text-primary/35 text-[11px] tracking-[0.2em] uppercase font-medium">{slide.reference}</p>
+                <div className="w-20 h-[1px] mx-auto bg-gradient-to-r from-transparent via-[#C9A84C]/20 to-transparent mb-3" />
+                <p className="text-[#C9A84C]/40 text-[11px] tracking-[0.2em] uppercase font-medium">{slide.reference}</p>
               </motion.div>
             </AnimatePresence>
           </div>
