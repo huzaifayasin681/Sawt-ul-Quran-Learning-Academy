@@ -5,73 +5,97 @@
    Deep Emerald Black + Gold + Glassmorphism
    ═══════════════════════════════════════════════════════ */
 
+/* ── Modern Dynamic Tokens ── */
+/* ── Modern Dynamic Tokens ── */
+:root {
+  --background: #D4CAAB;
+  /* Rich Tobacco Parchment - Heavy, vintage manual feel */
+  --foreground: #0A0F0D;
+  /* Deep Obsidian ink */
+  --primary: #5A4813;
+  /* Burnished Deep Brass - Extremely authoritative gold-brown */
+  --primary-foreground: #D4CAAB;
+  --secondary: #CDBC9A;
+  /* Shadowed Antique Khaki surface - slightly more distinct */
+  --secondary-foreground: #3D310E;
+  --accent: #876E2C;
+  /* Heritage Bronze */
+  --accent-foreground: #D4CAAB;
+  --card: #FFFDF5;
+  /* High-Contrast Ivory Paper - Pops against the tan background */
+  --card-foreground: #0A0F0D;
+  --muted: #C1B58F;
+  /* Earthy beige for muted elements */
+  --muted-foreground: #222B28;
+  /* Iron-grey text clarity */
+  --border: #B4A982;
+  /* Stronger heritage borders */
+  --color-bg-glass: rgba(255, 255, 255, 0.35);
+  --color-border-subtle: rgba(0, 0, 0, 0.15);
+  --color-gold-glow: rgba(90, 72, 19, 0.18);
+}
+
+.dark {
+  --background: #040504;
+  /* True midnight base */
+  --foreground: #F2ECE0;
+  /* Soft warm white text */
+  --primary: #D4AF37;
+  /* Brilliant, striking gold */
+  --primary-foreground: #040504;
+  --secondary: #0A0D0B;
+  /* Immersive dark emerald surface */
+  --secondary-foreground: #D4AF37;
+  --accent: #D4AF37;
+  --accent-foreground: #040504;
+  --card: #0A0D0B;
+  --card-foreground: #F2ECE0;
+  --muted: rgba(255, 255, 255, 0.03);
+  --muted-foreground: #94A39E;
+  --border: rgba(255, 255, 255, 0.08);
+  --color-bg-glass: rgba(255, 255, 255, 0.02);
+  --color-border-subtle: rgba(255, 255, 255, 0.06);
+  --color-gold-glow: rgba(212, 175, 55, 0.15);
+}
+
 @theme {
-  /* ── Color Tokens ── */
-  --color-bg-base: #060A09;
-  --color-bg-elevated: #0D1612;
-  --color-bg-glass: rgba(255, 255, 255, 0.04);
-  --color-emerald: #0D4F3C;
-  --color-teal: #2DD4BF;
+  /* ── Color Mapping for Tailwind Utilities ── */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
 
-  --color-gold: #C9A84C;
-  --color-gold-glow: rgba(201, 168, 76, 0.2);
-  --color-gold-dim: rgba(201, 168, 76, 0.53);
-
-  --color-text-primary: #EEE8D5;
-  --color-text-secondary: #A8B8B0;
-  --color-text-arabic: #F5F0E8;
-
-  --color-border-subtle: rgba(255, 255, 255, 0.07);
-  --color-border-gold: rgba(201, 168, 76, 0.25);
-
-  /* ── Semantic mapping for existing Tailwind utilities ── */
-  --color-background: var(--color-bg-base);
-  --color-foreground: var(--color-text-primary);
-  --color-primary: var(--color-gold);
-  --color-primary-foreground: #060A09;
-  --color-secondary: var(--color-bg-elevated);
-  --color-secondary-foreground: var(--color-gold);
-  --color-accent: var(--color-gold);
-  --color-accent-foreground: #060A09;
-  --color-card: var(--color-bg-elevated);
-  --color-card-foreground: var(--color-text-primary);
-  --color-muted: rgba(255, 255, 255, 0.04);
-  --color-muted-foreground: var(--color-text-secondary);
-  --color-border: var(--color-border-subtle);
+  /* ── Additional Tokens ── */
+  --color-gold: var(--primary);
+  --color-gold-glow: var(--color-gold-glow);
+  --color-bg-glass: var(--color-bg-glass);
+  --color-border-subtle: var(--color-border-subtle);
 
   /* ── Font Families ── */
   --font-heading: 'Cormorant Garamond', serif;
   --font-body: 'DM Sans', sans-serif;
   --font-arabic: 'Amiri', serif;
+
+  /* ── Animations ── */
+  --animate-spin-slow: spin 20s linear infinite;
 }
 
 /* ═══════════════════════════════════════════════════════
    CSS CUSTOM PROPERTIES (direct access)
    ═══════════════════════════════════════════════════════ */
+/* ── Core Radius ── */
 :root {
-  --color-bg-base: #060A09;
-  --color-bg-elevated: #0D1612;
-  --color-bg-glass: rgba(255, 255, 255, 0.04);
-
-  --color-accent: #C9A84C;
-  --color-accent-glow: rgba(201, 168, 76, 0.2);
-  --color-accent-dim: rgba(201, 168, 76, 0.53);
-  --color-emerald: #0D4F3C;
-  --color-teal: #2DD4BF;
-
-  --color-text-primary: #EEE8D5;
-  --color-text-secondary: #A8B8B0;
-  --color-text-arabic: #F5F0E8;
-
-  --color-border: rgba(255, 255, 255, 0.07);
-  --color-border-accent: rgba(201, 168, 76, 0.25);
-
   --radius: 1.25rem;
 }
-
-/* ═══════════════════════════════════════════════════════
-   BASE STYLES
-   ═══════════════════════════════════════════════════════ */
 
 @layer base {
   * {
@@ -83,9 +107,9 @@
   }
 
   body {
-    background-color: var(--color-bg-base);
-    color: var(--color-text-primary);
-    font-family: 'DM Sans', sans-serif;
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body);
     font-size: 1rem;
     line-height: 1.75;
     -webkit-font-smoothing: antialiased;
@@ -95,13 +119,13 @@
 
   /* ── Selection ── */
   ::selection {
-    background: rgba(201, 168, 76, 0.25);
-    color: #EEE8D5;
+    background: var(--primary);
+    color: var(--primary-foreground);
   }
 
   ::-moz-selection {
-    background: rgba(201, 168, 76, 0.25);
-    color: #EEE8D5;
+    background: var(--primary);
+    color: var(--primary-foreground);
   }
 
   /* ── Focus Visible ── */
@@ -140,55 +164,21 @@
   h2,
   h3,
   h4,
+  /* ── Typography Base ── */
+  h1,
+  h2,
+  h3,
+  h4,
   h5,
   h6 {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--font-heading);
     font-weight: 300;
-    color: var(--color-text-primary);
+    color: var(--foreground);
     letter-spacing: -0.01em;
   }
 
-  h3 {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 500;
-    font-size: 1.25rem;
-  }
-
   p {
-    color: var(--color-text-secondary);
-  }
-
-  /* Remove light theme entirely — always dark */
-  .dark {
-    --background: #060A09;
-    --foreground: #EEE8D5;
-    --primary: #C9A84C;
-    --primary-foreground: #060A09;
-    --secondary: #0D1612;
-    --secondary-foreground: #C9A84C;
-    --accent: #C9A84C;
-    --accent-foreground: #060A09;
-    --card: #0D1612;
-    --card-foreground: #EEE8D5;
-    --muted: rgba(255, 255, 255, 0.04);
-    --muted-foreground: #A8B8B0;
-    --border: rgba(255, 255, 255, 0.07);
-  }
-
-  :root {
-    --background: #060A09;
-    --foreground: #EEE8D5;
-    --primary: #C9A84C;
-    --primary-foreground: #060A09;
-    --secondary: #0D1612;
-    --secondary-foreground: #C9A84C;
-    --accent: #C9A84C;
-    --accent-foreground: #060A09;
-    --card: #0D1612;
-    --card-foreground: #EEE8D5;
-    --muted: rgba(255, 255, 255, 0.04);
-    --muted-foreground: #A8B8B0;
-    --border: rgba(255, 255, 255, 0.07);
+    color: var(--muted-foreground);
   }
 }
 
@@ -317,7 +307,7 @@
     left: 0;
     right: 0;
     height: 30%;
-    background: linear-gradient(to bottom, transparent 0%, #060A09 100%);
+    background: linear-gradient(to bottom, transparent 0%, var(--background) 100%);
     pointer-events: none;
   }
 
@@ -340,16 +330,38 @@
 
   /* ── Badge / Tag ── */
   .badge-gold {
-    background: rgba(201, 168, 76, 0.1);
-    border: 1px solid rgba(201, 168, 76, 0.2);
-    color: #C9A84C;
+    background: var(--color-gold-glow);
+    border: 1px solid var(--color-border-accent);
+    color: var(--primary);
     border-radius: 100px;
     padding: 0.2rem 0.8rem;
     font-size: 0.72rem;
     letter-spacing: 0.08em;
     font-weight: 500;
     text-transform: uppercase;
-    font-family: 'DM Sans', sans-serif;
+    font-family: var(--font-body);
+  }
+
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.35em;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    opacity: 0.9;
+  }
+
+  .eyebrow::before,
+  .eyebrow::after {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--primary);
+    opacity: 0.4;
   }
 
   /* ── Icon Container ── */
@@ -358,11 +370,11 @@
     height: 52px;
     border-radius: 14px;
     background: linear-gradient(135deg, rgba(201, 168, 76, 0.12), rgba(201, 168, 76, 0.04));
-    border: 1px solid rgba(201, 168, 76, 0.2);
+    border: 1px solid var(--color-border-accent);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #C9A84C;
+    color: var(--primary);
   }
 
   /* ── Card Top Accent Line ── */

@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { BookOpen, Heart } from "lucide-react";
+import Image from "next/image";
+import { Heart } from "lucide-react";
 
 export function Footer() {
     return (
@@ -18,8 +19,17 @@ export function Footer() {
                     {/* Brand column */}
                     <div className="md:col-span-1 space-y-5">
                         <Link href="/" className="flex items-center gap-2.5 group">
-                            <BookOpen className="h-5 w-5" style={{ color: '#C9A84C' }} />
-                            <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.125rem', fontWeight: 400, color: '#C9A84C' }}>Noor ul Quran</span>
+                            <div className="relative w-9 h-9 md:w-11 md:h-11 overflow-hidden transition-all duration-500">
+                                <Image
+                                    src="/logo.jpeg"
+                                    alt="Sawt ul Quran Learning Academy"
+                                    width={44}
+                                    height={44}
+                                    className="object-contain rounded-xl transition-transform duration-500 group-hover:scale-110"
+                                    unoptimized
+                                />
+                            </div>
+                            <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.25rem', fontWeight: 400, color: '#C9A84C' }}>Sawt ul Quran Learning Academy</span>
                         </Link>
                         <p style={{ fontSize: '0.875rem', color: '#A8B8B0', lineHeight: 1.7 }}>
                             From Qaida to Quran, step-by-step with proper guidance. Online Quran classes built on tradition and excellence.
@@ -102,7 +112,7 @@ export function Footer() {
                     style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}
                 >
                     <p style={{ fontSize: '0.75rem', color: '#A8B8B0' }}>
-                        © {new Date().getFullYear()} Noor ul Quran by Ibrahim. All rights reserved.
+                        © {new Date().getFullYear()} Sawt ul Quran Learning Academy by Ibrahim. All rights reserved.
                     </p>
                     <p className="flex items-center gap-1.5" style={{ fontSize: '0.75rem', color: '#A8B8B0' }}>
                         Made with <Heart className="w-3 h-3" style={{ color: '#C9A84C', fill: '#C9A84C' }} /> for the Ummah

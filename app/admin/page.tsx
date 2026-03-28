@@ -10,11 +10,21 @@ export default function AdminDashboard() {
     useEffect(() => {
         async function fetchStats() {
             try {
-                const [leadsRes, blogsRes, coursesRes] = await Promise.all([
-                    fetch("/api/leads").then((res) => res.json()),
-                    fetch("/api/blogs?admin=true").then((res) => res.json()),
-                    fetch("/api/courses").then((res) => res.json()),
+                // Fetch all data in parallel
+                const responses = await Promise.all([
+                    fetch("/api/leads"),
+                    fetch("/api/blogs?admin=true"),
+                    fetch("/api/courses")
                 ]);
+
+                // Check if all responses are OK
+                const results = await Promise.all(responses.map(async (res) => {
+                    if (!res.ok) return [];
+                    const data = await res.json();
+                    return Array.isArray(data) ? data : [];
+                }));
+
+                const [leadsRes, blogsRes, coursesRes] = results;
 
                 setStats({
                     leads: leadsRes.length || 0,
@@ -23,7 +33,7 @@ export default function AdminDashboard() {
                     courses: coursesRes.length || 0,
                 });
             } catch (error) {
-                console.error("Failed to fetch dashboard stats", error);
+                console.error("Dashboard stats fetch error:", error);
             } finally {
                 setIsLoading(false);
             }

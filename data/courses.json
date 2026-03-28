@@ -1,69 +1,47 @@
 [
   {
     "id": "qaida",
-    "title": "1️⃣ Qaida Basics",
-    "subtitle": "Start from zero and build a strong foundation.",
+    "title": "🔹 Qaida Basics",
+    "subtitle": "Start from zero and build a strong foundation with Tajweed guidance.",
     "iconName": "BookOpen",
     "features": [
       "Arabic letters recognition",
       "Harakat practice",
       "Joining letters",
       "Pronunciation correction",
-      "Daily reading drills",
-      "Beginner quizzes"
+      "Introduction to Tajweed",
+      "Daily reading drills"
     ],
-    "color": "bg-primary/5 border-primary/20",
-    "iconColor": "text-primary",
-    "isActive": false
-  },
-  {
-    "id": "nazra",
-    "title": "2️⃣ Nazra Practice",
-    "subtitle": "Build fluency and confidence in recitation.",
-    "iconName": "PlayCircle",
-    "features": [
-      "Smooth Quran reading",
-      "Mistake correction",
-      "Fluency training",
-      "Speed control",
-      "Surah memorization support",
-      "Monthly progress check"
-    ],
-    "color": "bg-secondary border-secondary-foreground/20",
-    "iconColor": "text-secondary-foreground",
     "isActive": true
   },
   {
-    "id": "tajweed",
-    "title": "3️⃣ Tajweed Essentials",
-    "subtitle": "Understand the rules behind beautiful recitation.",
-    "iconName": "GraduationCap",
+    "id": "nazra",
+    "title": "🔹 Nazra Reading",
+    "subtitle": "Build fluency and precision reading directly from the Mushaf.",
+    "iconName": "PlayCircle",
     "features": [
-      "Makharij (articulation points)",
-      "Noon Sakin & Tanween",
-      "Meem Sakin rules",
-      "Madd rules",
-      "Qalqalah",
-      "Practical rule application"
+      "Smooth Quran reading",
+      "Implementation of Tajweed",
+      "Correction of mistakes",
+      "Fluency training",
+      "Speed control",
+      "Monthly progress check"
     ],
-    "color": "bg-accent/10 border-accent/30",
-    "iconColor": "text-accent-foreground",
-    "isActive": false
+    "isActive": true
   },
   {
-    "id": "advanced",
-    "title": "4️⃣ Tajweed + Nazra Focus",
-    "subtitle": "Precision. Accuracy. Confidence.",
+    "id": "memorization",
+    "title": "✅ Memorization Course",
+    "subtitle": "Memorizing the Quran with Proper Tajweed and pronunciation.",
     "iconName": "Award",
     "features": [
-      "Deep error correction",
-      "Advanced rule application",
-      "Voice rhythm improvement",
-      "Recorded feedback sessions",
-      "Detailed performance tracking"
+      "Implementation of all Tajweed rules",
+      "Correct pronunciation & spelling",
+      "Correction of mistakes",
+      "Special tips to memorize faster in a short time",
+      "Daily revision",
+      "Surah memorization tracking"
     ],
-    "color": "bg-red-500/5 border-red-500/20",
-    "iconColor": "text-red-500",
     "isActive": true
   }
 ]

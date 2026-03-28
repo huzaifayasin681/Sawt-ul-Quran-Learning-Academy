@@ -31,24 +31,24 @@ export default function BlogPage() {
             .finally(() => setLoading(false));
     }, []);
     return (
-        <div className="flex flex-col items-center" style={{ background: '#060A09' }}>
-            <section className="w-full text-center relative z-10" style={{ padding: 'clamp(5rem, 10vw, 8rem) clamp(1.5rem, 5vw, 5rem)', borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
+        <div className="flex flex-col items-center bg-background min-h-screen">
+            <section className="w-full text-center relative z-10" style={{ padding: 'clamp(5rem, 10vw, 8rem) clamp(1.5rem, 5vw, 5rem)', borderBottom: '1px solid var(--border)' }}>
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                 >
-                    <h1 className="text-balance mb-6 mt-8" style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, color: '#EEE8D5', letterSpacing: '-0.01em', lineHeight: 1.15 }}>
+                    <h1 className="text-balance mb-6 mt-8" style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)', letterSpacing: '-0.01em', lineHeight: 1.1 }}>
                         Learn Quran Online <br />
-                        <span className="italic text-glow" style={{ color: '#C9A84C' }}>Simple Guides for Everyone</span>
+                        <span className="italic text-glow" style={{ color: 'var(--primary)' }}>Simple Guides for Everyone</span>
                     </h1>
-                    <p className="max-w-2xl mx-auto" style={{ fontSize: '1.125rem', color: '#A8B8B0', lineHeight: 1.75, fontFamily: "'DM Sans', sans-serif" }}>
+                    <p className="max-w-2xl mx-auto" style={{ fontSize: '1.25rem', color: 'var(--muted-foreground)', lineHeight: 1.8, fontFamily: "var(--font-body)" }}>
                         Practical articles to help beginners, parents, and new Muslims understand Quran recitation in a simple way. No complicated terms.
                     </p>
                 </motion.div>
             </section>
 
-            <section className="w-full relative z-10" style={{ padding: 'clamp(5rem, 10vw, 8rem) clamp(1.5rem, 5vw, 5rem)' }}>
+            <section className="w-full relative z-10" style={{ padding: 'clamp(4rem, 8vw, 6rem) clamp(1.5rem, 5vw, 5rem)' }}>
                 <motion.div
                     initial="hidden"
                     animate="visible"
@@ -57,30 +57,32 @@ export default function BlogPage() {
                 >
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 min-h-[400px]">
                         {loading ? (
-                            <div className="col-span-full flex justify-center items-center" style={{ color: '#A8B8B0' }}>Loading articles...</div>
+                            <div className="col-span-full flex justify-center items-center text-muted-foreground">Loading articles...</div>
                         ) : blogs.length === 0 ? (
-                            <div className="col-span-full flex justify-center items-center" style={{ color: '#A8B8B0' }}>No articles published yet. Check back soon!</div>
+                            <div className="col-span-full flex justify-center items-center text-muted-foreground">No articles published yet. Check back soon!</div>
                         ) : (
                             blogs.map((blog) => (
                                 <motion.div key={blog.slug} variants={fadeUp} whileHover={{ y: -8 }}>
-                                    <Link href={`/blog/${blog.slug}`} className="group flex flex-col h-full overflow-hidden transition-all duration-500" style={{ borderRadius: '20px', background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.07)' }}>
-                                        <div className="h-48 p-6 flex items-start" style={{ background: '#0D1612' }}>
-                                            <span className="badge-gold">
+                                    <Link href={`/blog/${blog.slug}`} className="group flex flex-col h-full overflow-hidden transition-all duration-500 glass border-border active:scale-[0.98]" style={{ borderRadius: '24px', background: 'var(--card)' }}>
+                                        <div className="h-48 p-6 flex items-start relative overflow-hidden" style={{ background: 'var(--secondary)' }}>
+                                            <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                            <span className="badge-gold relative z-10">
                                                 {blog.tag}
                                             </span>
                                         </div>
-                                        <div className="p-6 flex flex-col flex-1">
-                                            <h2 style={{ fontSize: '1.25rem', fontFamily: "'DM Sans', sans-serif", fontWeight: 500, color: '#EEE8D5' }} className="mb-3 leading-snug">
+                                        <div className="p-8 flex flex-col flex-1">
+                                            <h2 style={{ fontSize: '1.4rem', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)' }} className="mb-4 leading-tight group-hover:text-primary transition-colors">
                                                 {blog.title}
                                             </h2>
-                                            <p style={{ fontSize: '0.875rem', color: '#A8B8B0', fontFamily: "'DM Sans', sans-serif" }} className="mb-6 flex-1">
+                                            <p style={{ fontSize: '1rem', color: 'var(--muted-foreground)', fontFamily: "var(--font-body)", lineHeight: 1.6 }} className="mb-6 flex-1">
                                                 {blog.excerpt}
                                             </p>
-                                            <div className="flex items-center justify-between pt-4 mt-auto" style={{ borderTop: '1px solid rgba(255,255,255,0.07)', fontSize: '0.75rem', color: '#A8B8B0' }}>
-                                                <div className="flex items-center gap-4">
-                                                    <span className="flex items-center gap-1"><Calendar className="w-3 h-3" /> {new Date(blog.date).toLocaleDateString()}</span>
-                                                    <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {blog.readTime}</span>
+                                            <div className="flex items-center justify-between pt-5 mt-auto" style={{ borderTop: '1px solid var(--border)', fontSize: '0.8rem', color: 'var(--muted-foreground)' }}>
+                                                <div className="flex items-center gap-4 font-medium uppercase tracking-wider">
+                                                    <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" /> {new Date(blog.date).toLocaleDateString()}</span>
+                                                    <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> {blog.readTime}</span>
                                                 </div>
+                                                <ChevronRight className="w-4 h-4 text-primary opacity-0 group-hover:opacity-100 transform translate-x-[-10px] group-hover:translate-x-0 transition-all" />
                                             </div>
                                         </div>
                                     </Link>
@@ -92,7 +94,7 @@ export default function BlogPage() {
             </section>
 
             <section className="w-full text-center relative z-10 overflow-hidden" style={{ padding: 'clamp(5rem, 10vw, 8rem) clamp(1.5rem, 5vw, 5rem)' }}>
-                <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(135deg, #1A1200, #3D2800)' }} />
+                <div className="absolute inset-0 pointer-events-none" style={{ background: 'var(--secondary)', opacity: 0.5 }} />
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
@@ -100,9 +102,9 @@ export default function BlogPage() {
                     transition={{ duration: 0.5 }}
                     className="mx-auto max-w-[800px] relative z-10"
                 >
-                    <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, color: '#EEE8D5' }} className="mb-6">Ready to Improve Your Recitation?</h2>
-                    <p className="mb-8" style={{ color: '#A8B8B0', fontSize: '1.125rem', fontFamily: "'DM Sans', sans-serif", lineHeight: 1.75 }}>Join structured online Quran classes with qualified teachers. Book your free trial session today and start learning with confidence.</p>
-                    <Link href="/contact" className="rounded-full btn-glow transition-all hover:scale-105 inline-block" style={{ padding: '0.8rem 2rem', background: '#C9A84C', color: '#060A09', fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>
+                    <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)' }} className="mb-6 text-balance text-glow">Ready to Improve Your Recitation?</h2>
+                    <p className="mb-10" style={{ color: 'var(--muted-foreground)', fontSize: '1.25rem', fontFamily: "var(--font-body)", lineHeight: 1.8 }}>Join structured online Quran classes with qualified teachers. Book your free trial session today and start learning with confidence.</p>
+                    <Link href="/contact" className="rounded-full btn-glow transition-all hover:scale-105 inline-block text-lg shadow-xl" style={{ padding: '1rem 3rem', background: 'var(--primary)', color: 'var(--primary-foreground)', fontWeight: 600, fontFamily: "var(--font-body)" }}>
                         Book Free Trial Class
                     </Link>
                 </motion.div>

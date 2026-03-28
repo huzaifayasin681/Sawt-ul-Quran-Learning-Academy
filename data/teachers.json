@@ -1,16 +1,23 @@
 [
   {
-    "id": "e00a6f35-fc44-4694-b029-5055ca076156",
-    "name": "test",
-    "role": "Quran Instructor",
-    "bio": "sfd",
-    "imagePath": "/uploads/1771693995304-989389969-GantChart.png",
+    "id": "fatima-qureshi-01",
+    "name": "Fatima Qureshi",
+    "role": "Quran Instructor | Tajweed Teacher",
+    "bio": "My name is Fatima Qureshi, and I have completed my Bachelor’s in Islamic Studies. I have also studied Taleem-ul-Quran from Alhuda and am continuing my learning of Deen.\nFor the past two years, I have been teaching children, helping them learn the Quran from Qaida to proper recitation with Tajweed. I focus on correct pronunciation while keeping my teaching style patient and supportive.\nMy goal is to help students feel confident and develop a love for the Quran, InshaAllah 🤍",
+    "imagePath": "",
     "videoPath": "",
     "isActive": true,
-    "qualifications": [],
-    "experience": "",
-    "languages": [],
-    "featuredQuote": ""
+    "qualifications": [
+      "Bachelor’s in Islamic Studies",
+      "Taleem-ul-Quran Course (Alhuda)",
+      "Currently enrolled in Taleem-e-Deen Course"
+    ],
+    "experience": "2 Years – Teaching Quran to Children (Home-Based & Online)",
+    "languages": [
+      "English",
+      "Urdu"
+    ],
+    "featuredQuote": "Helping children fall in love with the Quran🤍"
   },
   {
     "id": "6d31cff6-57dd-40ed-81e7-7734d8773778",
@@ -21,12 +28,13 @@
     "videoPath": "https://youtu.be/EjKlUZFLVuI?si=pKzHOhnJ2PAqNk36",
     "isActive": true,
     "qualifications": [
-      "sd"
+      "Ijazah from Masjid Nabawi"
     ],
     "experience": "10",
     "languages": [
-      "english"
+      "Arabic",
+      "English"
     ],
-    "featuredQuote": "fsd"
+    "featuredQuote": "Learning with heart."
   }
 ]

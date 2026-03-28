@@ -6,15 +6,34 @@ import { useTheme } from "next-themes";
 
 export function ThemeToggle() {
     const { theme, setTheme } = useTheme();
+    const [mounted, setMounted] = React.useState(false);
+
+    // Prevent hydration mismatch
+    React.useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) {
+        return <div className="p-2 w-9 h-9" />;
+    }
 
     return (
         <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="inline-flex items-center justify-center rounded-md p-2 hover:bg-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="flex items-center justify-center rounded-full p-2.5 transition-all duration-300 hover:scale-110 active:scale-95 relative overflow-hidden group"
+            style={{ background: 'var(--color-bg-glass)', border: '1px solid var(--color-border-subtle)' }}
             aria-label="Toggle theme"
         >
-            <Sun className="h-5 w-5 transition-all dark:hidden" />
-            <Moon className="hidden h-5 w-5 transition-all dark:block" />
+            <div className="relative z-10">
+                {theme === "dark" ? (
+                    <Sun className="h-4 w-4 text-primary animate-in zoom-in-50 duration-500" />
+                ) : (
+                    <Moon className="h-4 w-4 text-primary animate-in zoom-in-50 duration-500" />
+                )}
+            </div>
+
+            {/* Subtle glow background */}
+            <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity" />
         </button>
     );
 }

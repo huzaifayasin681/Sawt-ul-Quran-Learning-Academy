@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "../components/theme-provider";
-import { Navbar } from "../components/navbar";
-import { Footer } from "../components/footer";
-
-import { IslamicGeometricPattern, StardustParticles } from "../components/background-effects";
+import LayoutWrapper from "@/components/layout-wrapper";
 
 export const metadata: Metadata = {
-  title: "Noor ul Quran — Online Quran Teaching Academy",
+  title: "Sawt ul Quran Learning Academy — Online Quran Teaching Academy",
   description: "Learn Quran online with certified teachers. From Qaida to advanced Tajweed. Structured courses for kids, teens, and adults. Book your free trial today.",
   keywords: "Quran, online Quran classes, Tajweed, Qaida, Islamic education, Quran teacher, learn Quran online",
 };
@@ -29,8 +26,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className="antialiased min-h-screen flex flex-col"
-        style={{ fontFamily: "'DM Sans', system-ui, sans-serif", backgroundColor: "#060A09", color: "#EEE8D5" }}
+        className="antialiased min-h-screen flex flex-col transition-colors duration-500"
       >
         <ThemeProvider
           attribute="class"
@@ -38,12 +34,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="relative z-10 flex-1 flex flex-col min-h-screen">
-            <Navbar />
-            <IslamicGeometricPattern />
-            <StardustParticles />
-            <main className="flex-1 flex flex-col px-6 md:px-10">{children}</main>
-            <Footer />
+          <div className="relative z-10 flex-1 flex flex-col min-h-screen bg-background text-foreground overflow-x-hidden">
+            <LayoutWrapper>{children}</LayoutWrapper>
           </div>
         </ThemeProvider>
       </body>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronRight, Star, PlayCircle, BookOpen, GraduationCap, Users, Video, Sparkles, Moon } from "lucide-react";
+import { ChevronRight, Star, PlayCircle, BookOpen, Award, Users, Video, Sparkles, Moon } from "lucide-react";
 import { motion, Variants, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 import { Teacher } from "@/lib/db";
@@ -402,7 +402,7 @@ function AnimatedCounter({ target, suffix, delay = 0 }: { target: number; suffix
   }, [hasStarted, target, delay]);
 
   return (
-    <p ref={ref} className="tabular-nums text-glow" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, color: '#C9A84C' }}>
+    <p ref={ref} className="tabular-nums text-glow" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--primary)' }}>
       {count}{suffix}
     </p>
   );
@@ -433,7 +433,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex flex-col items-center overflow-hidden" style={{ background: '#060A09' }}>
+    <div className="flex flex-col items-center overflow-hidden bg-background">
 
       {/* ════════ HERO SECTION — SPLIT LAYOUT ════════ */}
       <section className="relative w-full min-h-screen flex items-center overflow-hidden" style={{ padding: '0' }}>
@@ -456,20 +456,21 @@ export default function Home() {
           >
             {/* Badge */}
             <motion.div variants={fadeUp} className="inline-flex items-center gap-2.5 badge-gold backdrop-blur-md" style={{ padding: '0.4rem 1rem' }}>
-              <Sparkles className="h-3.5 w-3.5" style={{ color: '#C9A84C' }} />
-              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.72rem', letterSpacing: '0.08em', textTransform: 'uppercase' as const, fontWeight: 500 }}>Trusted by families across 15+ countries</span>
+              <Sparkles className="h-3.5 w-3.5" style={{ color: 'var(--primary)' }} />
+              <span style={{ fontFamily: "var(--font-body)", fontSize: '0.72rem', letterSpacing: '0.08em', textTransform: 'uppercase' as const, fontWeight: 500 }}>Trusted by families across 15+ countries</span>
             </motion.div>
 
             {/* Main heading */}
-            <motion.h1 variants={fadeUp} className="text-balance" style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, color: '#EEE8D5', letterSpacing: '-0.01em', lineHeight: 1.15 }}>
-              <span className="block">From <span className="text-glow italic" style={{ color: '#C9A84C' }}>Qaida</span> to <span className="text-glow italic" style={{ color: '#C9A84C' }}>Quran</span></span>
-              <span className="block mt-3" style={{ fontSize: 'clamp(1.25rem, 2.5vw, 2rem)', fontFamily: "'DM Sans', sans-serif", fontWeight: 400, color: '#A8B8B0' }}>
+            <motion.h1 variants={fadeUp} className="text-balance" style={{ fontSize: 'clamp(2.1rem, 5vw, 4rem)', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)', letterSpacing: '-0.01em', lineHeight: 1.1 }}>
+              <span className="block italic" style={{ fontSize: '1.25rem', color: 'var(--primary)', marginBottom: '0.5rem', fontWeight: 500 }}>Traditional Excellence</span>
+              <span className="block">From <span className="text-glow italic" style={{ color: 'var(--primary)' }}>Qaida</span> to <span className="text-glow italic" style={{ color: 'var(--primary)' }}>Quran</span></span>
+              <span className="block mt-4" style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2.2rem)', fontFamily: "var(--font-body)", fontWeight: 400, color: 'var(--muted-foreground)' }}>
                 <TypewriterText text="step-by-step with proper guidance." />
               </span>
             </motion.h1>
 
             {/* Subheading */}
-            <motion.p variants={fadeUp} className="max-w-xl mx-auto lg:mx-0 text-balance" style={{ fontSize: '1rem', lineHeight: 1.75, color: '#A8B8B0', fontFamily: "'DM Sans', sans-serif" }}>
+            <motion.p variants={fadeUp} className="max-w-xl mx-auto lg:mx-0 text-balance" style={{ fontSize: '1.125rem', lineHeight: 1.8, color: 'var(--muted-foreground)', fontFamily: "var(--font-body)" }}>
               Online Quran classes for kids and adults. Structured courses, qualified teachers, personal feedback, and a learning system built on tradition and excellence.
             </motion.p>
 
@@ -478,7 +479,7 @@ export default function Home() {
               <Link
                 href="/contact"
                 className="w-full sm:w-auto rounded-full flex items-center justify-center gap-2 btn-glow"
-                style={{ padding: '0.8rem 2rem', background: '#C9A84C', color: '#060A09', fontWeight: 600, fontSize: '0.95rem', fontFamily: "'DM Sans', sans-serif", boxShadow: '0 0 20px rgba(201,168,76,0.25)' }}
+                style={{ padding: '0.8rem 2rem', background: 'var(--primary)', color: 'var(--primary-foreground)', fontWeight: 600, fontSize: '0.95rem', fontFamily: "var(--font-body)", boxShadow: '0 0 20px rgba(201,168,76,0.25)' }}
               >
                 Free Trial Class
                 <ChevronRight className="h-5 w-5" />
@@ -486,9 +487,9 @@ export default function Home() {
               <Link
                 href="/courses"
                 className="w-full sm:w-auto rounded-full flex items-center justify-center gap-2 transition-all duration-500 backdrop-blur-md"
-                style={{ padding: '0.8rem 2rem', background: 'transparent', border: '1px solid rgba(201,168,76,0.25)', color: '#C9A84C', fontWeight: 600, fontSize: '0.95rem', fontFamily: "'DM Sans', sans-serif" }}
+                style={{ padding: '0.8rem 2rem', background: 'transparent', border: '1px solid var(--color-border-accent)', color: 'var(--primary)', fontWeight: 600, fontSize: '0.95rem', fontFamily: "var(--font-body)" }}
               >
-                <BookOpen className="h-5 w-5" style={{ color: '#C9A84C' }} />
+                <BookOpen className="h-5 w-5" style={{ color: 'var(--primary)' }} />
                 Explore Courses
               </Link>
             </motion.div>
@@ -518,7 +519,7 @@ export default function Home() {
       </section>
 
       {/* ════════ ANIMATED STATS BAR ════════ */}
-      <section className="relative w-full z-10" style={{ padding: 'clamp(2.5rem, 5vw, 4rem) 0', background: '#060A09', borderTop: '1px solid rgba(255,255,255,0.07)', borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
+      <section className="relative w-full z-10" style={{ padding: 'clamp(2.5rem, 5vw, 4rem) 0', background: 'var(--background)', borderTop: '1px solid var(--color-border-subtle)', borderBottom: '1px solid var(--color-border-subtle)' }}>
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -533,7 +534,7 @@ export default function Home() {
               { target: 15, suffix: "+", label: "Countries", delay: 0.4 },
               { target: 5, suffix: "★", label: "Average Rating", delay: 0.6 },
             ].map((stat, i) => (
-              <motion.div key={i} variants={fadeUp} className="space-y-2" style={{ borderRight: i < 3 ? '1px solid rgba(255,255,255,0.07)' : 'none' }}>
+              <motion.div key={i} variants={fadeUp} className="space-y-2" style={{ borderRight: i < 3 ? '1px solid var(--color-border-subtle)' : 'none' }}>
                 <AnimatedCounter target={stat.target} suffix={stat.suffix} delay={stat.delay} />
                 <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.8rem', color: '#A8B8B0', textTransform: 'uppercase' as const, letterSpacing: '0.08em', fontWeight: 500 }}>{stat.label}</p>
               </motion.div>
@@ -542,8 +543,8 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* ════════ TESTIMONIALS MARQUEE ════════ */}
-      <section className="relative w-full overflow-hidden z-10 section-dark" style={{ padding: 'clamp(5rem, 10vw, 9rem) clamp(1.5rem, 5vw, 5rem)' }}>
+      {/* ── TESTIMONIALS MARQUEE ── */}
+      <section className="relative w-full overflow-hidden z-10" style={{ padding: 'clamp(5rem, 10vw, 9rem) clamp(1.5rem, 5vw, 5rem)', background: 'var(--background)' }}>
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -553,13 +554,13 @@ export default function Home() {
         >
           <motion.div variants={fadeUp} className="text-center mb-16">
             <p className="eyebrow mb-4">Testimonials</p>
-            <h2 className="heading-divider text-balance" style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, color: '#EEE8D5', letterSpacing: '-0.01em' }}>Real Results, Real Trust</h2>
-            <p className="mt-6" style={{ color: '#A8B8B0', fontSize: '1.125rem', fontFamily: "'DM Sans', sans-serif" }}>Hear from our students and parents worldwide.</p>
+            <h2 className="heading-divider text-balance" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)', letterSpacing: '-0.01em' }}>Real Results, Real Trust</h2>
+            <p className="mt-6" style={{ color: 'var(--muted-foreground)', fontSize: '1.25rem', fontFamily: "var(--font-body)" }}>Hear from our students and parents worldwide.</p>
           </motion.div>
 
           <div className="relative flex overflow-x-hidden w-full max-w-6xl mx-auto py-4">
-            <div className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, #060A09, transparent)' }} />
-            <div className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, #060A09, transparent)' }} />
+            <div className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, var(--background), transparent)' }} />
+            <div className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, var(--background), transparent)' }} />
 
             <motion.div
               className="flex gap-6 whitespace-nowrap px-4 relative z-[5]"
@@ -570,19 +571,19 @@ export default function Home() {
                 <div
                   key={i}
                   className="group relative overflow-hidden w-[380px] shrink-0 whitespace-normal transition-all duration-500 card-accent-top"
-                  style={{ padding: '2.5rem', borderRadius: '24px', background: '#0D1612', border: '1px solid rgba(255,255,255,0.07)', animation: 'breathingBorder 4s ease-in-out infinite' }}
+                  style={{ padding: '2.5rem', borderRadius: '24px', background: 'var(--card)', border: '1px solid var(--color-border-subtle)', animation: 'breathingBorder 4s ease-in-out infinite' }}
                 >
                   {/* Decorative quotation mark */}
-                  <div className="absolute top-4 left-6 pointer-events-none select-none" style={{ fontSize: '6rem', fontFamily: "'Cormorant Garamond', serif", color: '#C9A84C', opacity: 0.15, lineHeight: 1 }}>{"\u201C"}</div>
-                  <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ background: 'rgba(201,168,76,0.05)' }} />
+                  <div className="absolute top-4 left-6 pointer-events-none select-none" style={{ fontSize: '6rem', fontFamily: "var(--font-heading)", color: 'var(--primary)', opacity: 0.15, lineHeight: 1 }}>{"\u201C"}</div>
+                  <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ background: 'var(--primary)', opacity: 0.05 }} />
 
                   <div className="flex gap-1 mb-4 relative z-10">
                     {[...Array(testimonial.rating)].map((_, j) => (
-                      <Star key={j} className="h-4 w-4" style={{ fill: '#C9A84C', color: '#C9A84C' }} />
+                      <Star key={j} className="h-4 w-4" style={{ fill: 'var(--primary)', color: 'var(--primary)' }} />
                     ))}
                   </div>
-                  <p className="flex-1 italic leading-relaxed mb-4 relative z-10" style={{ fontSize: '0.95rem', color: '#EEE8D5', fontFamily: "'DM Sans', sans-serif" }}>"{testimonial.text}"</p>
-                  <div className="relative z-10" style={{ fontWeight: 500, fontSize: '0.875rem', color: '#C9A84C', fontFamily: "'DM Sans', sans-serif" }}>{testimonial.author}</div>
+                  <p className="flex-1 italic leading-relaxed mb-4 relative z-10" style={{ fontSize: '0.95rem', color: 'var(--foreground)', fontFamily: "var(--font-body)" }}>"{testimonial.text}"</p>
+                  <div className="relative z-10" style={{ fontWeight: 500, fontSize: '0.875rem', color: 'var(--primary)', fontFamily: "var(--font-body)" }}>{testimonial.author}</div>
                 </div>
               ))}
             </motion.div>
@@ -590,8 +591,8 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* ════════ COURSES — CINEMATIC BENTO LAYOUT ════════ */}
-      <section className="w-full overflow-hidden relative z-10" style={{ padding: 'clamp(5rem, 10vw, 9rem) clamp(1.5rem, 5vw, 5rem)', background: '#0D4F3C' }}>
+      {/* ── COURSES — CINEMATIC BENTO LAYOUT ── */}
+      <section className="w-full overflow-hidden relative z-10" style={{ padding: 'clamp(5rem, 10vw, 9rem) clamp(1.5rem, 5vw, 5rem)', background: 'var(--secondary)' }}>
 
         <motion.div
           initial="hidden"
@@ -609,11 +610,11 @@ export default function Home() {
                 visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
               }}
               className="text-balance heading-divider"
-              style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, color: '#EEE8D5', letterSpacing: '-0.01em' }}
+              style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)', letterSpacing: '-0.01em' }}
             >
               Structured Learning for All Ages
             </motion.h2>
-            <motion.p variants={fadeUp} className="max-w-2xl mx-auto mt-6" style={{ fontSize: '1.125rem', color: '#A8B8B0', lineHeight: 1.75, fontFamily: "'DM Sans', sans-serif" }}>
+            <motion.p variants={fadeUp} className="max-w-2xl mx-auto mt-6" style={{ fontSize: '1.25rem', color: 'var(--muted-foreground)', lineHeight: 1.8, fontFamily: "var(--font-body)" }}>
               Whether you are a complete beginner or an advanced student perfecting your Makharij, we have a specialized path.
             </motion.p>
           </motion.div>
@@ -625,35 +626,29 @@ export default function Home() {
                 icon: BookOpen,
                 step: "01",
                 title: "Qaida Basics",
-                desc: "Start from zero with Arabic letters, Harakat, and foundational pronunciation. Perfect for absolute beginners of any age.",
-                features: ["Arabic Alphabet", "Basic Harakat", "Letter Connections", "Pronunciation Drills"],
+                desc: "Start from zero and build a strong foundation with proper Tajweed from the very beginning.",
+                features: ["Arabic Alphabet", "Harakat practice", "Letter Connections", "Pronunciation Drills"],
                 gradient: "from-emerald-500/10 via-emerald-500/5 to-transparent",
-                borderHover: "hover:border-emerald-500/30",
-                iconBg: "bg-emerald-500/10",
-                iconColor: "text-emerald-600 dark:text-emerald-400",
+                iconColor: "var(--primary)",
               },
               {
                 icon: PlayCircle,
                 step: "02",
-                title: "Nazra Practice",
-                desc: "Build real fluency by reading directly from the Mushaf. Focus on speed, accuracy, and self-correction skills.",
-                features: ["Mushaf Reading", "Fluency Building", "Error Correction", "Speed Training"],
+                title: "Nazra Reading",
+                desc: "Build real fluency and precision reading directly from the Mushaf. Focus on speed, and correct articulation.",
+                features: ["Mushaf Reading", "Fluency Building", "Error Correction", "Tajweed rules"],
                 gradient: "from-primary/10 via-primary/5 to-transparent",
-                borderHover: "hover:border-primary/30",
-                iconBg: "bg-primary/10",
-                iconColor: "text-primary",
+                iconColor: "var(--primary)",
                 featured: true,
               },
               {
-                icon: GraduationCap,
+                icon: Award,
                 step: "03",
-                title: "Tajweed & Advanced",
-                desc: "Master the rules of Tajweed, articulation points (Makharij), and beautiful recitation with Ijazah-certified guidance.",
-                features: ["Tajweed Rules", "Makharij Mastery", "Qira'at Styles", "Ijazah Prep"],
+                title: "Memorization Course",
+                desc: "Memorize the Quran with Ijazah-certified guidance, focusing on preservation and beautiful rendition.",
+                features: ["Daily revision", "Makharij Mastery", "Memorization tips", "Ijazah Prep"],
                 gradient: "from-amber-500/10 via-amber-500/5 to-transparent",
-                borderHover: "hover:border-amber-500/30",
-                iconBg: "bg-amber-500/10",
-                iconColor: "text-amber-600 dark:text-amber-400",
+                iconColor: "var(--primary)",
               },
             ].map((course, i) => (
               <motion.div
@@ -662,7 +657,7 @@ export default function Home() {
                 whileHover={{ y: -8, scale: 1.02 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 className={`group relative overflow-hidden transition-all duration-500 card-accent-top ${course.featured ? 'md:scale-105 md:-my-4' : ''}`}
-                style={{ borderRadius: '20px', padding: '2rem', background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(20px)', border: course.featured ? '1px solid rgba(201,168,76,0.25)' : '1px solid rgba(255,255,255,0.07)', boxShadow: course.featured ? '0 0 60px rgba(201,168,76,0.08)' : 'none' }}
+                style={{ borderRadius: '24px', padding: '2rem', background: 'var(--card)', border: course.featured ? '1px solid var(--color-border-accent)' : '1px solid var(--color-border-subtle)', boxShadow: course.featured ? '0 0 60px rgba(201,168,76,0.08)' : 'none' }}
               >
                 {/* Background gradient */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${course.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none`} />
@@ -677,8 +672,8 @@ export default function Home() {
                 <div className="relative z-10 space-y-6">
                   {/* Step number + Icon */}
                   <div className="flex items-center gap-4">
-                    <div className="icon-container transition-all duration-500 group-hover:scale-110">
-                      <course.icon className="w-6 h-6" style={{ color: '#C9A84C' }} />
+                    <div className="icon-container transition-all duration-500 group-hover:scale-110" style={{ background: 'var(--color-gold-glow)' }}>
+                      <course.icon className="w-6 h-6" style={{ color: 'var(--primary)' }} />
                     </div>
                     <span className="text-5xl font-black text-foreground/5 group-hover:text-foreground/10 transition-colors duration-500 select-none">
                       {course.step}
@@ -687,8 +682,8 @@ export default function Home() {
 
                   {/* Title & Description */}
                   <div>
-                    <h3 style={{ fontSize: '1.25rem', fontFamily: "'DM Sans', sans-serif", fontWeight: 500, color: '#EEE8D5' }} className="mb-3">{course.title}</h3>
-                    <p style={{ fontSize: '0.875rem', color: '#A8B8B0', lineHeight: 1.75, fontFamily: "'DM Sans', sans-serif" }}>{course.desc}</p>
+                    <h3 style={{ fontSize: '1.25rem', fontFamily: "var(--font-body)", fontWeight: 700, color: 'var(--foreground)' }} className="mb-3">{course.title}</h3>
+                    <p style={{ fontSize: '0.875rem', color: 'var(--muted-foreground)', lineHeight: 1.75, fontFamily: "var(--font-body)" }}>{course.desc}</p>
                   </div>
 
                   {/* Feature chips */}
@@ -696,7 +691,7 @@ export default function Home() {
                     {course.features.map((feature, j) => (
                       <span
                         key={j}
-                        className="badge-gold"
+                        className="badge-gold text-[10px]"
                       >
                         {feature}
                       </span>
@@ -720,11 +715,11 @@ export default function Home() {
                 whileHover={{ y: -4, scale: 1.03 }}
                 transition={{ duration: 0.3 }}
                 className="group text-center p-5 transition-all duration-500 cursor-default"
-                style={{ border: '1px solid rgba(255,255,255,0.07)', background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(10px)', borderRadius: '16px' }}
+                style={{ border: '1px solid var(--color-border-subtle)', background: 'var(--color-bg-glass)', backdropFilter: 'blur(10px)', borderRadius: '16px' }}
               >
                 <span className="text-3xl block mb-2">{age.emoji}</span>
-                <h4 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 500, fontSize: '0.875rem', color: '#EEE8D5' }}>{age.label}</h4>
-                <p style={{ fontSize: '0.75rem', color: '#A8B8B0', fontFamily: "'DM Sans', sans-serif" }} className="mt-1">{age.desc}</p>
+                <h4 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 500, fontSize: '0.875rem', color: 'var(--foreground)' }}>{age.label}</h4>
+                <p style={{ fontSize: '0.75rem', color: 'var(--muted-foreground)', fontFamily: "'DM Sans', sans-serif" }} className="mt-1">{age.desc}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -739,8 +734,8 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* ════════ ABOUT IBRAHIM ════════ */}
-      <section className="w-full relative z-10 overflow-hidden section-dark" style={{ padding: 'clamp(5rem, 10vw, 9rem) clamp(1.5rem, 5vw, 5rem)' }}>
+      {/* ── ABOUT SECTION — CINEMATIC DEPTH ── */}
+      <section className="w-full relative overflow-hidden z-10" style={{ padding: 'clamp(5rem, 10vw, 9rem) clamp(1.5rem, 5vw, 5rem)', background: 'var(--background)' }}>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] blur-[150px] rounded-full pointer-events-none" style={{ background: 'rgba(13,79,60,0.12)' }} />
 
         <motion.div
@@ -750,34 +745,34 @@ export default function Home() {
           variants={stagger}
           className="mx-auto max-w-[1280px] text-center space-y-14 relative z-10"
         >
-          <motion.div variants={fadeUp} className="space-y-4">
-            <p className="eyebrow">About</p>
-            <h2 className="heading-divider" style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, color: '#EEE8D5', letterSpacing: '-0.01em' }}>About Ibrahim</h2>
-            <p className="italic mt-4" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.25rem', color: 'rgba(201,168,76,0.8)' }}>Certified with Ijazah from Masjid Nabawi</p>
+          <motion.div variants={fadeUp} className="text-center mb-16 space-y-4">
+            <p className="eyebrow">The Instructor</p>
+            <h2 className="heading-divider" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)', letterSpacing: '-0.01em' }}>About Ibrahim</h2>
+            <p className="italic mt-4" style={{ fontFamily: "var(--font-heading)", fontSize: '1.5rem', color: 'var(--primary)' }}>Certified with Ijazah from Masjid Nabawi</p>
           </motion.div>
 
-          <motion.div variants={fadeUp} className="max-w-3xl mx-auto space-y-6" style={{ fontSize: '1rem', lineHeight: 1.75, color: '#A8B8B0', fontFamily: "'DM Sans', sans-serif" }}>
+          <motion.div variants={fadeUp} className="max-w-3xl mx-auto space-y-6" style={{ fontSize: '1.125rem', lineHeight: 1.8, color: 'var(--muted-foreground)', fontFamily: "var(--font-body)" }}>
             <p>
               I am honored to hold an Ijazah (a high-level teaching certification) directly connected to scholars of Masjid al-Nabawi in Madinah. This means my teaching is rooted in authentic tradition, precision, and responsibility.
             </p>
             <p>
               For the past 8 years, I have taught students of all ages across different countries through online classes. From young children learning their first letters to adults improving their Tajweed, I have helped students strengthen both their recitation and their love for the Quran.
             </p>
-            <p style={{ fontWeight: 500, color: '#EEE8D5' }}>
+            <p style={{ fontWeight: 500, color: 'var(--foreground)' }}>
               We believe learning the Quran should never feel heavy or boring. We break complex Tajweed rules into easy, practical steps.
             </p>
           </motion.div>
 
           <motion.div variants={fadeUp} className="flex justify-center">
-            <Link href="/contact" className="rounded-full transition-all duration-500" style={{ padding: '0.8rem 2rem', border: '1px solid rgba(201,168,76,0.25)', color: '#C9A84C', fontWeight: 600, fontSize: '0.95rem', fontFamily: "'DM Sans', sans-serif" }}>
+            <Link href="/contact" className="rounded-full transition-all duration-500" style={{ padding: '0.8rem 2rem', border: '1px solid var(--color-border-accent)', color: 'var(--primary)', fontWeight: 600, fontSize: '0.95rem', fontFamily: "'DM Sans', sans-serif" }}>
               Start Learning Today
             </Link>
           </motion.div>
         </motion.div>
       </section>
 
-      {/* ════════ TEACHERS SECTION ════════ */}
-      <section className="w-full relative z-10" style={{ padding: 'clamp(5rem, 10vw, 9rem) clamp(1.5rem, 5vw, 5rem)', background: '#0D4F3C' }}>
+      {/* ── TEACHERS SECTION ── */}
+      <section className="w-full relative z-10" style={{ padding: 'clamp(5rem, 10vw, 9rem) clamp(1.5rem, 5vw, 5rem)', background: 'var(--secondary)' }}>
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -787,8 +782,8 @@ export default function Home() {
         >
           <motion.div variants={fadeUp} className="text-center mb-16 space-y-4">
             <p className="eyebrow">Our Team</p>
-            <h2 className="heading-divider" style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, color: '#EEE8D5', letterSpacing: '-0.01em' }}>Our Dedicated Teachers</h2>
-            <p className="mt-6" style={{ fontSize: '1.125rem', color: '#A8B8B0', fontFamily: "'DM Sans', sans-serif" }}>Learn from highly qualified instructors who are passionate about the Quran.</p>
+            <h2 className="heading-divider" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)', letterSpacing: '-0.01em' }}>Our Dedicated Teachers</h2>
+            <p className="mt-6" style={{ fontSize: '1.25rem', color: 'var(--muted-foreground)', fontFamily: "var(--font-body)" }}>Learn from highly qualified instructors who are passionate about the Quran.</p>
           </motion.div>
 
           {teachers.length > 0 ? (
@@ -811,10 +806,10 @@ export default function Home() {
                     )}
                   </div>
                   <div className="text-center relative z-10">
-                    <h3 style={{ fontSize: '1.25rem', fontFamily: "'DM Sans', sans-serif", fontWeight: 500, color: '#EEE8D5' }}>{teacher.name}</h3>
-                    <p style={{ fontSize: '0.875rem', fontWeight: 500, color: '#C9A84C', fontFamily: "'DM Sans', sans-serif" }} className="mb-3">{teacher.role}</p>
-                    <p style={{ fontSize: '0.875rem', color: '#A8B8B0', fontFamily: "'DM Sans', sans-serif" }} className="line-clamp-3 mb-4">{teacher.bio}</p>
-                    <Link href={`/teachers/${teacher.id}`} className="inline-block mt-2 transition-colors group/link" style={{ fontWeight: 600, color: '#C9A84C', fontFamily: "'DM Sans', sans-serif", fontSize: '0.875rem' }}>
+                    <h3 style={{ fontSize: '1.4rem', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)' }}>{teacher.name}</h3>
+                    <p style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--primary)', fontFamily: "var(--font-body)", letterSpacing: '0.05em' }} className="mb-3 uppercase">{teacher.role}</p>
+                    <p style={{ fontSize: '0.95rem', color: 'var(--muted-foreground)', fontFamily: "var(--font-body)", lineHeight: 1.6 }} className="line-clamp-3 mb-4">{teacher.bio}</p>
+                    <Link href={`/teachers/${teacher.id}`} className="inline-block mt-2 transition-colors group/link" style={{ fontWeight: 600, color: 'var(--primary)', fontFamily: "var(--font-body)", fontSize: '0.9rem' }}>
                       View Full Profile <ChevronRight className="inline w-4 h-4 ml-1 group-hover/link:translate-x-1 transition-transform" />
                     </Link>
                   </div>
@@ -837,19 +832,19 @@ export default function Home() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              <motion.div variants={cardHover} whileHover={{ y: -5 }} className="p-8 text-center space-y-4 transition-all duration-500 card-accent-top" style={{ borderRadius: '20px', background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.07)' }}>
-                <div className="w-24 h-24 mx-auto rounded-full flex items-center justify-center mb-6" style={{ background: 'rgba(201,168,76,0.1)' }}>
-                  <Users className="w-10 h-10" style={{ color: '#C9A84C' }} />
+              <motion.div variants={cardHover} whileHover={{ y: -5 }} className="p-10 text-center space-y-4 transition-all duration-500 card-accent-top" style={{ borderRadius: '24px', background: 'var(--card)', border: '1px solid var(--border)' }}>
+                <div className="w-24 h-24 mx-auto rounded-full flex items-center justify-center mb-6" style={{ background: 'var(--color-gold-glow)' }}>
+                  <Users className="w-10 h-10" style={{ color: 'var(--primary)' }} />
                 </div>
-                <h3 style={{ fontSize: '1.5rem', fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, color: '#EEE8D5' }}>Male Teachers</h3>
-                <p style={{ color: '#A8B8B0', fontFamily: "'DM Sans', sans-serif" }}>Expert Qaris available for brothers and young boys. Focus on strong Arabic articulation.</p>
+                <h3 style={{ fontSize: '1.75rem', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)' }}>Male Teachers</h3>
+                <p style={{ color: 'var(--muted-foreground)', fontFamily: "var(--font-body)", lineHeight: 1.7 }}>Expert Qaris available for brothers and young boys. Focus on strong Arabic articulation.</p>
               </motion.div>
-              <motion.div variants={cardHover} whileHover={{ y: -5 }} className="p-8 text-center space-y-4 transition-all duration-500 card-accent-top" style={{ borderRadius: '20px', background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.07)' }}>
-                <div className="w-24 h-24 mx-auto rounded-full flex items-center justify-center mb-6" style={{ background: 'rgba(201,168,76,0.1)' }}>
-                  <Users className="w-10 h-10" style={{ color: '#C9A84C' }} />
+              <motion.div variants={cardHover} whileHover={{ y: -5 }} className="p-10 text-center space-y-4 transition-all duration-500 card-accent-top" style={{ borderRadius: '24px', background: 'var(--card)', border: '1px solid var(--border)' }}>
+                <div className="w-24 h-24 mx-auto rounded-full flex items-center justify-center mb-6" style={{ background: 'var(--color-gold-glow)' }}>
+                  <Users className="w-10 h-10" style={{ color: 'var(--primary)' }} />
                 </div>
-                <h3 style={{ fontSize: '1.5rem', fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, color: '#EEE8D5' }}>Female Teachers</h3>
-                <p style={{ color: '#A8B8B0', fontFamily: "'DM Sans', sans-serif" }}>Qualified female instructors for sisters and young girls, providing a supportive environment.</p>
+                <h3 style={{ fontSize: '1.75rem', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)' }}>Female Teachers</h3>
+                <p style={{ color: 'var(--muted-foreground)', fontFamily: "var(--font-body)", lineHeight: 1.7 }}>Qualified female instructors for sisters and young girls, providing a supportive environment.</p>
               </motion.div>
             </div>
           )}
@@ -878,9 +873,9 @@ export default function Home() {
 
       {/* ════════ FINAL CTA ════════ */}
       <section className="w-full relative z-10 overflow-hidden" style={{ padding: 'clamp(5rem, 10vw, 9rem) clamp(1.5rem, 5vw, 5rem)' }}>
-        {/* CTA Banner with gold gradient bg */}
-        <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(135deg, #1A1200, #3D2800)' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] blur-[200px] rounded-full pointer-events-none" style={{ background: 'rgba(201,168,76,0.08)' }} />
+        {/* CTA Banner background */}
+        <div className="absolute inset-0 bg-secondary" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] blur-[200px] rounded-full pointer-events-none opacity-20" style={{ background: 'var(--primary)' }} />
 
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
@@ -889,19 +884,18 @@ export default function Home() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="mx-auto max-w-[1000px] relative z-10"
         >
-          <div className="text-center relative overflow-hidden" style={{ padding: 'clamp(3rem, 6vw, 5rem)', borderRadius: '24px', background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(20px)', border: '1px solid rgba(201,168,76,0.25)' }}>
+          <div className="text-center relative overflow-hidden" style={{ padding: 'clamp(3rem, 6vw, 5rem)', borderRadius: '32px', background: 'var(--card)', backdropFilter: 'blur(20px)', border: '1px solid var(--color-border-accent)' }}>
             {/* Inner ambient glow */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[2px]" style={{ background: 'linear-gradient(to right, transparent, rgba(201,168,76,0.5), transparent)' }} />
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[200px] h-[1px]" style={{ background: 'linear-gradient(to right, transparent, rgba(201,168,76,0.3), transparent)' }} />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[2px]" style={{ background: 'linear-gradient(to right, transparent, var(--primary), transparent)' }} />
 
             <div className="relative z-10 space-y-8">
-              <Moon className="w-12 h-12 mx-auto mb-4" style={{ color: 'rgba(201,168,76,0.4)' }} />
-              <h2 className="text-glow" style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, color: '#EEE8D5', letterSpacing: '-0.01em' }}>Ready to Improve Your Recitation?</h2>
-              <p className="max-w-2xl mx-auto" style={{ color: '#A8B8B0', fontSize: 'clamp(1rem, 2vw, 1.25rem)', fontFamily: "'DM Sans', sans-serif", lineHeight: 1.75 }}>
-                Join structured online Quran classes with qualified teachers. Book your free trial session today and start learning with confidence.
+              <Moon className="w-12 h-12 mx-auto mb-4" style={{ color: 'var(--primary)', opacity: 0.4 }} />
+              <h2 className="text-glow" style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)', letterSpacing: '-0.01em' }}>Ready to Improve Your Recitation?</h2>
+              <p className="max-w-2xl mx-auto" style={{ color: 'var(--muted-foreground)', fontSize: 'clamp(1.1rem, 2vw, 1.25rem)', fontFamily: "var(--font-body)", lineHeight: 1.75 }}>
+                Join structured online Quran classes at Sawt ul Quran Learning Academy with qualified teachers. Book your free trial session today.
               </p>
               <div className="flex justify-center pt-4">
-                <Link href="/contact" className="rounded-full btn-glow transition-all duration-500 hover:scale-105" style={{ padding: '0.8rem 2.5rem', background: '#C9A84C', color: '#060A09', fontWeight: 600, fontSize: '0.95rem', fontFamily: "'DM Sans', sans-serif", boxShadow: '0 0 20px rgba(201,168,76,0.25)' }}>
+                <Link href="/contact" className="rounded-full btn-glow transition-all duration-500 hover:scale-105" style={{ padding: '1rem 3rem', background: 'var(--primary)', color: 'var(--primary-foreground)', fontWeight: 700, fontSize: '1rem', fontFamily: "var(--font-body)", boxShadow: '0 0 30px rgba(201,168,76,0.3)' }}>
                   Book Your Free Trial
                 </Link>
               </div>

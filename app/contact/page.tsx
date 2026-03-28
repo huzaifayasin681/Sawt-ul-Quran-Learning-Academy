@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, ChevronRight } from "lucide-react";
 
 export default function ContactPage() {
     const [submitted, setSubmitted] = useState(false);
@@ -67,7 +67,7 @@ export default function ContactPage() {
     };
 
     return (
-        <div className="min-h-screen flex justify-center items-center" style={{ padding: 'clamp(5rem, 10vw, 8rem) clamp(1.5rem, 5vw, 5rem)', background: '#060A09' }}>
+        <div className="min-h-screen flex justify-center items-center bg-background" style={{ padding: 'clamp(5rem, 10vw, 8rem) clamp(1.5rem, 5vw, 5rem)' }}>
             <div className="mx-auto max-w-[1280px] w-full">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
 
@@ -75,95 +75,114 @@ export default function ContactPage() {
                         <div className="badge-gold inline-flex items-center gap-2">
                             Get in Touch
                         </div>
-                        <h1 className="text-balance" style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, color: '#EEE8D5', letterSpacing: '-0.01em', lineHeight: 1.15 }}>
-                            Start Your <span className="italic text-glow" style={{ color: '#C9A84C' }}>Quranic</span> Journey Today.
+                        <h1 className="text-balance" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)', letterSpacing: '-0.01em', lineHeight: 1.1 }}>
+                            Start Your <span className="italic text-glow" style={{ color: 'var(--primary)' }}>Quranic</span> Journey Today.
                         </h1>
-                        <p style={{ fontSize: '1.125rem', color: '#A8B8B0', lineHeight: 1.75, fontFamily: "'DM Sans', sans-serif" }}>
+                        <p style={{ fontSize: '1.25rem', color: 'var(--muted-foreground)', lineHeight: 1.8, fontFamily: "var(--font-body)" }}>
                             Book your free trial class or simply send us a message. Our team will get back to you within 24 hours to set up your learning plan.
                         </p>
 
                         <div className="space-y-6 pt-4">
-                            <div className="flex items-center gap-4 p-4" style={{ borderRadius: '16px', background: '#0D1612', border: '1px solid rgba(255,255,255,0.07)' }}>
-                                <div className="icon-container">
-                                    <Mail className="w-6 h-6" style={{ color: '#C9A84C' }} />
+                            <div className="flex items-center gap-5 p-6 glass border-border" style={{ borderRadius: '24px', background: 'var(--card)' }}>
+                                <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-primary/10 border border-primary/20">
+                                    <Mail className="w-6 h-6" style={{ color: 'var(--primary)' }} />
                                 </div>
                                 <div>
-                                    <p style={{ fontSize: '0.75rem', color: '#A8B8B0', fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>Email Us</p>
-                                    <p style={{ fontWeight: 500, color: '#EEE8D5', fontFamily: "'DM Sans', sans-serif" }}>info@noorulquran.academy</p>
+                                    <p style={{ fontSize: '0.8rem', color: 'var(--muted-foreground)', fontWeight: 600, fontFamily: "var(--font-body)", textTransform: 'uppercase', letterSpacing: '0.05em' }}>Email Us</p>
+                                    <p style={{ fontWeight: 500, color: 'var(--foreground)', fontFamily: "var(--font-body)", fontSize: '1.1rem' }}>info@sawtulquran.academy</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="glass p-8 md:p-10" style={{ borderRadius: '24px', background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.07)' }}>
+                    <div className="glass p-8 md:p-12 border-border shadow-2xl relative overflow-hidden" style={{ borderRadius: '32px', background: 'var(--card)' }}>
+                        <div className="absolute inset-0 bg-primary/[0.02] pointer-events-none" />
+
                         {submitted ? (
-                            <div className="text-center py-16 space-y-6">
-                                <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: 'rgba(201,168,76,0.15)' }}>
-                                    <Send className="w-10 h-10 ml-1" style={{ color: '#C9A84C' }} />
+                            <div className="text-center py-16 space-y-6 relative z-10">
+                                <div className="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6" style={{ background: 'var(--color-gold-glow)', border: '1px solid var(--color-border-accent)' }}>
+                                    <Send className="w-10 h-10 ml-1 text-primary" />
                                 </div>
-                                <h2 style={{ fontSize: '1.875rem', fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, color: '#EEE8D5' }}>Request Sent!</h2>
-                                <p style={{ fontSize: '1.125rem', color: '#A8B8B0', fontFamily: "'DM Sans', sans-serif" }}>We have received your trial booking request. A teacher will contact you shortly.</p>
-                                <button onClick={() => setSubmitted(false)} className="mt-4 inline-block" style={{ color: '#C9A84C', fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>
+                                <h2 style={{ fontSize: '2rem', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)' }}>Request Sent!</h2>
+                                <p style={{ fontSize: '1.125rem', color: 'var(--muted-foreground)', fontFamily: "var(--font-body)", lineHeight: 1.7 }}>We have received your trial booking request. A teacher will contact you shortly.</p>
+                                <button onClick={() => setSubmitted(false)} className="mt-8 px-8 py-3 rounded-full border border-primary/20 text-primary font-bold hover:bg-primary/5 transition-all">
                                     Send another message
                                 </button>
                             </div>
                         ) : (
-                            <form onSubmit={handleSubmit} className="space-y-6">
-                                <h2 style={{ fontSize: '1.5rem', fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, color: '#EEE8D5' }} className="mb-6">Book a Free Trial Class</h2>
+                            <form onSubmit={handleSubmit} className="space-y-7 relative z-10">
+                                <h2 style={{ fontSize: '1.75rem', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)' }} className="mb-2">Book a Free Trial Class</h2>
 
-                                <div className="space-y-4">
-                                    <div>
-                                        <label className="block mb-2" style={{ fontSize: '0.75rem', color: '#A8B8B0', fontWeight: 500, fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase' as const, letterSpacing: '0.08em' }} htmlFor="name">Full Name</label>
+                                <div className="space-y-5">
+                                    <div className="space-y-2">
+                                        <label className="block px-1" style={{ fontSize: '0.75rem', color: 'var(--muted-foreground)', fontWeight: 600, fontFamily: "var(--font-body)", textTransform: 'uppercase', letterSpacing: '0.08em' }} htmlFor="name">Full Name</label>
                                         <input
                                             id="name"
                                             type="text"
                                             required
+                                            value={formData.name}
+                                            onChange={handleChange}
                                             placeholder="e.g. John Doe"
-                                            className="w-full px-4 py-3 outline-none transition-all"
-                                            style={{ borderRadius: '12px', border: '1px solid rgba(255,255,255,0.07)', background: '#0D1612', color: '#EEE8D5', fontFamily: "'DM Sans', sans-serif", fontSize: '0.95rem' }}
-                                            onFocus={(e) => e.currentTarget.style.borderColor = 'rgba(201,168,76,0.5)'}
-                                            onBlur={(e) => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'}
+                                            className="w-full px-5 py-4 outline-none transition-all placeholder:opacity-30 focus:ring-2 focus:ring-primary/20 bg-secondary/30"
+                                            style={{ borderRadius: '16px', border: '1px solid var(--border)', color: 'var(--foreground)', fontFamily: "var(--font-body)", fontSize: '1rem' }}
                                         />
                                     </div>
-                                    <div>
-                                        <label className="block mb-2" style={{ fontSize: '0.75rem', color: '#A8B8B0', fontWeight: 500, fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase' as const, letterSpacing: '0.08em' }} htmlFor="email">Email Address</label>
+                                    <div className="space-y-2">
+                                        <label className="block px-1" style={{ fontSize: '0.75rem', color: 'var(--muted-foreground)', fontWeight: 600, fontFamily: "var(--font-body)", textTransform: 'uppercase', letterSpacing: '0.08em' }} htmlFor="email">Email Address</label>
                                         <input
                                             id="email"
                                             type="email"
                                             required
+                                            value={formData.email}
+                                            onChange={handleChange}
                                             placeholder="e.g. email@example.com"
-                                            className="w-full px-4 py-3 outline-none transition-all"
-                                            style={{ borderRadius: '12px', border: '1px solid rgba(255,255,255,0.07)', background: '#0D1612', color: '#EEE8D5', fontFamily: "'DM Sans', sans-serif", fontSize: '0.95rem' }}
-                                            onFocus={(e) => e.currentTarget.style.borderColor = 'rgba(201,168,76,0.5)'}
-                                            onBlur={(e) => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'}
+                                            className="w-full px-5 py-4 outline-none transition-all placeholder:opacity-30 focus:ring-2 focus:ring-primary/20 bg-secondary/30"
+                                            style={{ borderRadius: '16px', border: '1px solid var(--border)', color: 'var(--foreground)', fontFamily: "var(--font-body)", fontSize: '1rem' }}
                                         />
                                     </div>
-                                    <div>
-                                        <label className="block mb-2" style={{ fontSize: '0.75rem', color: '#A8B8B0', fontWeight: 500, fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase' as const, letterSpacing: '0.08em' }} htmlFor="course">Interested Course</label>
-                                        <select id="course" className="w-full px-4 py-3 outline-none transition-all appearance-none cursor-pointer" style={{ borderRadius: '12px', border: '1px solid rgba(255,255,255,0.07)', background: '#0D1612', color: '#EEE8D5', fontFamily: "'DM Sans', sans-serif", fontSize: '0.95rem' }}>
-                                            <option value="qaida">Qaida Basics</option>
-                                            <option value="nazra">Nazra Practice</option>
-                                            <option value="tajweed">Tajweed Essentials</option>
-                                            <option value="advanced">Advanced Tajweed & Nazra</option>
-                                            <option value="unsure">I&apos;m not sure (Take the quiz first!)</option>
-                                        </select>
+                                    <div className="space-y-2">
+                                        <label className="block px-1" style={{ fontSize: '0.75rem', color: 'var(--muted-foreground)', fontWeight: 600, fontFamily: "var(--font-body)", textTransform: 'uppercase', letterSpacing: '0.08em' }} htmlFor="course">Interested Course</label>
+                                        <div className="relative">
+                                            <select
+                                                id="course"
+                                                value={formData.course}
+                                                onChange={handleChange}
+                                                className="w-full px-5 py-4 outline-none transition-all appearance-none cursor-pointer bg-secondary/30"
+                                                style={{ borderRadius: '16px', border: '1px solid var(--border)', color: 'var(--foreground)', fontFamily: "var(--font-body)", fontSize: '1rem' }}
+                                            >
+                                                <option value="qaida">Qaida Basics</option>
+                                                <option value="nazra">Nazra Practice</option>
+                                                <option value="tajweed">Tajweed Essentials</option>
+                                                <option value="advanced">Advanced Tajweed & Nazra</option>
+                                                <option value="unsure">I&apos;m not sure (Take the quiz!)</option>
+                                            </select>
+                                            <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none opacity-50">
+                                                <ChevronRight className="w-5 h-5 rotate-90" />
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <label className="block mb-2" style={{ fontSize: '0.75rem', color: '#A8B8B0', fontWeight: 500, fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase' as const, letterSpacing: '0.08em' }} htmlFor="message">Any specific requirements?</label>
+                                    <div className="space-y-2">
+                                        <label className="block px-1" style={{ fontSize: '0.75rem', color: 'var(--muted-foreground)', fontWeight: 600, fontFamily: "var(--font-body)", textTransform: 'uppercase', letterSpacing: '0.08em' }} htmlFor="message">Any specific requirements?</label>
                                         <textarea
                                             id="message"
-                                            rows={4}
+                                            rows={3}
+                                            value={formData.message}
+                                            onChange={handleChange}
                                             placeholder="e.g. I prefer evening classes for my 10-year-old son."
-                                            className="w-full px-4 py-3 outline-none transition-all resize-none"
-                                            style={{ borderRadius: '12px', border: '1px solid rgba(255,255,255,0.07)', background: '#0D1612', color: '#EEE8D5', fontFamily: "'DM Sans', sans-serif", fontSize: '0.95rem' }}
-                                            onFocus={(e) => e.currentTarget.style.borderColor = 'rgba(201,168,76,0.5)'}
-                                            onBlur={(e) => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'}
+                                            className="w-full px-5 py-4 outline-none transition-all resize-none placeholder:opacity-30 focus:ring-2 focus:ring-primary/20 bg-secondary/30"
+                                            style={{ borderRadius: '16px', border: '1px solid var(--border)', color: 'var(--foreground)', fontFamily: "var(--font-body)", fontSize: '1rem' }}
                                         />
                                     </div>
                                 </div>
 
-                                <button type="submit" className="w-full py-4 rounded-xl font-semibold text-lg transition-all hover:scale-[1.02] flex justify-center items-center gap-2 btn-glow" style={{ background: '#C9A84C', color: '#060A09', fontFamily: "'DM Sans', sans-serif", borderRadius: '12px' }}>
-                                    Submit Request
+                                <button
+                                    type="submit"
+                                    disabled={isSubmitting}
+                                    className="w-full py-5 rounded-2xl font-bold text-lg transition-all hover:scale-[1.01] active:scale-[0.99] flex justify-center items-center gap-3 btn-glow disabled:opacity-50"
+                                    style={{ background: 'var(--primary)', color: 'var(--primary-foreground)', fontFamily: "var(--font-body)", boxShadow: '0 10px 30px var(--color-gold-glow)' }}
+                                >
+                                    {isSubmitting ? "Sending..." : "Submit Request"}
+                                    {!isSubmitting && <Send className="w-5 h-5" />}
                                 </button>
                             </form>
                         )}
