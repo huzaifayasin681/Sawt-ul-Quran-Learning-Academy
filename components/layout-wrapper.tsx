@@ -26,7 +26,7 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
             <Navbar />
             <IslamicGeometricPattern />
             <StardustParticles />
-            <main className="flex-1 flex flex-col px-6 md:px-10">
+            <main className="flex-1 flex flex-col pt-20 relative z-10">
                 {children}
             </main>
             <Footer />

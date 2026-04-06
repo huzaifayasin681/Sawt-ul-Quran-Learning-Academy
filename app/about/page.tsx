@@ -49,118 +49,123 @@ const NABAWAI_IMAGES = [
 
 function NabawiSlideshow() {
     const [current, setCurrent] = useState(0);
+    const [direction, setDirection] = useState(1);
 
     useEffect(() => {
         const timer = setInterval(() => {
+            setDirection(1);
             setCurrent(prev => (prev + 1) % NABAWAI_IMAGES.length);
-        }, 8000);
+        }, 4000);
         return () => clearInterval(timer);
     }, []);
 
+    const goTo = (index: number) => {
+        setDirection(index > current ? 1 : -1);
+        setCurrent(index);
+    };
+    const prevSlide = () => {
+        setDirection(-1);
+        setCurrent(c => (c - 1 + NABAWAI_IMAGES.length) % NABAWAI_IMAGES.length);
+    };
+    const nextSlide = () => {
+        setDirection(1);
+        setCurrent(c => (c + 1) % NABAWAI_IMAGES.length);
+    };
+
+    const variants = {
+        enter: (dir: number) => ({ x: dir > 0 ? '100%' : '-100%', opacity: 0 }),
+        center: { x: 0, opacity: 1 },
+        exit: (dir: number) => ({ x: dir > 0 ? '-100%' : '100%', opacity: 0 }),
+    };
+
     return (
-        <section className="relative w-full py-24 overflow-hidden bg-background">
-            <div className="max-w-[1440px] mx-auto px-4 md:px-10">
-                <div className="relative aspect-[18/9] rounded-[3.5rem] overflow-hidden shadow-[0_60px_120px_-20px_rgba(0,0,0,0.3)] border border-primary/20 bg-card">
-                    <AnimatePresence mode="wait">
+        <section className="relative w-full py-8 md:py-14 overflow-hidden">
+            <div className="max-w-[520px] mx-auto px-4 md:px-6">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="text-center mb-8"
+                >
+                    <p className="eyebrow">Experience Madinah</p>
+                </motion.div>
+
+                {/* Slider Container */}
+                <div
+                    className="relative overflow-hidden rounded-2xl md:rounded-3xl"
+                    style={{
+                        aspectRatio: '4 / 3',
+                        border: '2px solid var(--color-border-accent)',
+                        boxShadow: '0 20px 60px rgba(0,0,0,0.25), 0 0 30px rgba(201,168,76,0.06)',
+                    }}
+                >
+                    <AnimatePresence initial={false} custom={direction} mode="popLayout">
                         <motion.div
                             key={current}
-                            initial={{ opacity: 0, scale: 1.15, x: 20 }}
-                            animate={{ opacity: 1, scale: 1.05, x: 0 }}
-                            exit={{ opacity: 0, scale: 1.0, x: -20 }}
-                            transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1] }}
+                            custom={direction}
+                            variants={variants}
+                            initial="enter"
+                            animate="center"
+                            exit="exit"
+                            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                             className="absolute inset-0"
                         >
-                            <motion.div
-                                className="absolute inset-0 w-full h-full"
-                                animate={{
-                                    scale: [1.05, 1.15],
-                                    x: [0, -20]
-                                }}
-                                transition={{ duration: 10, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
-                            >
-                                <Image
-                                    src={NABAWAI_IMAGES[current].url}
-                                    alt={NABAWAI_IMAGES[current].title}
-                                    fill
-                                    className="object-cover"
-                                    priority
-                                />
-                            </motion.div>
-
-                            {/* Sophisticated Gradient Mask */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
-
-                            {/* Decorative Corner Ornaments */}
-                            <div className="absolute top-10 left-10 w-24 h-24 border-t border-l border-primary/30 rounded-tl-3xl pointer-events-none" />
-                            <div className="absolute bottom-10 right-10 w-24 h-24 border-b border-r border-primary/30 rounded-br-3xl pointer-events-none" />
-
-                            {/* Content */}
-                            <div className="absolute bottom-12 left-12 md:bottom-20 md:left-20 max-w-xl z-10">
-                                <motion.div
-                                    initial={{ opacity: 0, x: -30 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: 0.6, duration: 1 }}
-                                    className="badge-gold mb-6 border-primary/30 text-white"
-                                    style={{ background: 'rgba(212, 175, 55, 0.15)' }}
-                                >
-                                    Experience Madinah
-                                </motion.div>
-                                <motion.h3
-                                    initial={{ opacity: 0, y: 30 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.8, duration: 1 }}
-                                    className="text-white text-3xl md:text-5xl lg:text-6xl font-serif mb-4 leading-tight glow-text"
-                                    style={{ fontWeight: 300 }}
-                                >
-                                    {NABAWAI_IMAGES[current].title}
-                                </motion.h3>
-                                <motion.div
-                                    initial={{ opacity: 0, scaleX: 0 }}
-                                    animate={{ opacity: 1, scaleX: 1 }}
-                                    transition={{ delay: 1, duration: 1 }}
-                                    className="w-24 h-px bg-primary/60 mb-6 origin-left"
-                                />
-                                <motion.p
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 1.2, duration: 1 }}
-                                    className="text-white/80 text-lg md:text-xl italic font-serif leading-relaxed max-w-lg"
-                                >
-                                    {NABAWAI_IMAGES[current].caption}
-                                </motion.p>
-                            </div>
+                            <Image
+                                src={NABAWAI_IMAGES[current].url}
+                                alt={NABAWAI_IMAGES[current].title}
+                                fill
+                                className="object-cover"
+                                priority
+                            />
+                            {/* Bottom gradient overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
                         </motion.div>
                     </AnimatePresence>
 
-                    {/* Progress dots at the BOTTOM for better reach */}
-                    <div className="absolute bottom-12 right-12 flex items-center gap-4 z-20">
-                        <div className="flex gap-2">
-                            {NABAWAI_IMAGES.map((_, i) => (
-                                <button
-                                    key={i}
-                                    onClick={() => setCurrent(i)}
-                                    className={`h-1.5 rounded-full transition-all duration-700 ${i === current ? 'w-12 bg-primary' : 'w-3 bg-white/20 hover:bg-white/40'}`}
-                                />
-                            ))}
-                        </div>
+                    {/* Caption overlay */}
+                    <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8 z-10">
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={`caption-${current}`}
+                                initial={{ opacity: 0, y: 15 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.5, delay: 0.2 }}
+                            >
+                                <h3 className="text-white text-xl md:text-2xl font-serif mb-1" style={{ fontWeight: 300 }}>
+                                    {NABAWAI_IMAGES[current].title}
+                                </h3>
+                                <p className="text-white/60 text-sm md:text-base italic font-serif">
+                                    {NABAWAI_IMAGES[current].caption}
+                                </p>
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
 
-                    {/* Navigation buttons */}
-                    <div className="absolute top-1/2 -translate-y-1/2 left-8 md:left-12 flex flex-col gap-4 z-20">
+                    {/* Navigation arrows inside the image */}
+                    <button
+                        onClick={prevSlide}
+                        className="absolute left-3 top-1/2 -translate-y-1/2 z-20 p-2.5 rounded-full bg-black/30 hover:bg-primary/30 backdrop-blur-md border border-white/10 text-white transition-all hover:scale-110 active:scale-95"
+                    >
+                        <ChevronLeft className="w-5 h-5" />
+                    </button>
+                    <button
+                        onClick={nextSlide}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 z-20 p-2.5 rounded-full bg-black/30 hover:bg-primary/30 backdrop-blur-md border border-white/10 text-white transition-all hover:scale-110 active:scale-95"
+                    >
+                        <ChevronRight className="w-5 h-5" />
+                    </button>
+                </div>
+
+                {/* Dot indicators below */}
+                <div className="flex items-center justify-center gap-2 mt-6">
+                    {NABAWAI_IMAGES.map((_, i) => (
                         <button
-                            onClick={() => setCurrent(prev => (prev - 1 + NABAWAI_IMAGES.length) % NABAWAI_IMAGES.length)}
-                            className="p-4 rounded-full bg-black/20 hover:bg-primary/20 backdrop-blur-xl border border-white/10 text-white transition-all hover:scale-110 active:scale-95 group"
-                        >
-                            <ChevronLeft className="w-6 h-6 group-hover:-translate-x-1 transition-transform" />
-                        </button>
-                        <button
-                            onClick={() => setCurrent(prev => (prev + 1) % NABAWAI_IMAGES.length)}
-                            className="p-4 rounded-full bg-black/20 hover:bg-primary/20 backdrop-blur-xl border border-white/10 text-white transition-all hover:scale-110 active:scale-95 group"
-                        >
-                            <ChevronRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-                        </button>
-                    </div>
+                            key={i}
+                            onClick={() => goTo(i)}
+                            className={`h-1.5 rounded-full transition-all duration-500 ${i === current ? 'w-8 bg-primary' : 'w-2 bg-muted-foreground/20 hover:bg-muted-foreground/40'}`}
+                        />
+                    ))}
                 </div>
             </div>
         </section>
@@ -182,7 +187,7 @@ export default function AboutPage() {
     return (
         <div className="min-h-screen bg-background" style={{ transition: 'background-color 0.5s ease' }}>
             {/* ════════ HERO SECTION ════════ */}
-            <section className="relative overflow-hidden" style={{ padding: 'clamp(5rem, 12vw, 10rem) clamp(1.5rem, 5vw, 5rem)' }}>
+            <section className="relative overflow-hidden" style={{ padding: 'clamp(4rem, 8vw, 8rem) clamp(1rem, 4vw, 5rem) clamp(2rem, 4vw, 4rem)' }}>
                 {/* Background Glows */}
                 <div className="absolute top-[10%] left-[20%] w-[400px] h-[400px] blur-[120px] rounded-full pointer-events-none opacity-20" style={{ background: 'var(--color-gold-glow)' }} />
                 <div className="absolute bottom-[10%] right-[20%] w-[500px] h-[500px] blur-[150px] rounded-full pointer-events-none opacity-10" style={{ background: 'var(--color-emerald)' }} />
@@ -191,14 +196,14 @@ export default function AboutPage() {
                     initial="hidden"
                     animate="visible"
                     variants={stagger}
-                    className="relative z-10 mx-auto max-w-[1280px] text-center space-y-8"
+                    className="relative z-10 mx-auto max-w-[1280px] text-center space-y-6"
                 >
-                    <motion.div variants={fadeUp} className="badge-gold inline-flex items-center gap-2 mx-auto">
-                        Who We Are
-                    </motion.div>
                     <motion.h1 variants={fadeUp} className="text-balance mx-auto max-w-4xl" style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)', letterSpacing: '-0.01em', lineHeight: 1.15 }}>
                         Illuminating Hearts with the <span className="italic text-glow" style={{ color: 'var(--primary)' }}>Light of the Quran</span>
                     </motion.h1>
+                    <motion.div variants={fadeUp} className="badge-gold inline-flex items-center gap-2 mx-auto">
+                        Who We Are
+                    </motion.div>
                     <motion.p variants={fadeUp} className="mx-auto max-w-2xl" style={{ fontSize: '1.25rem', color: 'var(--muted-foreground)', lineHeight: 1.75, fontFamily: "var(--font-body)" }}>
                         Sawt ul Quran Learning Academy is dedicated to providing high-quality, accessible, and comprehensive Quranic education to students of all ages worldwide.
                     </motion.p>
@@ -209,7 +214,7 @@ export default function AboutPage() {
             <NabawiSlideshow />
 
             {/* ════════ INTRO VIDEO SECTION ════════ */}
-            <section style={{ padding: '0 clamp(1.5rem, 5vw, 5rem) 6rem' }}>
+            <section style={{ padding: '0 clamp(1rem, 4vw, 5rem) 3rem' }}>
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95, y: 40 }}
                     whileInView={{ opacity: 1, scale: 1, y: 0 }}
@@ -245,13 +250,13 @@ export default function AboutPage() {
             </section>
 
             {/* ════════ MISSION SECTION ════════ */}
-            <section className="relative overflow-hidden" style={{ padding: '10rem clamp(1.5rem, 5vw, 5rem)', background: 'var(--secondary)' }}>
+            <section className="relative overflow-hidden" style={{ padding: 'clamp(3rem, 6vw, 7rem) clamp(1rem, 4vw, 5rem)', background: 'var(--secondary)' }}>
                 {/* Decorative background elements */}
                 <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-primary/5 to-transparent pointer-events-none" />
                 <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-[radial-gradient(circle_at_bottom_left,var(--color-gold-glow),transparent_70%)] opacity-30 pointer-events-none" />
 
                 <div className="relative z-10 mx-auto max-w-[1280px]">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32 items-center">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
                         <motion.div
                             initial="hidden"
                             whileInView="visible"
@@ -334,28 +339,37 @@ export default function AboutPage() {
                             whileInView={{ opacity: 1, scale: 1, x: 0 }}
                             viewport={{ once: true, amount: 0.3 }}
                             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                            className="relative group lg:ml-auto"
+                            className="relative group lg:ml-auto w-full max-w-[420px]"
                         >
                             {/* Decorative Frame */}
                             <div className="absolute -inset-8 border border-primary/10 rounded-[3rem] transition-all duration-1000 group-hover:border-primary/30 group-hover:scale-[1.02]" />
                             <div className="absolute -inset-4 border border-primary/20 rounded-[2.5rem] transition-all duration-700 delay-100 group-hover:rotate-1 group-hover:scale-[1.01]" />
 
-                            <div className="relative glass p-4 rounded-[2rem] overflow-hidden shadow-2xl" style={{ background: 'var(--card)' }}>
-                                <div className="relative aspect-square rounded-[1.5rem] flex items-center justify-center p-16 transition-transform duration-1000 group-hover:scale-105 shadow-inner" style={{ background: 'var(--card)', border: '1px solid var(--primary)', borderRadius: '1.5rem' }}>
+                            <div className="relative glass p-6 rounded-[2rem] overflow-hidden shadow-2xl" style={{ background: 'var(--card)' }}>
+                                <div className="relative aspect-square rounded-[1.5rem] flex items-center justify-center p-10 md:p-14 transition-transform duration-1000 group-hover:scale-105 shadow-inner" style={{ background: 'var(--card)', border: '1px solid var(--primary)', borderRadius: '1.5rem' }}>
                                     {/* Rotating geometric bg */}
                                     <div className="absolute inset-0 opacity-[0.03] animate-spin-slow" style={{ backgroundImage: 'url("/patterns/islamic-geometric.svg")', backgroundSize: 'cover' }} />
 
-                                    <BookOpen className="w-full h-full max-w-[180px] relative z-10" style={{ color: 'var(--primary)', opacity: 0.9, filter: 'drop-shadow(0 0 20px rgba(90, 72, 19, 0.2))' }} />
+                                    <BookOpen className="w-full h-full max-w-[200px] relative z-10" style={{ color: 'var(--primary)', opacity: 0.9, filter: 'drop-shadow(0 0 20px rgba(90, 72, 19, 0.2))' }} />
 
-                                    {/* Floating particles (simulated with CSS for performance) */}
+                                    {/* Floating particles with deterministic positions */}
                                     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                                        {[...Array(8)].map((_, i) => (
+                                        {[
+                                            { top: '20%', left: '18%' },
+                                            { top: '30%', left: '72%' },
+                                            { top: '55%', left: '25%' },
+                                            { top: '70%', left: '68%' },
+                                            { top: '40%', left: '45%' },
+                                            { top: '15%', left: '55%' },
+                                            { top: '65%', left: '82%' },
+                                            { top: '80%', left: '35%' },
+                                        ].map((pos, i) => (
                                             <div key={i} className="absolute w-1.5 h-1.5 bg-primary/40 rounded-full animate-pulse"
                                                 style={{
-                                                    top: `${15 + Math.random() * 70}%`,
-                                                    left: `${15 + Math.random() * 70}%`,
+                                                    top: pos.top,
+                                                    left: pos.left,
                                                     animationDelay: `${i * 0.4}s`,
-                                                    animationDuration: `${2 + Math.random() * 2}s`
+                                                    animationDuration: `${2 + i * 0.3}s`
                                                 }}
                                             />
                                         ))}
@@ -367,10 +381,10 @@ export default function AboutPage() {
                             <motion.div
                                 animate={{ y: [0, -10, 0] }}
                                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                                className="absolute -bottom-6 -right-6 glass px-6 py-4 border-primary/20 shadow-xl"
+                                className="absolute -bottom-6 -right-6 glass px-8 py-5 border-primary/20 shadow-xl"
                                 style={{ borderRadius: '1.5rem', background: 'var(--card)' }}
                             >
-                                <p className="text-secondary-foreground font-serif italic text-lg">Knowledge is Light</p>
+                                <p className="text-secondary-foreground font-serif italic text-xl">Knowledge is Light</p>
                             </motion.div>
                         </motion.div>
                     </div>
@@ -378,7 +392,7 @@ export default function AboutPage() {
             </section>
 
             {/* ════════ FOUNDER SECTION ════════ */}
-            <section style={{ padding: '10rem clamp(1.5rem, 5vw, 5rem)', position: 'relative', overflow: 'hidden' }}>
+            <section style={{ padding: 'clamp(3rem, 6vw, 7rem) clamp(1rem, 4vw, 5rem)', position: 'relative', overflow: 'hidden' }}>
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] blur-[150px] rounded-full pointer-events-none opacity-[0.08]" style={{ background: 'var(--primary)' }} />
 
                 <div className="mx-auto max-w-[1280px]">
@@ -458,7 +472,7 @@ export default function AboutPage() {
 
             {/* ════════ OTHER TEACHERS SECTION ════════ */}
             {teachers.length > 0 && (
-                <section style={{ padding: '8rem clamp(1.5rem, 5vw, 5rem)', background: 'var(--secondary)' }}>
+                <section style={{ padding: 'clamp(3rem, 6vw, 6rem) clamp(1rem, 4vw, 5rem)', background: 'var(--secondary)' }}>
                     <div className="mx-auto max-w-[1280px]">
                         <motion.div
                             initial="hidden"
@@ -517,7 +531,7 @@ export default function AboutPage() {
             )}
 
             {/* ════════ WHY CHOOSE US ════════ */}
-            <section style={{ padding: '8rem clamp(1.5rem, 5vw, 5rem)', background: 'var(--background)', position: 'relative' }}>
+            <section style={{ padding: 'clamp(3rem, 6vw, 6rem) clamp(1rem, 4vw, 5rem)', background: 'var(--background)', position: 'relative' }}>
                 <div className="mx-auto max-w-[1280px] space-y-20">
                     <motion.div
                         initial="hidden"

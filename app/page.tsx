@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronRight, Star, PlayCircle, BookOpen, Award, Users, Video, Sparkles, Moon } from "lucide-react";
+import { ChevronRight, Star, PlayCircle, BookOpen, Award, Users, Video, Sparkles, Moon, GraduationCap, Heart, X } from "lucide-react";
 import { motion, Variants, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 import { Teacher } from "@/lib/db";
@@ -86,38 +86,125 @@ const AYAT_SLIDES = [
    AYAT TYPEWRITER — Character-by-character Arabic reveal
    ═══════════════════════════════════════════════════════ */
 
-function AyatTypewriter({ text, delay = 0 }: { text: string; delay?: number }) {
-  const [displayed, setDisplayed] = useState("");
-  const [done, setDone] = useState(false);
+function AyatLineReveal({ text, delay = 0 }: { text: string; delay?: number }) {
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    setDisplayed("");
-    setDone(false);
-    const chars = text.split("");
-    let i = 0;
-    const startTimeout = setTimeout(() => {
-      const interval = setInterval(() => {
-        if (i < chars.length) {
-          const currentChar = chars[i];
-          i++;
-          setDisplayed(prev => prev + currentChar);
-        } else {
-          setDone(true);
-          clearInterval(interval);
-        }
-      }, 60);
-      return () => clearInterval(interval);
-    }, delay);
-    return () => clearTimeout(startTimeout);
+    setVisible(false);
+    const timeout = setTimeout(() => setVisible(true), delay);
+    return () => clearTimeout(timeout);
   }, [text, delay]);
 
   return (
-    <span className={`transition-opacity duration-500 ${done ? "opacity-100" : "opacity-90"}`}>
-      {displayed}
-      {!done && (
-        <span className="inline-block w-[2px] h-[1em] bg-primary/60 ml-1 animate-pulse align-middle" />
-      )}
+    <span
+      className="inline-block transition-all duration-[1200ms] ease-out"
+      style={{
+        opacity: visible ? 1 : 0,
+        filter: visible ? 'blur(0px)' : 'blur(6px)',
+        transform: visible ? 'translateY(0)' : 'translateY(8px)',
+      }}
+    >
+      {text}
     </span>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════
+   QUIZ POPUP
+   ═══════════════════════════════════════════════════════ */
+
+function QuizPopup() {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShow(true), 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!show) return null;
+
+  return (
+    <AnimatePresence>
+      {show && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+          style={{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)' }}
+          onClick={() => setShow(false)}
+        >
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0, y: 40 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.8, opacity: 0, y: 40 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            className="relative w-full max-w-md overflow-hidden"
+            style={{
+              borderRadius: '28px',
+              background: 'var(--card)',
+              border: '1px solid var(--color-border-accent)',
+              boxShadow: '0 40px 100px rgba(0,0,0,0.4), 0 0 60px rgba(201,168,76,0.15)',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Top accent line */}
+            <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(to right, transparent, var(--primary), transparent)' }} />
+
+            {/* Close button */}
+            <button
+              onClick={() => setShow(false)}
+              className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full flex items-center justify-center transition-colors hover:bg-primary/10"
+              style={{ color: 'var(--muted-foreground)' }}
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="p-8 md:p-10 text-center space-y-6">
+              {/* Icon */}
+              <motion.div
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                className="w-20 h-20 mx-auto rounded-full flex items-center justify-center"
+                style={{ background: 'var(--color-gold-glow)', border: '1px solid var(--color-border-accent)' }}
+              >
+                <Sparkles className="w-10 h-10" style={{ color: 'var(--primary)' }} />
+              </motion.div>
+
+              {/* Title */}
+              <div className="space-y-2">
+                <h3 style={{ fontSize: '1.75rem', fontFamily: 'var(--font-heading)', fontWeight: 300, color: 'var(--foreground)' }}>
+                  Discover Your <span className="italic" style={{ color: 'var(--primary)' }}>Quranic Level</span>
+                </h3>
+                <p style={{ fontSize: '0.95rem', color: 'var(--muted-foreground)', fontFamily: 'var(--font-body)', lineHeight: 1.7 }}>
+                  Take our quick 2-minute quiz to find out exactly where you should start your Quran learning journey.
+                </p>
+              </div>
+
+              {/* CTA */}
+              <div className="flex flex-col gap-3 pt-2">
+                <Link
+                  href="/quiz"
+                  onClick={() => setShow(false)}
+                  className="w-full py-4 rounded-2xl font-bold flex items-center justify-center gap-2 btn-glow transition-all hover:scale-[1.02]"
+                  style={{ background: 'var(--primary)', color: 'var(--primary-foreground)', fontFamily: 'var(--font-body)', fontSize: '1rem' }}
+                >
+                  <Sparkles className="w-5 h-5" />
+                  Take the Level Quiz
+                </Link>
+                <button
+                  onClick={() => setShow(false)}
+                  className="text-sm font-medium transition-colors hover:text-primary"
+                  style={{ color: 'var(--muted-foreground)', fontFamily: 'var(--font-body)' }}
+                >
+                  Maybe Later
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 
@@ -222,7 +309,7 @@ function AyatSlider() {
                       opacity: 1 - (i * 0.12),
                     }}
                   >
-                    <AyatTypewriter text={line} delay={i * 800} />
+                    <AyatLineReveal text={line} delay={i * 600} />
                   </p>
                 ))}
               </motion.div>
@@ -435,8 +522,11 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center overflow-hidden bg-background">
 
+      {/* ── Quiz Popup ── */}
+      <QuizPopup />
+
       {/* ════════ HERO SECTION — SPLIT LAYOUT ════════ */}
-      <section className="relative w-full min-h-screen flex items-center overflow-hidden" style={{ padding: '0' }}>
+      <section className="relative w-full min-h-[100dvh] flex items-center overflow-hidden -mt-20" style={{ padding: '0' }}>
         {/* Cinematic ambient glows */}
         <div className="absolute top-[15%] left-[30%] w-[600px] h-[400px] blur-[150px] rounded-full pointer-events-none" style={{ background: 'rgba(201,168,76,0.06)' }} />
         <div className="absolute bottom-[15%] left-[10%] w-[400px] h-[300px] blur-[120px] rounded-full pointer-events-none" style={{ background: 'rgba(13,79,60,0.15)' }} />
@@ -445,7 +535,7 @@ export default function Home() {
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 80% 50% at 50% 100%, rgba(13,79,60,0.25), transparent)' }} />
 
         {/* ── Split container: text left, mushaf right ── */}
-        <div className="relative z-10 mx-auto max-w-[1280px] w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-16" style={{ paddingTop: 'clamp(1rem, 3vw, 3rem)', paddingBottom: 'clamp(1rem, 3vw, 3rem)' }}>
+        <div className="relative z-10 mx-auto max-w-[1280px] w-full px-5 md:px-10 flex flex-col lg:flex-row items-center gap-8 lg:gap-16" style={{ paddingTop: 'clamp(5rem, 10vw, 3rem)', paddingBottom: 'clamp(2rem, 3vw, 3rem)' }}>
 
           {/* ── LEFT: Content ── */}
           <motion.div
@@ -519,7 +609,7 @@ export default function Home() {
       </section>
 
       {/* ════════ ANIMATED STATS BAR ════════ */}
-      <section className="relative w-full z-10" style={{ padding: 'clamp(2.5rem, 5vw, 4rem) 0', background: 'var(--background)', borderTop: '1px solid var(--color-border-subtle)', borderBottom: '1px solid var(--color-border-subtle)' }}>
+      <section className="relative w-full z-10" style={{ padding: 'clamp(1.5rem, 4vw, 3rem) 0', background: 'var(--background)', borderTop: '1px solid var(--color-border-subtle)', borderBottom: '1px solid var(--color-border-subtle)' }}>
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -544,7 +634,7 @@ export default function Home() {
       </section>
 
       {/* ── TESTIMONIALS MARQUEE ── */}
-      <section className="relative w-full overflow-hidden z-10" style={{ padding: 'clamp(5rem, 10vw, 9rem) clamp(1.5rem, 5vw, 5rem)', background: 'var(--background)' }}>
+      <section className="relative w-full overflow-hidden z-10" style={{ padding: 'clamp(3rem, 6vw, 7rem) clamp(1rem, 4vw, 5rem)', background: 'var(--background)' }}>
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -592,7 +682,7 @@ export default function Home() {
       </section>
 
       {/* ── COURSES — CINEMATIC BENTO LAYOUT ── */}
-      <section className="w-full overflow-hidden relative z-10" style={{ padding: 'clamp(5rem, 10vw, 9rem) clamp(1.5rem, 5vw, 5rem)', background: 'var(--secondary)' }}>
+      <section className="w-full overflow-hidden relative z-10" style={{ padding: 'clamp(3rem, 6vw, 7rem) clamp(1rem, 4vw, 5rem)', background: 'var(--secondary)' }}>
 
         <motion.div
           initial="hidden"
@@ -705,10 +795,10 @@ export default function Home() {
           {/* ── Age Group Row ── */}
           <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
             {[
-              { emoji: "👦", label: "Kids", desc: "Fun & engaging", color: "border-emerald-500/15 hover:border-emerald-500/30" },
-              { emoji: "🧑", label: "Teens", desc: "Guided growth", color: "border-primary/15 hover:border-primary/30" },
-              { emoji: "🧕", label: "Adults", desc: "Flexible hours", color: "border-amber-500/15 hover:border-amber-500/30" },
-              { emoji: "👥", label: "1-on-1 & Group", desc: "Your choice", color: "border-purple-500/15 hover:border-purple-500/30" },
+              { icon: BookOpen, label: "Kids", desc: "Fun & engaging" },
+              { icon: GraduationCap, label: "Teens", desc: "Guided growth" },
+              { icon: Heart, label: "Adults", desc: "Flexible hours" },
+              { icon: Users, label: "1-on-1 & Group", desc: "Your choice" },
             ].map((age, i) => (
               <motion.div
                 key={i}
@@ -717,7 +807,9 @@ export default function Home() {
                 className="group text-center p-5 transition-all duration-500 cursor-default"
                 style={{ border: '1px solid var(--color-border-subtle)', background: 'var(--color-bg-glass)', backdropFilter: 'blur(10px)', borderRadius: '16px' }}
               >
-                <span className="text-3xl block mb-2">{age.emoji}</span>
+                <div className="w-12 h-12 mx-auto mb-3 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110" style={{ background: 'var(--color-gold-glow)', border: '1px solid var(--color-border-accent)' }}>
+                  <age.icon className="w-6 h-6" style={{ color: 'var(--primary)' }} />
+                </div>
                 <h4 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 500, fontSize: '0.875rem', color: 'var(--foreground)' }}>{age.label}</h4>
                 <p style={{ fontSize: '0.75rem', color: 'var(--muted-foreground)', fontFamily: "'DM Sans', sans-serif" }} className="mt-1">{age.desc}</p>
               </motion.div>
@@ -735,7 +827,7 @@ export default function Home() {
       </section>
 
       {/* ── ABOUT SECTION — CINEMATIC DEPTH ── */}
-      <section className="w-full relative overflow-hidden z-10" style={{ padding: 'clamp(5rem, 10vw, 9rem) clamp(1.5rem, 5vw, 5rem)', background: 'var(--background)' }}>
+      <section className="w-full relative overflow-hidden z-10" style={{ padding: 'clamp(3rem, 6vw, 7rem) clamp(1rem, 4vw, 5rem)', background: 'var(--background)' }}>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] blur-[150px] rounded-full pointer-events-none" style={{ background: 'rgba(13,79,60,0.12)' }} />
 
         <motion.div
@@ -772,7 +864,7 @@ export default function Home() {
       </section>
 
       {/* ── TEACHERS SECTION ── */}
-      <section className="w-full relative z-10" style={{ padding: 'clamp(5rem, 10vw, 9rem) clamp(1.5rem, 5vw, 5rem)', background: 'var(--secondary)' }}>
+      <section className="w-full relative z-10" style={{ padding: 'clamp(3rem, 6vw, 7rem) clamp(1rem, 4vw, 5rem)', background: 'var(--secondary)' }}>
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -872,7 +964,7 @@ export default function Home() {
       </AnimatePresence>
 
       {/* ════════ FINAL CTA ════════ */}
-      <section className="w-full relative z-10 overflow-hidden" style={{ padding: 'clamp(5rem, 10vw, 9rem) clamp(1.5rem, 5vw, 5rem)' }}>
+      <section className="w-full relative z-10 overflow-hidden" style={{ padding: 'clamp(3rem, 6vw, 7rem) clamp(1rem, 4vw, 5rem)' }}>
         {/* CTA Banner background */}
         <div className="absolute inset-0 bg-secondary" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] blur-[200px] rounded-full pointer-events-none opacity-20" style={{ background: 'var(--primary)' }} />

@@ -199,7 +199,7 @@ export default function Courses() {
             </div>
 
             {/* ═══════ HERO HEADER ═══════ */}
-            <section className="w-full pt-24 pb-20 text-center relative z-10" style={{ padding: 'clamp(5rem, 10vw, 8rem) clamp(1.5rem, 5vw, 5rem) clamp(3rem, 6vw, 5rem)' }}>
+            <section className="w-full pt-24 pb-20 text-center relative z-10" style={{ padding: 'clamp(4rem, 8vw, 7rem) clamp(1rem, 4vw, 5rem) clamp(2rem, 4vw, 4rem)' }}>
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] blur-[150px] rounded-full pointer-events-none" style={{ background: 'var(--color-emerald)', opacity: 0.1 }} />
 
                 <motion.div
@@ -233,7 +233,7 @@ export default function Courses() {
             </section>
 
             {/* ═══════ COURSES LIST ═══════ */}
-            <section className="w-full relative z-10" style={{ padding: 'clamp(5rem, 10vw, 8rem) clamp(1.5rem, 5vw, 5rem)' }}>
+            <section className="w-full relative z-10" style={{ padding: 'clamp(2rem, 5vw, 5rem) clamp(1rem, 4vw, 5rem)' }}>
                 <div className="mx-auto max-w-[1280px] space-y-16">
                     {loading ? (
                         <div className="text-center py-20">
@@ -258,7 +258,7 @@ export default function Courses() {
             </section>
 
             {/* ═══════ CLASS OPTIONS ═══════ */}
-            <section className="w-full relative z-10 overflow-hidden" style={{ padding: 'clamp(5rem, 10vw, 8rem) clamp(1.5rem, 5vw, 5rem)', background: 'var(--secondary)' }}>
+            <section className="w-full relative z-10 overflow-hidden" style={{ padding: 'clamp(3rem, 6vw, 6rem) clamp(1rem, 4vw, 5rem)', background: 'var(--secondary)' }}>
                 <motion.div
                     initial="hidden"
                     whileInView="visible"
@@ -355,7 +355,7 @@ export default function Courses() {
             </section>
 
             {/* ═══════ FINAL CTA ═══════ */}
-            <section className="w-full text-center relative z-10" style={{ padding: 'clamp(5rem, 10vw, 8rem) clamp(1.5rem, 5vw, 5rem)' }}>
+            <section className="w-full text-center relative z-10" style={{ padding: 'clamp(3rem, 6vw, 6rem) clamp(1rem, 4vw, 5rem)' }}>
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] blur-[150px] rounded-full pointer-events-none" style={{ background: 'var(--color-gold-glow)' }} />
 
                 <motion.div

@@ -88,11 +88,52 @@ export default function QuizPage() {
     };
 
     return (
-        <div className="flex flex-col items-center min-h-screen justify-center overflow-hidden bg-background relative" style={{ padding: 'clamp(5rem, 10vw, 8rem) clamp(1.5rem, 5vw, 5rem)' }}>
+        <div className="flex flex-col items-center min-h-screen justify-center overflow-hidden bg-background relative" style={{ padding: 'clamp(4rem, 8vw, 8rem) clamp(1rem, 4vw, 5rem)' }}>
 
             {/* Ambient Background Glows */}
-            <div className="absolute top-[20%] left-[10%] w-[500px] h-[500px] blur-[150px] rounded-full pointer-events-none opacity-[0.05]" style={{ background: 'var(--primary)' }} />
-            <div className="absolute bottom-[20%] right-[10%] w-[400px] h-[400px] blur-[120px] rounded-full pointer-events-none opacity-[0.05]" style={{ background: 'var(--primary)' }} />
+            <motion.div
+                className="absolute top-[20%] left-[10%] w-[500px] h-[500px] blur-[150px] rounded-full pointer-events-none"
+                style={{ background: 'var(--primary)' }}
+                animate={{ opacity: [0.03, 0.08, 0.03], scale: [1, 1.1, 1] }}
+                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+            />
+            <motion.div
+                className="absolute bottom-[20%] right-[10%] w-[400px] h-[400px] blur-[120px] rounded-full pointer-events-none"
+                style={{ background: 'var(--primary)' }}
+                animate={{ opacity: [0.03, 0.07, 0.03], scale: [1, 1.15, 1] }}
+                transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+            />
+
+            {/* Floating decorative particles */}
+            {[
+                { top: '20%', left: '15%' },
+                { top: '35%', left: '75%' },
+                { top: '60%', left: '25%' },
+                { top: '45%', left: '85%' },
+                { top: '70%', left: '55%' },
+                { top: '25%', left: '45%' },
+            ].map((pos, i) => (
+                <motion.div
+                    key={i}
+                    className="absolute w-1 h-1 rounded-full pointer-events-none"
+                    style={{
+                        background: 'var(--primary)',
+                        top: pos.top,
+                        left: pos.left,
+                    }}
+                    animate={{
+                        y: [0, -30, 0],
+                        opacity: [0.1, 0.4, 0.1],
+                        scale: [1, 1.5, 1],
+                    }}
+                    transition={{
+                        duration: 3 + i * 0.5,
+                        repeat: Infinity,
+                        ease: 'easeInOut',
+                        delay: i * 0.5,
+                    }}
+                />
+            ))}
 
             <AnimatePresence mode="wait">
                 {!level ? (
@@ -122,9 +163,12 @@ export default function QuizPage() {
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            {(Object.keys(quizzes) as unknown as Array<1 | 2 | 3>).map((lvl) => (
+                            {(Object.keys(quizzes) as unknown as Array<1 | 2 | 3>).map((lvl, idx) => (
                                 <motion.button
                                     key={lvl}
+                                    initial={{ opacity: 0, y: 40 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.3 + idx * 0.15, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                                     whileHover={{ y: -8, scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     onClick={() => startQuiz(lvl)}
@@ -133,12 +177,25 @@ export default function QuizPage() {
                                 >
                                     <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
-                                    <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-6 transition-all duration-500 group-hover:scale-110 group-hover:bg-primary/20" style={{ background: 'var(--color-gold-glow)' }}>
+                                    {/* Animated floating glow inside card */}
+                                    <motion.div
+                                        className="absolute -top-10 -right-10 w-32 h-32 rounded-full blur-3xl pointer-events-none"
+                                        style={{ background: 'var(--primary)' }}
+                                        animate={{ opacity: [0, 0.08, 0], scale: [0.8, 1.2, 0.8] }}
+                                        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: idx * 1.5 }}
+                                    />
+
+                                    <motion.div
+                                        animate={{ y: [0, -5, 0] }}
+                                        transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: idx * 0.4 }}
+                                        className="w-12 h-12 rounded-2xl flex items-center justify-center mb-6 transition-all duration-500 group-hover:scale-110 group-hover:bg-primary/20"
+                                        style={{ background: 'var(--color-gold-glow)' }}
+                                    >
                                         {(() => {
                                             const Icon = quizzes[lvl].icon;
                                             return <Icon className="w-6 h-6" style={{ color: 'var(--primary)' }} />;
                                         })()}
-                                    </div>
+                                    </motion.div>
                                     <h3 style={{ fontSize: '1.25rem', fontFamily: "var(--font-body)", fontWeight: 700, color: 'var(--foreground)' }} className="mb-2">{quizzes[lvl].title}</h3>
                                     <p style={{ fontSize: '0.875rem', color: 'var(--muted-foreground)', fontFamily: "var(--font-body)" }}>{quizzes[lvl].desc}</p>
 

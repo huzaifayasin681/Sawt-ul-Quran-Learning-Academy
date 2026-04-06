@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { ArrowLeft, PlayCircle, BookOpen, GraduationCap, Globe, Clock, ChevronRight, Users } from "lucide-react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { Teacher } from "@/lib/db";
 
 export default function TeacherProfile() {
@@ -26,10 +25,9 @@ export default function TeacherProfile() {
     if (loading) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-background">
-                <div className="animate-pulse flex flex-col items-center">
-                    <div className="w-24 h-24 rounded-full mb-4" style={{ background: 'var(--color-gold-glow)' }}></div>
-                    <div className="h-6 w-48 bg-muted rounded-md mb-2"></div>
-                    <div className="h-4 w-32 bg-muted rounded-md"></div>
+                <div className="text-center space-y-4">
+                    <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin mx-auto" />
+                    <p style={{ color: 'var(--muted-foreground)', fontFamily: 'var(--font-body)' }}>Loading profile...</p>
                 </div>
             </div>
         );
@@ -38,8 +36,8 @@ export default function TeacherProfile() {
     if (!teacher || !teacher.isActive) {
         return (
             <div className="min-h-screen flex flex-col items-center justify-center bg-background space-y-4">
-                <h1 className="text-2xl font-bold font-heading">Teacher Not Found</h1>
-                <p className="text-muted-foreground text-center max-w-md font-body">The instructor profile you are looking for does not exist or is currently unavailable.</p>
+                <h1 className="text-2xl font-bold" style={{ fontFamily: 'var(--font-heading)' }}>Teacher Not Found</h1>
+                <p className="text-center max-w-md" style={{ color: 'var(--muted-foreground)', fontFamily: 'var(--font-body)' }}>The instructor profile you are looking for does not exist or is currently unavailable.</p>
                 <Link href="/" className="px-8 py-3 bg-primary text-primary-foreground rounded-full hover:scale-105 transition-all font-bold">Return Home</Link>
             </div>
         );
@@ -48,9 +46,9 @@ export default function TeacherProfile() {
     return (
         <div className="min-h-screen bg-background pb-24">
             {/* Mini Header */}
-            <div className="w-full bg-card/80 backdrop-blur-md border-b border-border sticky top-0 z-20">
+            <div className="w-full backdrop-blur-md sticky top-0 z-20" style={{ background: 'var(--color-bg-glass)', borderBottom: '1px solid var(--border)' }}>
                 <div className="container mx-auto px-4 py-4 flex items-center">
-                    <Link href="/" className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-primary transition-colors group">
+                    <Link href="/" className="inline-flex items-center text-sm font-medium transition-colors group" style={{ color: 'var(--muted-foreground)' }}>
                         <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
                         Back to Home
                     </Link>
@@ -62,9 +60,8 @@ export default function TeacherProfile() {
 
                     {/* Left Column: Image & Quick Stats */}
                     <div className="lg:col-span-4 space-y-8">
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
-                            className="relative rounded-[2.5rem] overflow-hidden aspect-[4/5] shadow-2xl relative"
+                        <div
+                            className="relative rounded-[2.5rem] overflow-hidden aspect-[4/5] shadow-2xl"
                             style={{ background: 'var(--card)', border: '1px solid var(--color-border-subtle)' }}
                         >
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10" />
@@ -78,101 +75,95 @@ export default function TeacherProfile() {
 
                             <div className="absolute bottom-0 left-0 right-0 p-8 z-20 text-white">
                                 <h1 className="text-3xl font-bold mb-1" style={{ fontFamily: "var(--font-heading)" }}>{teacher.name}</h1>
-                                <p className="text-primary font-medium" style={{ fontFamily: "var(--font-body)" }}>{teacher.role}</p>
+                                <p className="font-medium" style={{ color: 'var(--primary)', fontFamily: "var(--font-body)" }}>{teacher.role}</p>
                             </div>
-                        </motion.div>
+                        </div>
 
                         {/* Quick Stats Grid */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}
-                            className="grid grid-cols-2 gap-4"
-                        >
+                        <div className="grid grid-cols-2 gap-4">
                             {teacher.experience && (
-                                <div className="bg-card border border-border p-5 rounded-3xl flex flex-col items-center justify-center text-center shadow-sm" style={{ border: '1px solid var(--color-border-subtle)' }}>
-                                    <Clock className="w-6 h-6 text-primary mb-3" />
+                                <div className="p-5 rounded-3xl flex flex-col items-center justify-center text-center shadow-sm" style={{ background: 'var(--card)', border: '1px solid var(--color-border-subtle)' }}>
+                                    <Clock className="w-6 h-6 mb-3" style={{ color: 'var(--primary)' }} />
                                     <span className="text-xl font-bold tracking-tight">{teacher.experience.split('–')[0]}</span>
-                                    <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-[0.15em] mt-1">Experience</span>
+                                    <span className="text-[10px] font-bold uppercase tracking-[0.15em] mt-1" style={{ color: 'var(--muted-foreground)' }}>Experience</span>
                                 </div>
                             )}
                             {teacher.languages && teacher.languages.length > 0 && (
-                                <div className="bg-card border border-border p-5 rounded-3xl flex flex-col items-center justify-center text-center shadow-sm" style={{ border: '1px solid var(--color-border-subtle)' }}>
-                                    <Globe className="w-6 h-6" style={{ color: 'var(--primary)' }} mb-3 />
+                                <div className="p-5 rounded-3xl flex flex-col items-center justify-center text-center shadow-sm" style={{ background: 'var(--card)', border: '1px solid var(--color-border-subtle)' }}>
+                                    <Globe className="w-6 h-6 mb-3" style={{ color: 'var(--primary)' }} />
                                     <span className="text-sm font-bold leading-tight">{teacher.languages.join(", ")}</span>
-                                    <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-[0.15em] mt-1">Languages</span>
+                                    <span className="text-[10px] font-bold uppercase tracking-[0.15em] mt-1" style={{ color: 'var(--muted-foreground)' }}>Languages</span>
                                 </div>
                             )}
-                        </motion.div>
+                        </div>
 
                         {/* Trial CTA */}
-                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
+                        <div>
                             <Link href="/contact" className="w-full py-5 bg-primary text-primary-foreground font-bold rounded-[1.5rem] flex items-center justify-center gap-2 hover:scale-[1.03] transition-all shadow-xl shadow-primary/20" style={{ fontFamily: "var(--font-body)" }}>
                                 Book Free Trial <ChevronRight className="w-5 h-5" />
                             </Link>
-                        </motion.div>
+                        </div>
                     </div>
 
                     {/* Right Column: Bio & Video */}
                     <div className="lg:col-span-8 space-y-16">
 
-                        {/* Quote Sequence */}
+                        {/* Quote */}
                         {teacher.featuredQuote && (
-                            <motion.div
-                                initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-                                className="pl-6 border-l-4 border-primary py-2"
-                            >
-                                <p className="text-2xl md:text-3xl italic text-muted-foreground leading-snug text-balance" style={{ fontFamily: "var(--font-heading)" }}>
-                                    "{teacher.featuredQuote}"
+                            <div className="pl-6 border-l-4 border-primary py-2">
+                                <p className="text-2xl md:text-3xl italic leading-snug text-balance" style={{ fontFamily: "var(--font-heading)", color: 'var(--muted-foreground)' }}>
+                                    &ldquo;{teacher.featuredQuote}&rdquo;
                                 </p>
-                            </motion.div>
+                            </div>
                         )}
 
                         {/* Bio */}
-                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }} className="space-y-6">
-                            <h2 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-6" style={{ fontFamily: "var(--font-heading)" }}>
-                                <BookOpen className="w-6 h-6 text-primary" /> About The Instructor
+                        <div className="space-y-6">
+                            <h2 className="text-2xl font-bold flex items-center gap-3 pb-6" style={{ fontFamily: "var(--font-heading)", borderBottom: '1px solid var(--border)' }}>
+                                <BookOpen className="w-6 h-6" style={{ color: 'var(--primary)' }} /> About The Instructor
                             </h2>
-                            <div className="prose prose-neutral dark:prose-invert max-w-none text-muted-foreground" style={{ fontFamily: "var(--font-body)", fontSize: '1.125rem', lineHeight: 1.8 }}>
+                            <div className="max-w-none" style={{ fontFamily: "var(--font-body)", fontSize: '1.125rem', lineHeight: 1.8, color: 'var(--muted-foreground)' }}>
                                 {teacher.bio.split('\n').map((paragraph, idx) => (
-                                    <p key={idx}>{paragraph}</p>
+                                    <p key={idx} className="mb-4">{paragraph}</p>
                                 ))}
                             </div>
-                        </motion.div>
+                        </div>
 
-                        {/* Qualifications Matrix */}
+                        {/* Qualifications */}
                         {teacher.qualifications && teacher.qualifications.length > 0 && (
-                            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.4 }} className="space-y-6">
-                                <h2 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-6" style={{ fontFamily: "var(--font-heading)" }}>
-                                    <GraduationCap className="w-6 h-6 text-primary" /> Qualifications
+                            <div className="space-y-6">
+                                <h2 className="text-2xl font-bold flex items-center gap-3 pb-6" style={{ fontFamily: "var(--font-heading)", borderBottom: '1px solid var(--border)' }}>
+                                    <GraduationCap className="w-6 h-6" style={{ color: 'var(--primary)' }} /> Qualifications
                                 </h2>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     {teacher.qualifications.map((qual, idx) => (
-                                        <li key={idx} className="flex items-center gap-4 bg-secondary/50 border border-border p-5 rounded-2xl list-none" style={{ border: '1px solid var(--color-border-subtle)' }}>
-                                            <div className="w-2 h-2 rounded-full bg-primary shrink-0" />
-                                            <span className="font-medium text-foreground text-sm" style={{ fontFamily: "var(--font-body)" }}>{qual}</span>
-                                        </li>
+                                        <div key={idx} className="flex items-center gap-4 p-5 rounded-2xl" style={{ background: 'var(--secondary)', border: '1px solid var(--color-border-subtle)' }}>
+                                            <div className="w-2 h-2 rounded-full shrink-0" style={{ background: 'var(--primary)' }} />
+                                            <span className="font-medium text-sm" style={{ fontFamily: "var(--font-body)", color: 'var(--foreground)' }}>{qual}</span>
+                                        </div>
                                     ))}
                                 </div>
-                            </motion.div>
+                            </div>
                         )}
 
                         {/* Video Intro */}
                         {teacher.videoPath && (
-                            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.5 }} className="space-y-6 pt-8">
-                                <h2 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-6" style={{ fontFamily: "var(--font-heading)" }}>
-                                    <PlayCircle className="w-6 h-6 text-primary" /> Watch Introduction
+                            <div className="space-y-6 pt-8">
+                                <h2 className="text-2xl font-bold flex items-center gap-3 pb-6" style={{ fontFamily: "var(--font-heading)", borderBottom: '1px solid var(--border)' }}>
+                                    <PlayCircle className="w-6 h-6" style={{ color: 'var(--primary)' }} /> Watch Introduction
                                 </h2>
                                 <div className="rounded-[2.5rem] overflow-hidden bg-black shadow-2xl border border-primary/10 aspect-video relative group">
                                     {teacher.videoPath.includes("youtube.com") || teacher.videoPath.includes("youtu.be") ? (
                                         <iframe
                                             src={teacher.videoPath.replace("watch?v=", "embed/").replace("youtu.be/", "www.youtube.com/embed/")}
-                                            className="w-full h-full grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700"
+                                            className="w-full h-full"
                                             allowFullScreen
                                         />
                                     ) : (
                                         <video src={teacher.videoPath} className="w-full h-full object-cover outline-none" controls />
                                     )}
                                 </div>
-                            </motion.div>
+                            </div>
                         )}
 
                     </div>

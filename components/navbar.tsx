@@ -36,8 +36,8 @@ export function Navbar() {
                 className="w-full"
                 animate={{
                     backdropFilter: "blur(16px)",
-                    background: scrolled ? "var(--color-bg-glass)" : "transparent",
-                    borderBottom: scrolled ? "1px solid var(--color-border-subtle)" : "1px solid transparent",
+                    background: scrolled ? "var(--color-bg-glass)" : "rgba(0,0,0,0)",
+                    borderBottom: scrolled ? "1px solid var(--color-border-subtle)" : "1px solid rgba(0,0,0,0)",
                     boxShadow: scrolled ? "0 4px 30px rgba(0, 0, 0, 0.05)" : "none",
                 }}
                 transition={{ duration: 0.5 }}

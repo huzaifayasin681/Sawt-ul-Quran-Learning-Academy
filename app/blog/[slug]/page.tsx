@@ -4,25 +4,19 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { ArrowLeft, Calendar, Clock, Share2 } from "lucide-react";
-import { motion } from "framer-motion";
 import { Blog } from "@/lib/db";
 
-// VERY basic markdown to HTML converter for client-side rendering
 const parseMarkdown = (md: string) => {
     let html = md;
-    // Headers
-    html = html.replace(/^### (.*$)/gim, '<h3 className="text-2xl font-bold mt-8 mb-4">$1</h3>');
-    html = html.replace(/^## (.*$)/gim, '<h2 className="text-3xl font-bold mt-10 mb-6">$1</h2>');
-    html = html.replace(/^# (.*$)/gim, '<h1 className="text-4xl font-bold mt-12 mb-6">$1</h1>');
-    // Bold
+    html = html.replace(/^### (.*$)/gim, '<h3 style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem">$1</h3>');
+    html = html.replace(/^## (.*$)/gim, '<h2 style="font-size:1.875rem;font-weight:700;margin:2.5rem 0 1.5rem">$1</h2>');
+    html = html.replace(/^# (.*$)/gim, '<h1 style="font-size:2.25rem;font-weight:700;margin:3rem 0 1.5rem">$1</h1>');
     html = html.replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>');
-    // Lists
     html = html.replace(/^\s*\n\*/gm, '<ul>\n*');
     html = html.replace(/^(\*.+)\s*\n([^\*])/gm, '$1\n</ul>\n\n$2');
-    html = html.replace(/^\*(.+)/gm, '<li className="ml-6 list-disc mb-2">$1</li>');
-    // Paragraphs
+    html = html.replace(/^\*(.+)/gm, '<li style="margin-left:1.5rem;list-style:disc;margin-bottom:0.5rem">$1</li>');
     html = html.replace(/^\s*(\n)?(.+)/gm, function (m) {
-        return /\<(\/)?(h\d|ul|ol|li|blockquote|pre|img)/.test(m) ? m : '<p className="text-lg text-muted-foreground leading-relaxed mb-6">' + m + '</p>';
+        return /\<(\/)?(h\d|ul|ol|li|blockquote|pre|img)/.test(m) ? m : '<p style="font-size:1.125rem;line-height:1.8;margin-bottom:1.5rem;color:var(--muted-foreground)">' + m + '</p>';
     });
     return html;
 };
@@ -44,14 +38,21 @@ export default function BlogPostPage() {
     }, [slug]);
 
     if (loading) {
-        return <div className="min-h-screen pt-32 pb-20 flex justify-center items-center text-muted-foreground">Loading article...</div>;
+        return (
+            <div className="min-h-screen flex justify-center items-center" style={{ color: 'var(--muted-foreground)' }}>
+                <div className="text-center space-y-4">
+                    <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin mx-auto" />
+                    <p style={{ fontFamily: 'var(--font-body)' }}>Loading article...</p>
+                </div>
+            </div>
+        );
     }
 
     if (!blog) {
         return (
-            <div className="min-h-screen pt-32 pb-20 flex flex-col justify-center items-center text-center px-4">
-                <h1 className="text-4xl font-bold mb-4">Post not found</h1>
-                <p className="text-muted-foreground mb-8">The article you are looking for does not exist or has been removed.</p>
+            <div className="min-h-screen flex flex-col justify-center items-center text-center px-4">
+                <h1 className="text-4xl font-bold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>Post not found</h1>
+                <p className="mb-8" style={{ color: 'var(--muted-foreground)', fontFamily: 'var(--font-body)' }}>The article you are looking for does not exist or has been removed.</p>
                 <Link href="/blog" className="px-6 py-3 bg-primary text-primary-foreground rounded-full font-semibold hover:bg-primary/90 transition">
                     Return to Blog
                 </Link>
@@ -60,63 +61,59 @@ export default function BlogPostPage() {
     }
 
     return (
-        <article className="min-h-screen pt-24 md:pt-32 pb-20 px-4">
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="max-w-3xl mx-auto"
-            >
-                <Link href="/blog" className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors mb-8 text-sm font-medium">
+        <article className="min-h-screen pb-20 px-4" style={{ paddingTop: 'clamp(2rem, 4vw, 4rem)' }}>
+            <div className="max-w-3xl mx-auto">
+                <Link href="/blog" className="inline-flex items-center hover:text-primary transition-colors mb-8 text-sm font-medium" style={{ color: 'var(--muted-foreground)', fontFamily: 'var(--font-body)' }}>
                     <ArrowLeft className="w-4 h-4 mr-2" /> Back to all articles
                 </Link>
 
                 {/* Header */}
                 <header className="mb-12">
-                    <div className="flex items-center gap-3 mb-6">
-                        <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                    <div className="flex flex-wrap items-center gap-3 mb-6">
+                        <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider" style={{ background: 'var(--color-gold-glow)', color: 'var(--primary)' }}>
                             {blog.tag}
                         </span>
-                        <span className="text-sm text-muted-foreground flex items-center gap-1">
+                        <span className="text-sm flex items-center gap-1" style={{ color: 'var(--muted-foreground)' }}>
                             <Calendar className="w-4 h-4" /> {new Date(blog.date).toLocaleDateString()}
                         </span>
-                        <span className="text-sm text-muted-foreground flex items-center gap-1">
+                        <span className="text-sm flex items-center gap-1" style={{ color: 'var(--muted-foreground)' }}>
                             <Clock className="w-4 h-4" /> {blog.readTime}
                         </span>
                     </div>
 
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 leading-tight text-balance">
+                    <h1 className="tracking-tight mb-6 leading-tight text-balance" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontFamily: 'var(--font-heading)', fontWeight: 300, color: 'var(--foreground)' }}>
                         {blog.title}
                     </h1>
 
-                    <p className="text-xl text-muted-foreground italic border-l-4 border-primary pl-4 py-2">
+                    <p className="text-xl italic border-l-4 border-primary pl-4 py-2" style={{ color: 'var(--muted-foreground)', fontFamily: 'var(--font-body)' }}>
                         {blog.excerpt}
                     </p>
                 </header>
 
                 {/* Divider */}
-                <div className="h-px bg-border w-full my-8" />
+                <div className="h-px w-full my-8" style={{ background: 'var(--border)' }} />
 
                 {/* Content */}
                 <div
-                    className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary/80 prose-p:text-muted-foreground prose-p:leading-relaxed prose-li:text-muted-foreground"
+                    className="max-w-none"
+                    style={{ fontFamily: 'var(--font-body)', color: 'var(--foreground)' }}
                     dangerouslySetInnerHTML={{ __html: parseMarkdown(blog.content) }}
                 />
 
                 {/* Footer Actions */}
-                <div className="mt-16 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div className="mt-16 pt-8 flex flex-col sm:flex-row items-center justify-between gap-6" style={{ borderTop: '1px solid var(--border)' }}>
                     <div className="flex items-center gap-4">
-                        <span className="font-semibold text-sm text-muted-foreground">Share this article:</span>
-                        <button className="p-3 bg-card border border-border rounded-full hover:bg-muted hover:text-primary transition-colors group">
-                            <Share2 className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                        <span className="font-semibold text-sm" style={{ color: 'var(--muted-foreground)' }}>Share this article:</span>
+                        <button className="p-3 border rounded-full hover:text-primary transition-colors" style={{ background: 'var(--card)', borderColor: 'var(--border)' }}>
+                            <Share2 className="w-4 h-4" />
                         </button>
                     </div>
 
-                    <Link href="/contact" className="px-8 py-4 bg-primary text-primary-foreground font-bold rounded-full hover:bg-primary/90 transition-transform hover:scale-105 shadow-md">
+                    <Link href="/contact" className="px-8 py-4 bg-primary text-primary-foreground font-bold rounded-full hover:bg-primary/90 transition-transform hover:scale-105 shadow-md" style={{ fontFamily: 'var(--font-body)' }}>
                         Start Learning Quran Today
                     </Link>
                 </div>
-            </motion.div>
+            </div>
         </article>
     );
 }

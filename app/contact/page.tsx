@@ -67,7 +67,7 @@ export default function ContactPage() {
     };
 
     return (
-        <div className="min-h-screen flex justify-center items-center bg-background" style={{ padding: 'clamp(5rem, 10vw, 8rem) clamp(1.5rem, 5vw, 5rem)' }}>
+        <div className="min-h-screen flex justify-center items-center bg-background" style={{ padding: 'clamp(4rem, 8vw, 8rem) clamp(1rem, 4vw, 5rem)' }}>
             <div className="mx-auto max-w-[1280px] w-full">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
 
@@ -122,7 +122,7 @@ export default function ContactPage() {
                                             required
                                             value={formData.name}
                                             onChange={handleChange}
-                                            placeholder="e.g. John Doe"
+                                            placeholder="e.g. Ahmad Ibrahim"
                                             className="w-full px-5 py-4 outline-none transition-all placeholder:opacity-30 focus:ring-2 focus:ring-primary/20 bg-secondary/30"
                                             style={{ borderRadius: '16px', border: '1px solid var(--border)', color: 'var(--foreground)', fontFamily: "var(--font-body)", fontSize: '1rem' }}
                                         />

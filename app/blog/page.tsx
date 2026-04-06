@@ -49,20 +49,21 @@ export default function BlogPage() {
             </section>
 
             <section className="w-full relative z-10" style={{ padding: 'clamp(4rem, 8vw, 6rem) clamp(1.5rem, 5vw, 5rem)' }}>
-                <motion.div
-                    initial="hidden"
-                    animate="visible"
-                    variants={staggerContainer}
-                    className="mx-auto max-w-[1280px]"
-                >
+                <div className="mx-auto max-w-[1280px]">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 min-h-[400px]">
                         {loading ? (
                             <div className="col-span-full flex justify-center items-center text-muted-foreground">Loading articles...</div>
                         ) : blogs.length === 0 ? (
                             <div className="col-span-full flex justify-center items-center text-muted-foreground">No articles published yet. Check back soon!</div>
                         ) : (
-                            blogs.map((blog) => (
-                                <motion.div key={blog.slug} variants={fadeUp} whileHover={{ y: -8 }}>
+                            blogs.map((blog, idx) => (
+                                <motion.div
+                                    key={blog.slug}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.5, delay: idx * 0.15 }}
+                                    whileHover={{ y: -8 }}
+                                >
                                     <Link href={`/blog/${blog.slug}`} className="group flex flex-col h-full overflow-hidden transition-all duration-500 glass border-border active:scale-[0.98]" style={{ borderRadius: '24px', background: 'var(--card)' }}>
                                         <div className="h-48 p-6 flex items-start relative overflow-hidden" style={{ background: 'var(--secondary)' }}>
                                             <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -90,7 +91,7 @@ export default function BlogPage() {
                             ))
                         )}
                     </div>
-                </motion.div>
+                </div>
             </section>
 
             <section className="w-full text-center relative z-10 overflow-hidden" style={{ padding: 'clamp(5rem, 10vw, 8rem) clamp(1.5rem, 5vw, 5rem)' }}>
