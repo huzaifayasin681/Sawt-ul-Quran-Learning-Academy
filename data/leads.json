@@ -1,1 +1,29 @@
-[]
+[
+  {
+    "id": "2595490b-8e6f-40c1-9d10-e94381579d1d",
+    "name": "Test User",
+    "email": "test@example.com",
+    "phone": "",
+    "source": "contact_form",
+    "details": {
+      "course": "qaida",
+      "message": "Hello world"
+    },
+    "status": "new",
+    "date": "2026-04-06T05:35:43.895Z"
+  },
+  {
+    "id": "0145a018-36f3-48cb-8712-1d67f17f6436",
+    "name": "Quiz User",
+    "email": "quiz_lead@sawtulquran.app",
+    "phone": "",
+    "source": "quiz",
+    "details": {
+      "quizLevel": "Basics",
+      "score": 3,
+      "total": 3
+    },
+    "status": "new",
+    "date": "2026-04-06T05:40:35.145Z"
+  }
+]

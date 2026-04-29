@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import { Navbar } from "./navbar";
 import { Footer } from "./footer";
-import { IslamicGeometricPattern, StardustParticles } from "./background-effects";
+import { IslamicGeometricPattern, StardustParticles, AuraGlow } from "./background-effects";
 
 export default function LayoutWrapper({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
@@ -24,6 +24,7 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
     return (
         <>
             <Navbar />
+            <AuraGlow />
             <IslamicGeometricPattern />
             <StardustParticles />
             <main className="flex-1 flex flex-col pt-20 relative z-10">

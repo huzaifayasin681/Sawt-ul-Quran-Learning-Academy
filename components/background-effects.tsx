@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
 
 /* ═══════════════════════════════════════════════════════
-   STARDUST PARTICLE SYSTEM
+   STARDUST PARTICLE SYSTEM (Enhanced)
    ═══════════════════════════════════════════════════════ */
 
 export function StardustParticles() {
@@ -28,6 +28,7 @@ export function StardustParticles() {
         let particles: Array<{
             x: number; y: number; size: number; speed: number;
             opacity: number; twinkle: number; twinkleSpeed: number;
+            color: string;
         }> = [];
 
         const isDark = resolvedTheme === "dark";
@@ -39,16 +40,21 @@ export function StardustParticles() {
 
         const createParticles = () => {
             particles = [];
-            const count = Math.min(Math.floor(window.innerWidth / 15), 100);
+            const count = Math.min(Math.floor(window.innerWidth / 12), 150);
             for (let i = 0; i < count; i++) {
+                const colorBase = isDark ? 
+                    (Math.random() > 0.3 ? "212, 175, 55" : "168, 213, 186") : 
+                    (Math.random() > 0.3 ? "90, 72, 19" : "46, 125, 107");
+
                 particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    size: Math.random() * (isDark ? 2.5 : 1.8) + 0.3,
-                    speed: Math.random() * 0.25 + 0.05,
-                    opacity: isDark ? (Math.random() * 0.5 + 0.2) : (Math.random() * 0.3 + 0.1),
+                    size: Math.random() * (isDark ? 2.2 : 1.5) + 0.2,
+                    speed: Math.random() * 0.15 + 0.02,
+                    opacity: isDark ? (Math.random() * 0.4 + 0.1) : (Math.random() * 0.2 + 0.05),
                     twinkle: Math.random() * Math.PI * 2,
-                    twinkleSpeed: Math.random() * 0.02 + 0.005,
+                    twinkleSpeed: Math.random() * 0.015 + 0.005,
+                    color: colorBase
                 });
             }
         };
@@ -59,33 +65,27 @@ export function StardustParticles() {
             particles.forEach(p => {
                 p.y -= p.speed;
                 p.twinkle += p.twinkleSpeed;
-                const alpha = p.opacity * (0.6 + 0.4 * Math.sin(p.twinkle));
+                const alpha = p.opacity * (0.5 + 0.5 * Math.sin(p.twinkle));
 
                 if (p.y < -10) {
                     p.y = canvas.height + 10;
                     p.x = Math.random() * canvas.width;
                 }
 
-                // Dynamic Color based on theme
-                // Light mode: Sepia/Amber ink spots
-                // Dark mode: Luminous gold stardust
-                const colorBase = isDark ? "212, 175, 55" : "90, 72, 19";
-
-                const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 3);
-                gradient.addColorStop(0, `rgba(${colorBase}, ${alpha})`);
-                gradient.addColorStop(0.5, `rgba(${colorBase}, ${alpha * 0.4})`);
-                gradient.addColorStop(1, `rgba(${colorBase}, 0)`);
+                const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 4);
+                gradient.addColorStop(0, `rgba(${p.color}, ${alpha})`);
+                gradient.addColorStop(0.6, `rgba(${p.color}, ${alpha * 0.2})`);
+                gradient.addColorStop(1, `rgba(${p.color}, 0)`);
 
                 ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
+                ctx.arc(p.x, p.y, p.size * 4, 0, Math.PI * 2);
                 ctx.fillStyle = gradient;
                 ctx.fill();
 
-                if (isDark) {
-                    // Core point for sparkle in dark mode
+                if (isDark && alpha > 0.3) {
                     ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.size * 0.4, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(255, 230, 160, ${alpha * 1.2})`;
+                    ctx.arc(p.x, p.y, p.size * 0.3, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${alpha * 0.8})`;
                     ctx.fill();
                 }
             });
@@ -110,12 +110,65 @@ export function StardustParticles() {
     return (
         <canvas
             ref={canvasRef}
-            className="fixed inset-0 z-[1] pointer-events-none transition-opacity duration-1000"
+            className="fixed inset-0 z-40 pointer-events-none transition-opacity duration-1000"
             style={{
                 mixBlendMode: resolvedTheme === "dark" ? "screen" : "multiply",
-                opacity: resolvedTheme === "dark" ? 0.7 : 0.4
+                opacity: resolvedTheme === "dark" ? 0.6 : 0.3
             }}
         />
+    );
+}
+
+/* ═══════════════════════════════════════════════════════
+   AURA GLOW (Dynamic Spiritual Mist)
+   ═══════════════════════════════════════════════════════ */
+
+export function AuraGlow() {
+    const { resolvedTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) return null;
+
+    const isDark = resolvedTheme === "dark";
+
+    return (
+        <div className="fixed inset-0 z-40 pointer-events-none overflow-hidden">
+            {/* Emerald Mist Top Left */}
+            <motion.div
+                className="absolute -top-[10%] -left-[10%] w-[60vw] h-[60vw] rounded-full blur-[120px] opacity-20 dark:opacity-10"
+                style={{ background: 'var(--primary)' }}
+                animate={{
+                    x: [0, 40, 0],
+                    y: [0, 30, 0],
+                    scale: [1, 1.1, 1],
+                }}
+                transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+            />
+            {/* Gold Mist Bottom Right */}
+            <motion.div
+                className="absolute -bottom-[10%] -right-[10%] w-[50vw] h-[50vw] rounded-full blur-[100px] opacity-15 dark:opacity-[0.08]"
+                style={{ background: 'var(--accent)' }}
+                animate={{
+                    x: [0, -50, 0],
+                    y: [0, -40, 0],
+                    scale: [1, 1.2, 1],
+                }}
+                transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+            />
+            {/* Central Soft Glow */}
+            <div 
+                className="absolute inset-0 opacity-20"
+                style={{ 
+                    background: isDark 
+                        ? 'radial-gradient(circle at 50% 50%, rgba(168, 213, 186, 0.05) 0%, transparent 70%)' 
+                        : 'radial-gradient(circle at 50% 50%, rgba(201, 162, 74, 0.03) 0%, transparent 70%)'
+                }} 
+            />
+        </div>
     );
 }
 
@@ -132,83 +185,48 @@ export function IslamicGeometricPattern() {
         setMounted(true);
         const interval = setInterval(() => {
             setPhase(prev => (prev + 1) % 4);
-        }, 3000);
+        }, 5000); // Slower, more majestic transition
         return () => {
             setMounted(false);
             clearInterval(interval);
         };
     }, []);
 
-    const rotations = [0, 60, 120, 180];
-    const scales = [1, 1.05, 0.95, 1.02];
+    const rotations = [0, 90, 180, 270];
+    const scales = [1, 1.02, 0.98, 1.01];
 
     if (!mounted) return null;
 
     return (
-        <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-background">
+        <div className="fixed inset-0 z-40 pointer-events-none overflow-hidden opacity-5 dark:opacity-[0.03]">
             {/* Pattern Layer 1 - Large */}
             <motion.div
-                className="absolute top-1/2 left-1/2 w-[140vmax] h-[140vmax]"
+                className="absolute top-1/2 left-1/2 w-[160vmax] h-[160vmax]"
                 animate={{
                     rotate: rotations[phase],
                     scale: scales[phase],
                     x: "-50%",
                     y: "-50%",
                 }}
-                transition={{ duration: 3, ease: [0.4, 0, 0.2, 1] }}
+                transition={{ duration: 5, ease: "easeInOut" }}
             >
                 <svg viewBox="0 0 800 800" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                     <defs>
-                        <pattern id="islamicPattern1" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                        <pattern id="islamicPattern1" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
                             <path
-                                d="M50 10 L60 40 L90 50 L60 60 L50 90 L40 60 L10 50 L40 40 Z"
+                                d="M60 10 L75 45 L110 60 L75 75 L60 110 L45 75 L10 60 L45 45 Z"
                                 fill="none"
                                 stroke="currentColor"
-                                strokeWidth="0.5"
-                                className="text-primary/4"
+                                strokeWidth="0.3"
+                                className="text-primary"
                             />
-                            <circle cx="50" cy="50" r="15" fill="none" stroke="currentColor" strokeWidth="0.3" className="text-primary/2" />
+                            <circle cx="60" cy="60" r="20" fill="none" stroke="currentColor" strokeWidth="0.2" className="text-primary/40" />
                         </pattern>
                     </defs>
                     <rect width="800" height="800" fill="url(#islamicPattern1)" />
                 </svg>
             </motion.div>
-
-            {/* Pattern Layer 2 - Subtle Counter rotation */}
-            <motion.div
-                className="absolute top-1/2 left-1/2 w-[110vmax] h-[110vmax]"
-                animate={{
-                    rotate: -rotations[phase] * 0.5,
-                    scale: scales[(phase + 2) % 4],
-                    x: "-50%",
-                    y: "-50%",
-                }}
-                transition={{ duration: 3.5, ease: [0.4, 0, 0.2, 1] }}
-            >
-                <svg viewBox="0 0 600 600" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <pattern id="islamicPattern2" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
-                            <polygon
-                                points="40,5 70,22 70,58 40,75 10,58 10,22"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="0.4"
-                                className="text-primary/2.5"
-                            />
-                        </pattern>
-                    </defs>
-                    <rect width="600" height="600" fill="url(#islamicPattern2)" />
-                </svg>
-            </motion.div>
-
-            {/* Ambient depth gradient overlay */}
-            <div className="absolute inset-0"
-                style={{
-                    background: resolvedTheme === "dark"
-                        ? "radial-gradient(circle at 50% -20%, rgba(212,175,55,0.08) 0%, transparent 60%)"
-                        : "radial-gradient(circle at 50% -20%, rgba(90, 72, 19, 0.03) 0%, transparent 50%)"
-                }}
-            />
         </div>
     );
 }
+

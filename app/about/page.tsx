@@ -393,9 +393,12 @@ export default function AboutPage() {
 
             {/* ════════ FOUNDER SECTION ════════ */}
             <section style={{ padding: 'clamp(3rem, 6vw, 7rem) clamp(1rem, 4vw, 5rem)', position: 'relative', overflow: 'hidden' }}>
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] blur-[150px] rounded-full pointer-events-none opacity-[0.08]" style={{ background: 'var(--primary)' }} />
+                <div className="absolute inset-0 z-0">
+                    <Image src="/masjid/1.png" alt="Masjid Nabawi" fill className="object-cover object-center" />
+                    <div className="absolute inset-0 bg-background/85 dark:bg-background/90 backdrop-blur-sm" />
+                </div>
 
-                <div className="mx-auto max-w-[1280px]">
+                <div className="relative z-10 mx-auto max-w-[1280px]">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
                         <motion.div
                             initial={{ opacity: 0, x: -50 }}
@@ -419,7 +422,7 @@ export default function AboutPage() {
                                     I am honored to hold an Ijazah directly connected to scholars of Masjid al-Nabawi in Madinah. This means my teaching is rooted in authentic tradition, precision, and responsibility.
                                 </p>
                                 <p>
-                                    For the past 8 years, I have helped students across different countries strengthen both their recitation and their love for the Quran.
+                                    With years of dedicated experience, I have helped students worldwide strengthen both their recitation and their love for the Quran.
                                 </p>
 
                                 <motion.div
@@ -559,7 +562,7 @@ export default function AboutPage() {
                         {[
                             { icon: Star, title: "Expert Tutors", desc: "Learn from certified teachers who possess deep mastery of Tajweed and Islamic sciences." },
                             { icon: Shield, title: "Structured Quality", desc: "A well-organized curriculum tailored to student needs, ensuring consistent progress tracking." },
-                            { icon: Users, title: "Global Community", desc: "Join hundreds of students worldwide in our shared goal of preserving and internalizing the Quran." }
+                            { icon: Users, title: "Global Community", desc: "Join our vibrant global community of students in our shared goal of preserving and internalizing the Quran." }
                         ].map((item, i) => (
                             <motion.div
                                 key={i}

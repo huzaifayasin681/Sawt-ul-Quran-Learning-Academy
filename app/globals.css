@@ -8,56 +8,43 @@
 /* ── Modern Dynamic Tokens ── */
 /* ── Modern Dynamic Tokens ── */
 :root {
-  --background: #D4CAAB;
-  /* Rich Tobacco Parchment - Heavy, vintage manual feel */
-  --foreground: #0A0F0D;
-  /* Deep Obsidian ink */
-  --primary: #5A4813;
-  /* Burnished Deep Brass - Extremely authoritative gold-brown */
-  --primary-foreground: #D4CAAB;
-  --secondary: #CDBC9A;
-  /* Shadowed Antique Khaki surface - slightly more distinct */
-  --secondary-foreground: #3D310E;
-  --accent: #876E2C;
-  /* Heritage Bronze */
-  --accent-foreground: #D4CAAB;
-  --card: #FFFDF5;
-  /* High-Contrast Ivory Paper - Pops against the tan background */
-  --card-foreground: #0A0F0D;
-  --muted: #C1B58F;
-  /* Earthy beige for muted elements */
-  --muted-foreground: #222B28;
-  /* Iron-grey text clarity */
-  --border: #B4A982;
-  /* Stronger heritage borders */
-  --color-bg-glass: rgba(255, 255, 255, 0.35);
-  --color-border-subtle: rgba(0, 0, 0, 0.15);
-  --color-border-accent: rgba(90, 72, 19, 0.35);
-  --color-gold-glow: rgba(90, 72, 19, 0.18);
+  --background: #F7F3E9;
+  --foreground: #1A201C;
+  --primary: #2E7D6B;
+  --primary-foreground: #FFFFFF;
+  --secondary: #A8D5BA;
+  --secondary-foreground: #0A1C16;
+  --accent: #C9A24A;
+  --accent-foreground: #FFFFFF;
+  --card: #FFF9F0;
+  --card-foreground: #1A201C;
+  --muted: #EBE6DA;
+  --muted-foreground: #5C6B66;
+  --border: #DCD6CA;
+  --color-bg-glass: rgba(255, 255, 255, 0.6);
+  --color-border-subtle: rgba(46, 125, 107, 0.1);
+  --color-border-accent: rgba(46, 125, 107, 0.25);
+  --color-gold-glow: rgba(201, 162, 74, 0.15);
 }
 
 .dark {
-  --background: #040504;
-  /* True midnight base */
-  --foreground: #F2ECE0;
-  /* Soft warm white text */
-  --primary: #D4AF37;
-  /* Brilliant, striking gold */
-  --primary-foreground: #040504;
-  --secondary: #0A0D0B;
-  /* Immersive dark emerald surface */
-  --secondary-foreground: #D4AF37;
-  --accent: #D4AF37;
-  --accent-foreground: #040504;
-  --card: #0A0D0B;
-  --card-foreground: #F2ECE0;
-  --muted: rgba(255, 255, 255, 0.03);
-  --muted-foreground: #94A39E;
-  --border: rgba(255, 255, 255, 0.08);
-  --color-bg-glass: rgba(255, 255, 255, 0.02);
-  --color-border-subtle: rgba(255, 255, 255, 0.06);
-  --color-border-accent: rgba(212, 175, 55, 0.3);
-  --color-gold-glow: rgba(212, 175, 55, 0.15);
+  --background: #111B18;
+  --foreground: #F7F3E9;
+  --primary: #A8D5BA;
+  --primary-foreground: #0A1C16;
+  --secondary: #1F332C;
+  --secondary-foreground: #A8D5BA;
+  --accent: #D6ECF5;
+  --accent-foreground: #0A1C16;
+  --card: #16241F;
+  --card-foreground: #F7F3E9;
+  --muted: rgba(255, 255, 255, 0.05);
+  --muted-foreground: #8E9F9A;
+  --border: rgba(255, 255, 255, 0.1);
+  --color-bg-glass: rgba(22, 36, 31, 0.4);
+  --color-border-subtle: rgba(168, 213, 186, 0.1);
+  --color-border-accent: rgba(168, 213, 186, 0.25);
+  --color-gold-glow: rgba(201, 162, 74, 0.15);
 }
 
 @theme {
@@ -110,6 +97,12 @@
 
   body {
     background-color: var(--background);
+    background-image: 
+      linear-gradient(135deg, var(--card) 0%, var(--background) 50%, rgba(168, 213, 186, 0.15) 100%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: 200% 200%, auto;
+    animation: gradientBG 20s ease infinite;
     color: var(--foreground);
     font-family: var(--font-body);
     font-size: 1rem;
@@ -395,6 +388,19 @@
 /* ═══════════════════════════════════════════════════════
    KEYFRAME ANIMATIONS
    ═══════════════════════════════════════════════════════ */
+
+/* Global moving background gradient */
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 
 /* Inner glow pulse for buttons */
 @keyframes innerGlowPulse {

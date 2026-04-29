@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronRight, Star, PlayCircle, BookOpen, Award, Users, Video, Sparkles, Moon, GraduationCap, Heart, X } from "lucide-react";
+import { ChevronRight, Star, PlayCircle, BookOpen, Award, Users, Video, Sparkles, Moon, GraduationCap, Heart, X, CheckCircle } from "lucide-react";
 import { motion, Variants, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 import { Teacher } from "@/lib/db";
@@ -108,6 +108,55 @@ function AyatLineReveal({ text, delay = 0 }: { text: string; delay?: number }) {
     </span>
   );
 }
+
+/* ═══════════════════════════════════════════════════════
+   COURSE MICRO-ANIMATIONS
+   ═══════════════════════════════════════════════════════ */
+
+const QaidaAnimation = () => (
+  <div className="relative w-full h-32 rounded-xl bg-primary/5 border border-primary/10 flex items-center justify-center overflow-hidden mb-6">
+    <motion.div animate={{ opacity: [0.3, 0.8, 0.3] }} transition={{ duration: 3, repeat: Infinity }} className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent pointer-events-none" />
+    <BookOpen className="w-12 h-12 text-primary relative z-10" />
+    <motion.div animate={{ x: [-2, 4, -2], y: [-2, 2, -2] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
+       <Sparkles className="w-5 h-5 text-accent opacity-80 absolute -top-8 -right-8" />
+    </motion.div>
+  </div>
+);
+
+const GroupClassesAnimation = () => (
+  <div className="relative w-full h-32 rounded-xl bg-primary/5 border border-primary/10 flex items-center justify-center overflow-hidden mb-6">
+    <div className="flex gap-3 relative z-10 items-end">
+      <motion.div animate={{ y: [0, -4, 0] }} transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}><Users className="w-8 h-8 text-primary/60" /></motion.div>
+      <motion.div animate={{ y: [0, -6, 0] }} transition={{ duration: 2.5, delay: 0.4, repeat: Infinity, ease: "easeInOut" }}><Users className="w-12 h-12 text-primary" /></motion.div>
+      <motion.div animate={{ y: [0, -4, 0] }} transition={{ duration: 2.5, delay: 0.8, repeat: Infinity, ease: "easeInOut" }}><Users className="w-8 h-8 text-primary/60" /></motion.div>
+    </div>
+  </div>
+);
+
+const QuranReadingAnimation = () => (
+  <div className="relative w-full h-32 rounded-xl bg-primary/5 border border-primary/10 flex items-center justify-center overflow-hidden mb-6">
+    <Moon className="absolute w-24 h-24 text-primary/10 -top-4 -right-4 pointer-events-none" />
+    <motion.div animate={{ scale: [1, 1.05, 1] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
+      <BookOpen className="w-12 h-12 text-primary relative z-10" />
+    </motion.div>
+    <motion.div animate={{ opacity: [0, 1, 0], y: [10, -10] }} transition={{ duration: 3, repeat: Infinity, ease: "easeOut" }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
+      <div className="w-1.5 h-1.5 rounded-full bg-accent blur-[1px] absolute -top-10 -right-4" />
+    </motion.div>
+  </div>
+);
+
+const AdvancedLearningAnimation = () => (
+  <div className="relative w-full h-32 rounded-xl bg-primary/5 border border-primary/10 flex items-center justify-center overflow-hidden mb-6">
+    <GraduationCap className="w-12 h-12 text-primary relative z-10" />
+    <motion.div animate={{ scale: [0.8, 1.2, 0.8], opacity: [0, 1, 0] }} transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }} className="absolute right-6 top-6 z-20 pointer-events-none">
+      <CheckCircle className="w-6 h-6 text-emerald-500" />
+    </motion.div>
+    <div className="absolute bottom-4 left-6 right-6 flex flex-col gap-1.5 opacity-40 pointer-events-none">
+      <motion.div className="h-1 bg-primary rounded w-full" animate={{ opacity: [0.3, 0.8, 0.3] }} transition={{ duration: 2, repeat: Infinity }} />
+      <motion.div className="h-1 bg-primary rounded w-3/4" animate={{ opacity: [0.3, 0.8, 0.3] }} transition={{ duration: 2, delay: 0.5, repeat: Infinity }} />
+    </div>
+  </div>
+);
 
 /* ═══════════════════════════════════════════════════════
    QUIZ POPUP
@@ -512,12 +561,7 @@ export default function Home() {
       .catch(console.error);
   }, []);
 
-  const testimonials = [
-    { text: "My kids used to find Quran class boring, but now they are excited every day. Ibrahim's team is so engaging.", author: "Mother of 2 (UK)", rating: 5 },
-    { text: "Starting from zero as an adult convert was intimidating, but they made Tajweed easy to understand without pressure.", author: "Newbie Adult Learner (US)", rating: 5 },
-    { text: "The deep error correction in the advanced Tajweed level completely transformed my recitation fluency.", author: "Advanced Student (Canada)", rating: 5 },
-    { text: "I love how the teachers focus on pronunciation. Best decision I made for my islamic studies.", author: "University Student (Australia)", rating: 5 },
-  ];
+
 
   return (
     <div className="flex flex-col items-center overflow-hidden bg-background">
@@ -547,7 +591,7 @@ export default function Home() {
             {/* Badge */}
             <motion.div variants={fadeUp} className="inline-flex items-center gap-2.5 badge-gold backdrop-blur-md" style={{ padding: '0.4rem 1rem' }}>
               <Sparkles className="h-3.5 w-3.5" style={{ color: 'var(--primary)' }} />
-              <span style={{ fontFamily: "var(--font-body)", fontSize: '0.72rem', letterSpacing: '0.08em', textTransform: 'uppercase' as const, fontWeight: 500 }}>Trusted by families across 15+ countries</span>
+              <span style={{ fontFamily: "var(--font-body)", fontSize: '0.72rem', letterSpacing: '0.08em', textTransform: 'uppercase' as const, fontWeight: 500 }}>Traditional Quranic Excellence for Modern Learners</span>
             </motion.div>
 
             {/* Main heading */}
@@ -608,32 +652,8 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* ════════ ANIMATED STATS BAR ════════ */}
-      <section className="relative w-full z-10" style={{ padding: 'clamp(1.5rem, 4vw, 3rem) 0', background: 'var(--background)', borderTop: '1px solid var(--color-border-subtle)', borderBottom: '1px solid var(--color-border-subtle)' }}>
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          variants={stagger}
-          className="mx-auto max-w-[1280px] px-6 md:px-10"
-        >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {[
-              { target: 8, suffix: "+", label: "Years Teaching", delay: 0 },
-              { target: 1000, suffix: "+", label: "Students Taught", delay: 0.2 },
-              { target: 15, suffix: "+", label: "Countries", delay: 0.4 },
-              { target: 5, suffix: "★", label: "Average Rating", delay: 0.6 },
-            ].map((stat, i) => (
-              <motion.div key={i} variants={fadeUp} className="space-y-2" style={{ borderRight: i < 3 ? '1px solid var(--color-border-subtle)' : 'none' }}>
-                <AnimatedCounter target={stat.target} suffix={stat.suffix} delay={stat.delay} />
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.8rem', color: '#A8B8B0', textTransform: 'uppercase' as const, letterSpacing: '0.08em', fontWeight: 500 }}>{stat.label}</p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </section>
 
-      {/* ── TESTIMONIALS MARQUEE ── */}
+      {/* ── VIDEO TESTIMONIALS ── */}
       <section className="relative w-full overflow-hidden z-10" style={{ padding: 'clamp(3rem, 6vw, 7rem) clamp(1rem, 4vw, 5rem)', background: 'var(--background)' }}>
         <motion.div
           initial="hidden"
@@ -643,44 +663,39 @@ export default function Home() {
           className="relative mx-auto max-w-[1280px]"
         >
           <motion.div variants={fadeUp} className="text-center mb-16">
-            <p className="eyebrow mb-4">Testimonials</p>
-            <h2 className="heading-divider text-balance" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)', letterSpacing: '-0.01em' }}>Real Results, Real Trust</h2>
-            <p className="mt-6" style={{ color: 'var(--muted-foreground)', fontSize: '1.25rem', fontFamily: "var(--font-body)" }}>Hear from our students and parents worldwide.</p>
+            <p className="eyebrow mb-4">Student Stories</p>
+            <h2 className="heading-divider text-balance" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)', letterSpacing: '-0.01em' }}>Hear From Our Learners</h2>
+            <p className="mt-6 mx-auto max-w-2xl" style={{ color: 'var(--muted-foreground)', fontSize: '1.25rem', fontFamily: "var(--font-body)" }}>Real experiences from students who have transformed their recitation and understanding of the Quran with us.</p>
           </motion.div>
 
-          <div className="relative flex overflow-x-hidden w-full max-w-6xl mx-auto py-4">
-            <div className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, var(--background), transparent)' }} />
-            <div className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, var(--background), transparent)' }} />
-
-            <motion.div
-              className="flex gap-6 whitespace-nowrap px-4 relative z-[5]"
-              animate={{ x: ["0%", "-50%"] }}
-              transition={{ repeat: Infinity, duration: 45, ease: "linear" }}
-            >
-              {[...testimonials, ...testimonials].map((testimonial, i) => (
-                <div
-                  key={i}
-                  className="group relative overflow-hidden w-[380px] shrink-0 whitespace-normal transition-all duration-500 card-accent-top"
-                  style={{ padding: '2.5rem', borderRadius: '24px', background: 'var(--card)', border: '1px solid var(--color-border-subtle)', animation: 'breathingBorder 4s ease-in-out infinite' }}
-                >
-                  {/* Decorative quotation mark */}
-                  <div className="absolute top-4 left-6 pointer-events-none select-none" style={{ fontSize: '6rem', fontFamily: "var(--font-heading)", color: 'var(--primary)', opacity: 0.15, lineHeight: 1 }}>{"\u201C"}</div>
-                  <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ background: 'var(--primary)', opacity: 0.05 }} />
-
-                  <div className="flex gap-1 mb-4 relative z-10">
-                    {[...Array(testimonial.rating)].map((_, j) => (
-                      <Star key={j} className="h-4 w-4" style={{ fill: 'var(--primary)', color: 'var(--primary)' }} />
-                    ))}
-                  </div>
-                  <p className="flex-1 italic leading-relaxed mb-4 relative z-10" style={{ fontSize: '0.95rem', color: 'var(--foreground)', fontFamily: "var(--font-body)" }}>"{testimonial.text}"</p>
-                  <div className="relative z-10" style={{ fontWeight: 500, fontSize: '0.875rem', color: 'var(--primary)', fontFamily: "var(--font-body)" }}>{testimonial.author}</div>
-                </div>
-              ))}
-            </motion.div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+            {[
+              "IrBWcu2gR6c",
+              "9ZxfGiOujvg",
+              "nZ1K-GCBJRE",
+              "yoeK7z6NDPU"
+            ].map((videoId, i) => (
+              <motion.div
+                key={i}
+                variants={fadeUp}
+                className="group relative overflow-hidden rounded-[24px] aspect-[9/16] bg-black/5 transition-all duration-500 hover:scale-[1.02]"
+                style={{ border: '1px solid var(--color-border-subtle)', boxShadow: '0 20px 40px rgba(0,0,0,0.08)' }}
+              >
+                <div className="absolute inset-0 bg-primary/5 pointer-events-none z-10 group-hover:bg-transparent transition-colors duration-500" />
+                <iframe
+                  className="absolute inset-0 w-full h-full object-cover"
+                  src={`https://www.youtube.com/embed/${videoId}?loop=1&playlist=${videoId}&controls=0&modestbranding=1&rel=0`}
+                  title={`Student Review ${i + 1}`}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  loading="lazy"
+                ></iframe>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </section>
-
       {/* ── COURSES — CINEMATIC BENTO LAYOUT ── */}
       <section className="w-full overflow-hidden relative z-10" style={{ padding: 'clamp(3rem, 6vw, 7rem) clamp(1rem, 4vw, 5rem)', background: 'var(--secondary)' }}>
 
@@ -709,36 +724,41 @@ export default function Home() {
             </motion.p>
           </motion.div>
 
-          {/* ── Course Level Cards — 3 columns ── */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          {/* ── Course Level Cards — 4 columns ── */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             {[
               {
-                icon: BookOpen,
+                AnimComponent: QaidaAnimation,
                 step: "01",
                 title: "Qaida Basics",
-                desc: "Start from zero and build a strong foundation with proper Tajweed from the very beginning.",
+                desc: "Start from zero and build a strong foundation with proper Tajweed.",
                 features: ["Arabic Alphabet", "Harakat practice", "Letter Connections", "Pronunciation Drills"],
                 gradient: "from-emerald-500/10 via-emerald-500/5 to-transparent",
-                iconColor: "var(--primary)",
               },
               {
-                icon: PlayCircle,
+                AnimComponent: GroupClassesAnimation,
                 step: "02",
-                title: "Nazra Reading",
-                desc: "Build real fluency and precision reading directly from the Mushaf. Focus on speed, and correct articulation.",
-                features: ["Mushaf Reading", "Fluency Building", "Error Correction", "Tajweed rules"],
+                title: "Group Classes",
+                desc: "Learn in a vibrant community environment. Motivation through shared learning.",
+                features: ["Small Groups", "Peer Learning", "Interactive", "Consistent Schedule"],
+                gradient: "from-blue-500/10 via-blue-500/5 to-transparent",
+              },
+              {
+                AnimComponent: QuranReadingAnimation,
+                step: "03",
+                title: "Quran Reading",
+                desc: "Build real fluency and precision reading directly from the Mushaf.",
+                features: ["Mushaf Reading", "Fluency Building", "Error Correction", "Tajweed Rules"],
                 gradient: "from-primary/10 via-primary/5 to-transparent",
-                iconColor: "var(--primary)",
                 featured: true,
               },
               {
-                icon: Award,
-                step: "03",
-                title: "Memorization Course",
-                desc: "Memorize the Quran with Ijazah-certified guidance, focusing on preservation and beautiful rendition.",
-                features: ["Daily revision", "Makharij Mastery", "Memorization tips", "Ijazah Prep"],
+                AnimComponent: AdvancedLearningAnimation,
+                step: "04",
+                title: "Advanced Learning",
+                desc: "Deepen your understanding with Ijazah-certified guidance and advanced Tajweed.",
+                features: ["Makharij Mastery", "Ijazah Prep", "Tafseer Basics", "Memorization"],
                 gradient: "from-amber-500/10 via-amber-500/5 to-transparent",
-                iconColor: "var(--primary)",
               },
             ].map((course, i) => (
               <motion.div
@@ -759,16 +779,16 @@ export default function Home() {
                   </div>
                 )}
 
-                <div className="relative z-10 space-y-6">
-                  {/* Step number + Icon */}
-                  <div className="flex items-center gap-4">
-                    <div className="icon-container transition-all duration-500 group-hover:scale-110" style={{ background: 'var(--color-gold-glow)' }}>
-                      <course.icon className="w-6 h-6" style={{ color: 'var(--primary)' }} />
-                    </div>
+                <div className="relative z-10 space-y-4">
+                  {/* Step number */}
+                  <div className="flex justify-between items-center w-full">
                     <span className="text-5xl font-black text-foreground/5 group-hover:text-foreground/10 transition-colors duration-500 select-none">
                       {course.step}
                     </span>
                   </div>
+
+                  {/* Micro-Animation */}
+                  <course.AnimComponent />
 
                   {/* Title & Description */}
                   <div>
