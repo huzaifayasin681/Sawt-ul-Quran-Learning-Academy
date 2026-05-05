@@ -4,7 +4,17 @@ import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { BookOpen, CheckCircle2, ChevronRight, PlayCircle, GraduationCap, Award, Users, Sparkles, ArrowRight, Star } from "lucide-react";
 import { motion, Variants, AnimatePresence, useInView } from "framer-motion";
+import dynamic from "next/dynamic";
 import { Course } from "@/lib/db";
+
+// Dynamically import Lottie to avoid SSR issues
+const DotLottieReact = dynamic(() => import("@lottiefiles/dotlottie-react").then(mod => mod.DotLottieReact), { ssr: false });
+
+const COURSE_LOTTIES = [
+    "https://lottie.host/6aff17f3-f27c-474a-9465-8a847dac8344/BttbPmj0xo.lottie",
+    "https://lottie.host/1faa4350-8d9a-47ca-90f5-36f0d5327343/Rluq04Y5Qb.lottie",
+    "https://lottie.host/0e3ac02b-fbb5-41fb-8ef6-545671a860f3/GX3EjN2lCi.lottie"
+];
 
 /* ═══════════════════════════════════════════════════════
    ANIMATION VARIANTS
@@ -28,16 +38,6 @@ const slideIn: Variants = {
     visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } }
 };
 
-/* ═══════════════════════════════════════════════════════
-   ICON MAP
-   ═══════════════════════════════════════════════════════ */
-
-const iconMap: Record<string, React.ReactElement> = {
-    "BookOpen": <BookOpen />,
-    "PlayCircle": <PlayCircle />,
-    "GraduationCap": <GraduationCap />,
-    "Award": <Award />
-};
 
 /* ═══════════════════════════════════════════════════════
    GRADIENT MAPPING — maps course colors to cinematic gradients
@@ -71,41 +71,44 @@ function CourseCard({ course, index }: { course: Course; index: number }) {
             <div className={`relative flex flex-col lg:flex-row ${!isEven ? 'lg:flex-row-reverse' : ''} items-stretch overflow-hidden transition-all duration-700 card-accent-top glass border-primary/10 shadow-2xl`} style={{ borderRadius: '24px', background: 'var(--card)' }}>
 
                 {/* ── Content Side ── */}
-                <div className="flex-1 p-8 md:p-12 lg:p-16 flex flex-col justify-center relative">
+                <div className="flex-1 p-6 md:p-8 lg:p-10 flex flex-col justify-center relative">
                     {/* Step indicator */}
-                    <div className="flex items-center gap-3 mb-6">
-                        <span className="text-7xl font-black text-foreground/[0.03] select-none absolute top-4 right-4 lg:top-8 lg:right-8 group-hover:text-primary/5 transition-colors duration-700">
+                    <div className="flex items-center gap-3 mb-4">
+                        <span className="text-6xl font-black text-foreground/[0.03] select-none absolute top-4 right-4 lg:top-6 lg:right-6 group-hover:text-primary/5 transition-colors duration-700">
                             {String(index + 1).padStart(2, '0')}
                         </span>
-                        <div className="icon-container transition-all duration-500 group-hover:scale-110" style={{ background: 'var(--color-gold-glow)' }}>
-                            {React.cloneElement(iconMap[course.iconName] || <BookOpen />, {
-                                className: 'w-5 h-5',
-                                style: { color: 'var(--primary)' }
-                            } as any)}
+                        <div className="w-10 h-10 flex items-center justify-center transition-all duration-500 group-hover:scale-110" style={{ background: 'var(--color-gold-glow)', borderRadius: '10px' }}>
+                            <div className="w-10 h-10">
+                                <DotLottieReact
+                                    src={COURSE_LOTTIES[index % COURSE_LOTTIES.length]}
+                                    loop
+                                    autoplay
+                                />
+                            </div>
                         </div>
-                        <span className="eyebrow">
+                        <span className="eyebrow" style={{ fontSize: '0.65rem' }}>
                             Path {index + 1}
                         </span>
                     </div>
 
                     {/* Title */}
-                    <h2 style={{ fontSize: 'clamp(1.75rem, 3vw, 2.75rem)', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)', letterSpacing: '-0.01em' }} className="mb-4">{course.title}</h2>
-                    <p style={{ fontSize: '1.1rem', color: 'var(--muted-foreground)', lineHeight: 1.8, fontFamily: "var(--font-body)" }} className="mb-8 max-w-lg">{course.subtitle}</p>
+                    <h2 style={{ fontSize: 'clamp(1.5rem, 2.5vw, 2.25rem)', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)', letterSpacing: '-0.01em' }} className="mb-3">{course.title}</h2>
+                    <p style={{ fontSize: '1rem', color: 'var(--muted-foreground)', lineHeight: 1.7, fontFamily: "var(--font-body)" }} className="mb-6 max-w-lg">{course.subtitle}</p>
 
                     {/* Features grid */}
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
                         {course.features.map((feature, i) => (
                             <motion.li
                                 key={i}
                                 initial={{ opacity: 0, x: -10 }}
                                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                                 transition={{ duration: 0.4, delay: 0.3 + i * 0.08 }}
-                                className="flex items-start gap-3 group/feature"
+                                className="flex items-start gap-2.5 group/feature"
                             >
                                 <div className="p-1 rounded-full bg-primary/10 shrink-0 mt-0.5 transition-colors group-hover/feature:bg-primary/20">
-                                    <CheckCircle2 className="w-3.5 h-3.5" style={{ color: 'var(--primary)' }} />
+                                    <CheckCircle2 className="w-3 h-3" style={{ color: 'var(--primary)' }} />
                                 </div>
-                                <span style={{ color: 'var(--foreground)', fontSize: '0.95rem', fontWeight: 500, fontFamily: "var(--font-body)" }}>{feature}</span>
+                                <span style={{ color: 'var(--foreground)', fontSize: '0.85rem', fontWeight: 500, fontFamily: "var(--font-body)" }}>{feature}</span>
                             </motion.li>
                         ))}
                     </ul>
@@ -114,36 +117,33 @@ function CourseCard({ course, index }: { course: Course; index: number }) {
                     <div>
                         <Link
                             href="/contact"
-                            className="inline-flex items-center gap-2.5 rounded-full transition-all duration-500 btn-glow group/btn text-sm"
-                            style={{ padding: '0.9rem 2.5rem', background: 'var(--primary)', color: 'var(--primary-foreground)', fontWeight: 700, fontFamily: "var(--font-body)" }}
+                            className="inline-flex items-center gap-2 rounded-full transition-all duration-500 btn-glow group/btn text-xs"
+                            style={{ padding: '0.7rem 1.8rem', background: 'var(--primary)', color: 'var(--primary-foreground)', fontWeight: 700, fontFamily: "var(--font-body)" }}
                         >
                             Start Your Journey
-                            <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                            <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
                         </Link>
                     </div>
                 </div>
 
                 {/* ── Visual Side ── */}
-                <div className={`w-full lg:w-2/5 min-h-[280px] lg:min-h-[450px] flex items-center justify-center relative overflow-hidden bg-gradient-to-br ${gradient.bg}`}>
+                <div className={`w-full lg:w-1/3 min-h-[220px] lg:min-h-[350px] flex items-center justify-center relative overflow-hidden bg-gradient-to-br ${gradient.bg}`}>
                     {/* Ambient glow */}
                     <div className="absolute inset-0">
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] bg-primary/10 rounded-full blur-[100px]" />
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[180px] h-[180px] bg-primary/10 rounded-full blur-[80px]" />
                     </div>
 
-                    {/* Geometric decorations */}
-                    <div className="absolute top-8 right-8 w-24 h-24 border border-primary/10 rounded-3xl rotate-12 transition-transform duration-1000 group-hover:rotate-[30deg]" />
-                    <div className="absolute bottom-10 left-10 w-20 h-20 border border-primary/10 rounded-2xl -rotate-6 transition-transform duration-1000 group-hover:rotate-6" />
-
-                    {/* Main icon */}
+                    {/* Main Lottie Animation */}
                     <motion.div
-                        animate={{ y: [0, -15, 0] }}
+                        animate={{ y: [0, -10, 0] }}
                         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: index * 0.5 }}
-                        className="relative z-10"
+                        className="relative z-10 w-48 h-48 md:w-64 md:h-64"
                     >
-                        {React.cloneElement(iconMap[course.iconName] || <BookOpen />, {
-                            className: 'w-32 h-32 md:w-44 md:h-44 opacity-20 group-hover:opacity-40 transition-all duration-700 group-hover:scale-110',
-                            style: { color: 'var(--primary)' }
-                        } as any)}
+                        <DotLottieReact
+                            src={COURSE_LOTTIES[index % COURSE_LOTTIES.length]}
+                            loop
+                            autoplay
+                        />
                     </motion.div>
 
                     {/* Inner shimmer */}
@@ -276,37 +276,43 @@ export default function Courses() {
                         {/* ── One-to-One Quran Class ── */}
                         <motion.div
                             variants={fadeUp}
-                            whileHover={{ y: -8, scale: 1.02 }}
-                            className="group relative p-10 md:p-12 transition-all duration-500 overflow-hidden glass border-primary/30 shadow-[0_0_40px_rgba(201,168,76,0.1)]"
-                            style={{ borderRadius: '24px', background: 'var(--card)' }}
+                            whileHover={{ y: -6, scale: 1.01 }}
+                            className="group relative p-6 md:p-8 transition-all duration-500 overflow-hidden glass border-primary/30 shadow-[0_0_30px_rgba(201,168,76,0.08)]"
+                            style={{ borderRadius: '20px', background: 'var(--card)' }}
                         >
-                            <div className="absolute top-0 right-0 p-4">
-                                <span className="badge-gold">Recommended</span>
+                            <div className="absolute top-0 right-0 p-3">
+                                <span className="badge-gold" style={{ fontSize: '0.65rem' }}>Recommended</span>
                             </div>
                             <div className="relative z-10">
-                                <div className="icon-container mb-6 transition-transform duration-500 group-hover:scale-110" style={{ width: '64px', height: '64px', borderRadius: '16px', background: 'var(--color-gold-glow)' }}>
-                                    <Users className="w-8 h-8" style={{ color: 'var(--primary)' }} />
+                                <div className="mb-4 transition-transform duration-500 group-hover:scale-110 flex items-center justify-center" style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'var(--color-gold-glow)' }}>
+                                    <div className="w-12 h-12">
+                                        <DotLottieReact
+                                            src={COURSE_LOTTIES[0]}
+                                            loop
+                                            autoplay
+                                        />
+                                    </div>
                                 </div>
 
-                                <h3 style={{ fontSize: '2rem', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)' }} className="mb-4">One-to-One Quran Class <br /><span className="italic text-primary">with Ustad Ibrahim</span></h3>
+                                <h3 style={{ fontSize: '1.5rem', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)' }} className="mb-3">One-to-One Quran Class <br /><span className="italic text-primary">with Ustad Ibrahim</span></h3>
 
-                                <ul className="space-y-4 mb-8">
+                                <ul className="space-y-3 mb-6">
                                     {[
                                         "Personalized daily sessions",
                                         "Ustad Ibrahim listens to your Surahs",
                                         "Immediate correction of errors",
                                         "Daily revision",
                                         "Implementation of all Tajweed rules",
-                                        "Improve fluency and confidence in recitation"
+                                        "Improve fluency and confidence"
                                     ].map((feature, j) => (
-                                        <li key={j} className="flex items-center gap-3" style={{ fontSize: '1rem', fontWeight: 500, fontFamily: "var(--font-body)" }}>
-                                            <CheckCircle2 className="w-5 h-5 shrink-0" style={{ color: 'var(--primary)' }} />
+                                        <li key={j} className="flex items-center gap-2.5" style={{ fontSize: '0.9rem', fontWeight: 500, fontFamily: "var(--font-body)" }}>
+                                            <CheckCircle2 className="w-4 h-4 shrink-0" style={{ color: 'var(--primary)' }} />
                                             <span style={{ color: 'var(--foreground)' }}>{feature}</span>
                                         </li>
                                     ))}
                                 </ul>
 
-                                <Link href="/contact" className="inline-flex w-full justify-center items-center gap-2.5 rounded-full py-4 bg-primary text-primary-foreground font-bold btn-glow transition-all">
+                                <Link href="/contact" className="inline-flex w-full justify-center items-center gap-2 rounded-full py-3 bg-primary text-primary-foreground font-bold btn-glow transition-all text-sm">
                                     Enroll in Private Session
                                 </Link>
                             </div>
@@ -315,37 +321,42 @@ export default function Courses() {
                         {/* ── Group Class ── */}
                         <motion.div
                             variants={fadeUp}
-                            whileHover={{ y: -8 }}
-                            className="group relative p-10 md:p-12 transition-all duration-500 overflow-hidden glass border-white/5"
-                            style={{ borderRadius: '24px', background: 'var(--card)' }}
+                            whileHover={{ y: -6 }}
+                            className="group relative p-6 md:p-8 transition-all duration-500 overflow-hidden glass border-white/5"
+                            style={{ borderRadius: '20px', background: 'var(--card)' }}
                         >
                             <div className="relative z-10">
-                                <div className="icon-container mb-6 transition-transform duration-500 group-hover:scale-110" style={{ width: '64px', height: '64px', borderRadius: '16px' }}>
-                                    <Users className="w-8 h-8" style={{ color: 'var(--primary)' }} />
+                                <div className="mb-4 transition-transform duration-500 group-hover:scale-110 flex items-center justify-center" style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)' }}>
+                                    <div className="w-12 h-12">
+                                        <DotLottieReact
+                                            src={COURSE_LOTTIES[1]}
+                                            loop
+                                            autoplay
+                                        />
+                                    </div>
                                 </div>
 
-                                <h3 style={{ fontSize: '1.75rem', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)' }} className="mb-4">Group Quran Learning <br /><span className="text-muted-foreground">with Ustad Ibrahim</span></h3>
+                                <h3 style={{ fontSize: '1.5rem', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)' }} className="mb-3">Group Quran Learning <br /><span className="text-muted-foreground">with Ustad Ibrahim</span></h3>
 
-                                <p style={{ color: 'var(--muted-foreground)', fontFamily: "var(--font-body)", lineHeight: 1.8 }} className="mb-8">
-                                    Learn how to pronounce Arabic letters properly with Ustadh Ibrahim and memorize the Quran with him step by step, with full Tajweed guidance. <br /><br />
-                                    Join as a group, start with your friends, grow together, and keep each other motivated—encouraging one another as you work toward memorizing your first Juz.
+                                <p style={{ color: 'var(--muted-foreground)', fontFamily: "var(--font-body)", lineHeight: 1.7, fontSize: '0.9rem' }} className="mb-6">
+                                    Learn how to pronounce Arabic letters properly with Ustadh Ibrahim and memorize the Quran with him step by step, with full Tajweed guidance.
                                 </p>
 
-                                <ul className="space-y-4 mb-8">
+                                <ul className="space-y-3 mb-6">
                                     {[
                                         "Peer learning & competition",
                                         "Structured group curriculum",
                                         "Community support & motivation",
                                         "Grow together with friends"
                                     ].map((feature, j) => (
-                                        <li key={j} className="flex items-center gap-3" style={{ fontSize: '1rem', fontWeight: 500, fontFamily: "var(--font-body)" }}>
-                                            <CheckCircle2 className="w-5 h-5 shrink-0" style={{ color: 'var(--primary)' }} />
+                                        <li key={j} className="flex items-center gap-2.5" style={{ fontSize: '0.9rem', fontWeight: 500, fontFamily: "var(--font-body)" }}>
+                                            <CheckCircle2 className="w-4 h-4 shrink-0" style={{ color: 'var(--primary)' }} />
                                             <span style={{ color: 'var(--foreground)' }}>{feature}</span>
                                         </li>
                                     ))}
                                 </ul>
 
-                                <Link href="/contact" className="inline-flex w-full justify-center items-center gap-2.5 rounded-full py-4 border border-primary/30 text-primary font-bold hover:bg-primary/5 transition-all">
+                                <Link href="/contact" className="inline-flex w-full justify-center items-center gap-2 rounded-full py-3 border border-primary/30 text-primary font-bold hover:bg-primary/5 transition-all text-sm">
                                     Join a Group
                                 </Link>
                             </div>

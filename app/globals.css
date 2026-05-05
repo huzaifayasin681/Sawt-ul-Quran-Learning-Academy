@@ -186,6 +186,15 @@
     text-wrap: balance;
   }
 
+  /* ── Scrollbar Hide (for slider carousels) ── */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
   /* ── Glassmorphism Card ── */
   .glass {
     background: var(--color-bg-glass);
@@ -586,6 +595,113 @@
 }
 
 /* ═══════════════════════════════════════════════════════
+   CARD SLIDER SHINE ANIMATION
+   A diagonal golden light sweep across cards
+   ═══════════════════════════════════════════════════════ */
+
+@keyframes cardSliderShine {
+  0% {
+    transform: translateX(-100%) rotate(-25deg);
+  }
+  100% {
+    transform: translateX(300%) rotate(-25deg);
+  }
+}
+
+/* Card shine effect — add .card-shine class to any card */
+.card-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-shine::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 60%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 168, 83, 0.03) 25%,
+    rgba(212, 168, 83, 0.08) 50%,
+    rgba(212, 168, 83, 0.03) 75%,
+    transparent 100%
+  );
+  transform: translateX(-100%) rotate(-25deg);
+  animation: cardSliderShine 5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card-shine:nth-child(2)::before {
+  animation-delay: 0.8s;
+}
+
+.card-shine:nth-child(3)::before {
+  animation-delay: 1.6s;
+}
+
+.card-shine:nth-child(4)::before {
+  animation-delay: 2.4s;
+}
+
+/* Hover-enhanced shine */
+.card-shine:hover::before {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 168, 83, 0.05) 25%,
+    rgba(212, 168, 83, 0.12) 50%,
+    rgba(212, 168, 83, 0.05) 75%,
+    transparent 100%
+  );
+  animation-duration: 2s;
+}
+
+/* Card slide-in animation for viewport entry */
+@keyframes cardSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(60px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+.card-slide-in {
+  animation: cardSlideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.card-slide-in:nth-child(1) { animation-delay: 0.1s; }
+.card-slide-in:nth-child(2) { animation-delay: 0.25s; }
+.card-slide-in:nth-child(3) { animation-delay: 0.4s; }
+.card-slide-in:nth-child(4) { animation-delay: 0.55s; }
+
+/* Card border glow animation */
+@keyframes cardBorderGlow {
+  0%, 100% {
+    border-color: rgba(212, 168, 83, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    border-color: rgba(212, 168, 83, 0.18);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15), 0 0 30px rgba(212, 168, 83, 0.05);
+  }
+}
+
+.card-border-glow {
+  animation: cardBorderGlow 4s ease-in-out infinite;
+}
+
+.card-border-glow:nth-child(2) { animation-delay: 1s; }
+.card-border-glow:nth-child(3) { animation-delay: 2s; }
+.card-border-glow:nth-child(4) { animation-delay: 3s; }
+
+/* ═══════════════════════════════════════════════════════
    MOBILE RESPONSIVE OVERRIDES
    ═══════════════════════════════════════════════════════ */
 
@@ -615,3 +731,21 @@
     font-size: clamp(1.5rem, 6vw, 2rem) !important;
   }
 }
+
+/* ── Infinite Marquee Animation ── */
+@keyframes marquee-infinite {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.3333%); }
+}
+
+.marquee-active {
+  display: flex !important;
+  width: max-content !important;
+  flex-wrap: nowrap !important;
+  animation: marquee-infinite var(--marquee-duration, 30s) linear infinite;
+  animation-direction: var(--marquee-direction, normal);
+}
+
+.marquee-active:hover {
+  animation-play-state: var(--marquee-pause, running);
+}

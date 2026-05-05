@@ -1,7 +1,7 @@
 [
   {
     "id": "qaida",
-    "title": "🔹 Qaida Basics",
+    "title": "Qaida Basics",
     "subtitle": "Start from zero and build a strong foundation with Tajweed guidance.",
     "iconName": "BookOpen",
     "features": [
@@ -16,7 +16,7 @@
   },
   {
     "id": "nazra",
-    "title": "🔹 Nazra Reading",
+    "title": "Nazra Reading",
     "subtitle": "Build fluency and precision reading directly from the Mushaf.",
     "iconName": "PlayCircle",
     "features": [
@@ -31,7 +31,7 @@
   },
   {
     "id": "memorization",
-    "title": "✅ Memorization Course",
+    "title": "Memorization Course",
     "subtitle": "Memorizing the Quran with Proper Tajweed and pronunciation.",
     "iconName": "Award",
     "features": [

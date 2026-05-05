@@ -5,6 +5,17 @@ import { ChevronRight, Star, PlayCircle, BookOpen, Award, Users, Video, Sparkles
 import { motion, Variants, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 import { Teacher } from "@/lib/db";
+import AutoSlider, { MarqueeSlider } from "@/components/auto-slider";
+import dynamic from "next/dynamic";
+
+// Dynamically import Lottie to avoid SSR issues
+const DotLottieReact = dynamic(() => import("@lottiefiles/dotlottie-react").then(mod => mod.DotLottieReact), { ssr: false });
+
+const COURSE_LOTTIES = [
+  "https://lottie.host/6aff17f3-f27c-474a-9465-8a847dac8344/BttbPmj0xo.lottie",
+  "https://lottie.host/1faa4350-8d9a-47ca-90f5-36f0d5327343/Rluq04Y5Qb.lottie",
+  "https://lottie.host/0e3ac02b-fbb5-41fb-8ef6-545671a860f3/GX3EjN2lCi.lottie"
+];
 
 /* ═══════════════════════════════════════════════════════
    ANIMATION VARIANTS
@@ -113,47 +124,15 @@ function AyatLineReveal({ text, delay = 0 }: { text: string; delay?: number }) {
    COURSE MICRO-ANIMATIONS
    ═══════════════════════════════════════════════════════ */
 
-const QaidaAnimation = () => (
-  <div className="relative w-full h-32 rounded-xl bg-primary/5 border border-primary/10 flex items-center justify-center overflow-hidden mb-6">
-    <motion.div animate={{ opacity: [0.3, 0.8, 0.3] }} transition={{ duration: 3, repeat: Infinity }} className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent pointer-events-none" />
-    <BookOpen className="w-12 h-12 text-primary relative z-10" />
-    <motion.div animate={{ x: [-2, 4, -2], y: [-2, 2, -2] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
-       <Sparkles className="w-5 h-5 text-accent opacity-80 absolute -top-8 -right-8" />
-    </motion.div>
-  </div>
-);
-
-const GroupClassesAnimation = () => (
-  <div className="relative w-full h-32 rounded-xl bg-primary/5 border border-primary/10 flex items-center justify-center overflow-hidden mb-6">
-    <div className="flex gap-3 relative z-10 items-end">
-      <motion.div animate={{ y: [0, -4, 0] }} transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}><Users className="w-8 h-8 text-primary/60" /></motion.div>
-      <motion.div animate={{ y: [0, -6, 0] }} transition={{ duration: 2.5, delay: 0.4, repeat: Infinity, ease: "easeInOut" }}><Users className="w-12 h-12 text-primary" /></motion.div>
-      <motion.div animate={{ y: [0, -4, 0] }} transition={{ duration: 2.5, delay: 0.8, repeat: Infinity, ease: "easeInOut" }}><Users className="w-8 h-8 text-primary/60" /></motion.div>
-    </div>
-  </div>
-);
-
-const QuranReadingAnimation = () => (
-  <div className="relative w-full h-32 rounded-xl bg-primary/5 border border-primary/10 flex items-center justify-center overflow-hidden mb-6">
-    <Moon className="absolute w-24 h-24 text-primary/10 -top-4 -right-4 pointer-events-none" />
-    <motion.div animate={{ scale: [1, 1.05, 1] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
-      <BookOpen className="w-12 h-12 text-primary relative z-10" />
-    </motion.div>
-    <motion.div animate={{ opacity: [0, 1, 0], y: [10, -10] }} transition={{ duration: 3, repeat: Infinity, ease: "easeOut" }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
-      <div className="w-1.5 h-1.5 rounded-full bg-accent blur-[1px] absolute -top-10 -right-4" />
-    </motion.div>
-  </div>
-);
-
-const AdvancedLearningAnimation = () => (
-  <div className="relative w-full h-32 rounded-xl bg-primary/5 border border-primary/10 flex items-center justify-center overflow-hidden mb-6">
-    <GraduationCap className="w-12 h-12 text-primary relative z-10" />
-    <motion.div animate={{ scale: [0.8, 1.2, 0.8], opacity: [0, 1, 0] }} transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }} className="absolute right-6 top-6 z-20 pointer-events-none">
-      <CheckCircle className="w-6 h-6 text-emerald-500" />
-    </motion.div>
-    <div className="absolute bottom-4 left-6 right-6 flex flex-col gap-1.5 opacity-40 pointer-events-none">
-      <motion.div className="h-1 bg-primary rounded w-full" animate={{ opacity: [0.3, 0.8, 0.3] }} transition={{ duration: 2, repeat: Infinity }} />
-      <motion.div className="h-1 bg-primary rounded w-3/4" animate={{ opacity: [0.3, 0.8, 0.3] }} transition={{ duration: 2, delay: 0.5, repeat: Infinity }} />
+const CourseAnimation = ({ index }: { index: number }) => (
+  <div className="relative w-full h-28 rounded-xl bg-primary/5 border border-primary/10 flex items-center justify-center overflow-hidden mb-4">
+    <motion.div animate={{ opacity: [0.1, 0.3, 0.1] }} transition={{ duration: 4, repeat: Infinity }} className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent pointer-events-none" />
+    <div className="w-24 h-24 relative z-10">
+      <DotLottieReact
+        src={COURSE_LOTTIES[index % COURSE_LOTTIES.length]}
+        loop
+        autoplay
+      />
     </div>
   </div>
 );
@@ -668,18 +647,27 @@ export default function Home() {
             <p className="mt-6 mx-auto max-w-2xl" style={{ color: 'var(--muted-foreground)', fontSize: '1.25rem', fontFamily: "var(--font-body)" }}>Real experiences from students who have transformed their recitation and understanding of the Quran with us.</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+          <MarqueeSlider
+            speed={25}
+            gap={24}
+            pauseOnHover={true}
+          >
             {[
               "IrBWcu2gR6c",
               "9ZxfGiOujvg",
               "nZ1K-GCBJRE",
               "yoeK7z6NDPU"
             ].map((videoId, i) => (
-              <motion.div
+              <div
                 key={i}
-                variants={fadeUp}
-                className="group relative overflow-hidden rounded-[24px] aspect-[9/16] bg-black/5 transition-all duration-500 hover:scale-[1.02]"
-                style={{ border: '1px solid var(--color-border-subtle)', boxShadow: '0 20px 40px rgba(0,0,0,0.08)' }}
+                className="group relative overflow-hidden rounded-[24px] bg-black/5 transition-all duration-500 hover:scale-[1.02] card-shine card-border-glow"
+                style={{
+                  border: '1px solid var(--color-border-subtle)',
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.08)',
+                  width: '280px',
+                  height: '498px', // Approx 9:16 for 280px width
+                  flexShrink: 0
+                }}
               >
                 <div className="absolute inset-0 bg-primary/5 pointer-events-none z-10 group-hover:bg-transparent transition-colors duration-500" />
                 <iframe
@@ -691,9 +679,9 @@ export default function Home() {
                   allowFullScreen
                   loading="lazy"
                 ></iframe>
-              </motion.div>
+              </div>
             ))}
-          </div>
+          </MarqueeSlider>
         </motion.div>
       </section>
       {/* ── COURSES — CINEMATIC BENTO LAYOUT ── */}
@@ -724,11 +712,15 @@ export default function Home() {
             </motion.p>
           </motion.div>
 
-          {/* ── Course Level Cards — 4 columns ── */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          {/* ── Course Level Cards — Infinite Smooth Marquee ── */}
+          <MarqueeSlider
+            speed={40}
+            gap={32}
+            pauseOnHover={true}
+            className="mb-8"
+          >
             {[
               {
-                AnimComponent: QaidaAnimation,
                 step: "01",
                 title: "Qaida Basics",
                 desc: "Start from zero and build a strong foundation with proper Tajweed.",
@@ -736,7 +728,6 @@ export default function Home() {
                 gradient: "from-emerald-500/10 via-emerald-500/5 to-transparent",
               },
               {
-                AnimComponent: GroupClassesAnimation,
                 step: "02",
                 title: "Group Classes",
                 desc: "Learn in a vibrant community environment. Motivation through shared learning.",
@@ -744,7 +735,6 @@ export default function Home() {
                 gradient: "from-blue-500/10 via-blue-500/5 to-transparent",
               },
               {
-                AnimComponent: QuranReadingAnimation,
                 step: "03",
                 title: "Quran Reading",
                 desc: "Build real fluency and precision reading directly from the Mushaf.",
@@ -753,7 +743,6 @@ export default function Home() {
                 featured: true,
               },
               {
-                AnimComponent: AdvancedLearningAnimation,
                 step: "04",
                 title: "Advanced Learning",
                 desc: "Deepen your understanding with Ijazah-certified guidance and advanced Tajweed.",
@@ -763,45 +752,54 @@ export default function Home() {
             ].map((course, i) => (
               <motion.div
                 key={i}
-                variants={cardHover}
-                whileHover={{ y: -8, scale: 1.02 }}
+                whileHover={{ y: -6, scale: 1.01 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className={`group relative overflow-hidden transition-all duration-500 card-accent-top ${course.featured ? 'md:scale-105 md:-my-4' : ''}`}
-                style={{ borderRadius: '24px', padding: '2rem', background: 'var(--card)', border: course.featured ? '1px solid var(--color-border-accent)' : '1px solid var(--color-border-subtle)', boxShadow: course.featured ? '0 0 60px rgba(201,168,76,0.08)' : 'none' }}
+                className={`group relative overflow-hidden transition-all duration-500 card-accent-top card-shine card-border-glow h-full ${course.featured ? 'ring-1 ring-primary/20' : ''}`}
+                style={{
+                  borderRadius: '20px',
+                  padding: '1.5rem',
+                  background: 'var(--card)',
+                  border: course.featured ? '1px solid var(--color-border-accent)' : '1px solid var(--color-border-subtle)',
+                  boxShadow: course.featured ? '0 0 40px rgba(201,168,76,0.06)' : 'none',
+                  width: '260px',
+                  minHeight: '380px',
+                  flexShrink: 0
+                }}
               >
                 {/* Background gradient */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${course.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none`} />
 
                 {/* Featured badge */}
                 {course.featured && (
-                  <div className="absolute top-4 right-4 badge-gold">
+                  <div className="absolute top-3 right-3 badge-gold" style={{ fontSize: '0.6rem' }}>
                     Most Popular
                   </div>
                 )}
 
-                <div className="relative z-10 space-y-4">
+                <div className="relative z-10 space-y-3">
                   {/* Step number */}
                   <div className="flex justify-between items-center w-full">
-                    <span className="text-5xl font-black text-foreground/5 group-hover:text-foreground/10 transition-colors duration-500 select-none">
+                    <span className="text-4xl font-black text-foreground/5 group-hover:text-foreground/10 transition-colors duration-500 select-none">
                       {course.step}
                     </span>
                   </div>
 
-                  {/* Micro-Animation */}
-                  <course.AnimComponent />
+                  {/* Unified Lottie Animation */}
+                  <CourseAnimation index={i} />
 
                   {/* Title & Description */}
                   <div>
-                    <h3 style={{ fontSize: '1.25rem', fontFamily: "var(--font-body)", fontWeight: 700, color: 'var(--foreground)' }} className="mb-3">{course.title}</h3>
-                    <p style={{ fontSize: '0.875rem', color: 'var(--muted-foreground)', lineHeight: 1.75, fontFamily: "var(--font-body)" }}>{course.desc}</p>
+                    <h3 style={{ fontSize: '1.1rem', fontFamily: "var(--font-body)", fontWeight: 700, color: 'var(--foreground)' }} className="mb-2">{course.title}</h3>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--muted-foreground)', lineHeight: 1.6, fontFamily: "var(--font-body)" }}>{course.desc}</p>
                   </div>
 
                   {/* Feature chips */}
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5">
                     {course.features.map((feature, j) => (
                       <span
                         key={j}
-                        className="badge-gold text-[10px]"
+                        className="badge-gold text-[9px]"
+                        style={{ padding: '0.15rem 0.5rem' }}
                       >
                         {feature}
                       </span>
@@ -810,10 +808,15 @@ export default function Home() {
                 </div>
               </motion.div>
             ))}
-          </div>
+          </MarqueeSlider>
 
-          {/* ── Age Group Row ── */}
-          <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
+          {/* ── Age Group Row — Infinite Smooth Marquee ── */}
+          <MarqueeSlider
+            speed={25}
+            gap={20}
+            pauseOnHover={true}
+            className="mt-10"
+          >
             {[
               { icon: BookOpen, label: "Kids", desc: "Fun & engaging" },
               { icon: GraduationCap, label: "Teens", desc: "Guided growth" },
@@ -824,8 +827,15 @@ export default function Home() {
                 key={i}
                 whileHover={{ y: -4, scale: 1.03 }}
                 transition={{ duration: 0.3 }}
-                className="group text-center p-5 transition-all duration-500 cursor-default"
-                style={{ border: '1px solid var(--color-border-subtle)', background: 'var(--color-bg-glass)', backdropFilter: 'blur(10px)', borderRadius: '16px' }}
+                className="group text-center p-5 transition-all duration-500 cursor-default card-shine card-border-glow"
+                style={{
+                  border: '1px solid var(--color-border-subtle)',
+                  background: 'var(--color-bg-glass)',
+                  backdropFilter: 'blur(10px)',
+                  borderRadius: '16px',
+                  width: '220px',
+                  flexShrink: 0
+                }}
               >
                 <div className="w-12 h-12 mx-auto mb-3 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110" style={{ background: 'var(--color-gold-glow)', border: '1px solid var(--color-border-accent)' }}>
                   <age.icon className="w-6 h-6" style={{ color: 'var(--primary)' }} />
@@ -834,7 +844,7 @@ export default function Home() {
                 <p style={{ fontSize: '0.75rem', color: 'var(--muted-foreground)', fontFamily: "'DM Sans', sans-serif" }} className="mt-1">{age.desc}</p>
               </motion.div>
             ))}
-          </motion.div>
+          </MarqueeSlider>
 
           {/* ── CTA ── */}
           <motion.div variants={fadeUp} className="text-center mt-14">
@@ -899,14 +909,22 @@ export default function Home() {
           </motion.div>
 
           {teachers.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <MarqueeSlider speed={25} gap={28} pauseOnHover={true}>
               {teachers.map((teacher, index) => (
                 <motion.div
                   key={teacher.id || index}
-                  variants={cardHover}
-                  whileHover={{ y: -8 }}
-                  className="group p-6 space-y-4 transition-all duration-500 relative overflow-hidden card-accent-top"
-                  style={{ borderRadius: '20px', background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.07)' }}
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  transition={{ duration: 0.4 }}
+                  className="group p-6 space-y-4 transition-all duration-500 relative overflow-hidden card-accent-top card-shine card-border-glow"
+                  style={{
+                    borderRadius: '20px',
+                    background: 'rgba(255,255,255,0.04)',
+                    backdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(255,255,255,0.07)',
+                    width: '340px',
+                    minHeight: '380px',
+                    flexShrink: 0
+                  }}
                 >
                   <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ background: 'rgba(201,168,76,0.05)' }} />
 
@@ -941,24 +959,30 @@ export default function Home() {
                   )}
                 </motion.div>
               ))}
-            </div>
+            </MarqueeSlider>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              <motion.div variants={cardHover} whileHover={{ y: -5 }} className="p-10 text-center space-y-4 transition-all duration-500 card-accent-top" style={{ borderRadius: '24px', background: 'var(--card)', border: '1px solid var(--border)' }}>
-                <div className="w-24 h-24 mx-auto rounded-full flex items-center justify-center mb-6" style={{ background: 'var(--color-gold-glow)' }}>
-                  <Users className="w-10 h-10" style={{ color: 'var(--primary)' }} />
-                </div>
-                <h3 style={{ fontSize: '1.75rem', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)' }}>Male Teachers</h3>
-                <p style={{ color: 'var(--muted-foreground)', fontFamily: "var(--font-body)", lineHeight: 1.7 }}>Expert Qaris available for brothers and young boys. Focus on strong Arabic articulation.</p>
-              </motion.div>
-              <motion.div variants={cardHover} whileHover={{ y: -5 }} className="p-10 text-center space-y-4 transition-all duration-500 card-accent-top" style={{ borderRadius: '24px', background: 'var(--card)', border: '1px solid var(--border)' }}>
-                <div className="w-24 h-24 mx-auto rounded-full flex items-center justify-center mb-6" style={{ background: 'var(--color-gold-glow)' }}>
-                  <Users className="w-10 h-10" style={{ color: 'var(--primary)' }} />
-                </div>
-                <h3 style={{ fontSize: '1.75rem', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)' }}>Female Teachers</h3>
-                <p style={{ color: 'var(--muted-foreground)', fontFamily: "var(--font-body)", lineHeight: 1.7 }}>Qualified female instructors for sisters and young girls, providing a supportive environment.</p>
-              </motion.div>
-            </div>
+            <MarqueeSlider speed={20} gap={32} pauseOnHover={true}>
+              {[
+                { title: "Male Teachers", desc: "Expert Qaris available for brothers and young boys. Focus on strong Arabic articulation." },
+                { title: "Female Teachers", desc: "Qualified female instructors for sisters and young girls, providing a supportive environment." },
+                { title: "Kids Specialists", desc: "Teachers trained in child-friendly Quran education with engaging and fun methods." },
+                { title: "Tajweed Experts", desc: "Advanced instructors specializing in perfecting pronunciation and Tajweed rules." },
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  whileHover={{ y: -5, scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                  className="p-10 text-center space-y-4 transition-all duration-500 card-accent-top card-shine card-border-glow"
+                  style={{ borderRadius: '24px', background: 'var(--card)', border: '1px solid var(--border)', width: '340px', minHeight: '300px' }}
+                >
+                  <div className="w-24 h-24 mx-auto rounded-full flex items-center justify-center mb-6" style={{ background: 'var(--color-gold-glow)' }}>
+                    <Users className="w-10 h-10" style={{ color: 'var(--primary)' }} />
+                  </div>
+                  <h3 style={{ fontSize: '1.75rem', fontFamily: "var(--font-heading)", fontWeight: 300, color: 'var(--foreground)' }}>{item.title}</h3>
+                  <p style={{ color: 'var(--muted-foreground)', fontFamily: "var(--font-body)", lineHeight: 1.7 }}>{item.desc}</p>
+                </motion.div>
+              ))}
+            </MarqueeSlider>
           )}
         </motion.div>
       </section>
