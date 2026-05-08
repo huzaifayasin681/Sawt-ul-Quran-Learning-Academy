@@ -100,7 +100,7 @@ export function Footer() {
                             </li>
                             <li className="flex items-center gap-2" style={{ color: '#A8B8B0' }}>
                                 <span className="w-1 h-1 rounded-full" style={{ background: 'rgba(201,168,76,0.3)' }} />
-                                <span>info@noorulquran.academy</span>
+                                <span>info@swatulquranacademy.com</span>
                             </li>
                         </ul>
                     </div>

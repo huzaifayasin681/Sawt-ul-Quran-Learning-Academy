@@ -40,26 +40,35 @@ export function StardustParticles() {
 
         const createParticles = () => {
             particles = [];
-            const count = Math.min(Math.floor(window.innerWidth / 12), 150);
+            const count = Math.min(Math.floor(window.innerWidth / 22), 55);
             for (let i = 0; i < count; i++) {
-                const colorBase = isDark ? 
-                    (Math.random() > 0.3 ? "212, 175, 55" : "168, 213, 186") : 
+                const colorBase = isDark ?
+                    (Math.random() > 0.3 ? "212, 175, 55" : "168, 213, 186") :
                     (Math.random() > 0.3 ? "90, 72, 19" : "46, 125, 107");
 
                 particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    size: Math.random() * (isDark ? 2.2 : 1.5) + 0.2,
-                    speed: Math.random() * 0.15 + 0.02,
-                    opacity: isDark ? (Math.random() * 0.4 + 0.1) : (Math.random() * 0.2 + 0.05),
+                    size: Math.random() * (isDark ? 1.5 : 1.0) + 0.3,
+                    speed: Math.random() * 0.1 + 0.015,
+                    opacity: isDark ? (Math.random() * 0.35 + 0.08) : (Math.random() * 0.15 + 0.04),
                     twinkle: Math.random() * Math.PI * 2,
-                    twinkleSpeed: Math.random() * 0.015 + 0.005,
+                    twinkleSpeed: Math.random() * 0.012 + 0.004,
                     color: colorBase
                 });
             }
         };
 
-        const animate = () => {
+        let lastFrameTime = 0;
+        const FPS_CAP = 28;
+
+        const animate = (timestamp: number) => {
+            animationId = requestAnimationFrame(animate);
+            if (timestamp - lastFrameTime < 1000 / FPS_CAP) return;
+            lastFrameTime = timestamp;
+
+            if (document.hidden) return;
+
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             particles.forEach(p => {
@@ -72,30 +81,16 @@ export function StardustParticles() {
                     p.x = Math.random() * canvas.width;
                 }
 
-                const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 4);
-                gradient.addColorStop(0, `rgba(${p.color}, ${alpha})`);
-                gradient.addColorStop(0.6, `rgba(${p.color}, ${alpha * 0.2})`);
-                gradient.addColorStop(1, `rgba(${p.color}, 0)`);
-
                 ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size * 4, 0, Math.PI * 2);
-                ctx.fillStyle = gradient;
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${p.color}, ${alpha})`;
                 ctx.fill();
-
-                if (isDark && alpha > 0.3) {
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.size * 0.3, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(255, 255, 255, ${alpha * 0.8})`;
-                    ctx.fill();
-                }
             });
-
-            animationId = requestAnimationFrame(animate);
         };
 
         resize();
         createParticles();
-        animate();
+        animationId = requestAnimationFrame(animate);
 
         window.addEventListener("resize", () => { resize(); createParticles(); });
 
@@ -142,22 +137,22 @@ export function AuraGlow() {
                 className="absolute -top-[10%] -left-[10%] w-[60vw] h-[60vw] rounded-full blur-[120px] opacity-20 dark:opacity-10"
                 style={{ background: 'var(--primary)' }}
                 animate={{
-                    x: [0, 40, 0],
-                    y: [0, 30, 0],
-                    scale: [1, 1.1, 1],
+                    x: [0, 30, 0],
+                    y: [0, 20, 0],
+                    scale: [1, 1.05, 1],
                 }}
-                transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+                transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
             />
             {/* Gold Mist Bottom Right */}
             <motion.div
                 className="absolute -bottom-[10%] -right-[10%] w-[50vw] h-[50vw] rounded-full blur-[100px] opacity-15 dark:opacity-[0.08]"
                 style={{ background: 'var(--accent)' }}
                 animate={{
-                    x: [0, -50, 0],
-                    y: [0, -40, 0],
-                    scale: [1, 1.2, 1],
+                    x: [0, -30, 0],
+                    y: [0, -25, 0],
+                    scale: [1, 1.08, 1],
                 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                transition={{ duration: 30, repeat: Infinity, ease: "easeInOut", delay: 3 }}
             />
             {/* Central Soft Glow */}
             <div 

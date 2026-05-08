@@ -79,94 +79,85 @@ function NabawiSlideshow() {
     };
 
     return (
-        <section className="relative w-full py-8 md:py-14 overflow-hidden">
-            <div className="max-w-[520px] mx-auto px-4 md:px-6">
+        <section className="relative w-full overflow-hidden" style={{ height: 'clamp(420px, 65vh, 720px)' }}>
+            {/* Full-width background image slider */}
+            <AnimatePresence initial={false} custom={direction} mode="popLayout">
+                <motion.div
+                    key={current}
+                    custom={direction}
+                    variants={variants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute inset-0"
+                >
+                    <Image
+                        src={NABAWAI_IMAGES[current].url}
+                        alt={NABAWAI_IMAGES[current].title}
+                        fill
+                        className="object-cover object-center"
+                        priority
+                    />
+                </motion.div>
+            </AnimatePresence>
+
+            {/* Gradient overlays for depth */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/15 z-10 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-b from-background/40 to-transparent z-10 pointer-events-none" />
+
+            {/* Centered content overlay */}
+            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-6">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-8"
+                    className="space-y-5"
                 >
-                    <p className="eyebrow">Experience Madinah</p>
-                </motion.div>
-
-                {/* Slider Container */}
-                <div
-                    className="relative overflow-hidden rounded-2xl md:rounded-3xl"
-                    style={{
-                        aspectRatio: '4 / 3',
-                        border: '2px solid var(--color-border-accent)',
-                        boxShadow: '0 20px 60px rgba(0,0,0,0.25), 0 0 30px rgba(201,168,76,0.06)',
-                    }}
-                >
-                    <AnimatePresence initial={false} custom={direction} mode="popLayout">
+                    <p className="text-[0.65rem] tracking-[0.25em] uppercase font-semibold text-white/60">Experience Madinah</p>
+                    <AnimatePresence mode="wait">
                         <motion.div
-                            key={current}
-                            custom={direction}
-                            variants={variants}
-                            initial="enter"
-                            animate="center"
-                            exit="exit"
-                            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                            className="absolute inset-0"
+                            key={`caption-${current}`}
+                            initial={{ opacity: 0, y: 18 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -12 }}
+                            transition={{ duration: 0.6, delay: 0.15 }}
+                            className="space-y-3"
                         >
-                            <Image
-                                src={NABAWAI_IMAGES[current].url}
-                                alt={NABAWAI_IMAGES[current].title}
-                                fill
-                                className="object-cover"
-                                priority
-                            />
-                            {/* Bottom gradient overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+                            <h3 className="text-white text-4xl md:text-6xl" style={{ fontFamily: 'var(--font-heading)', fontWeight: 300, letterSpacing: '-0.01em' }}>
+                                {NABAWAI_IMAGES[current].title}
+                            </h3>
+                            <p className="text-white/55 text-base md:text-lg italic max-w-lg mx-auto" style={{ fontFamily: 'var(--font-heading)' }}>
+                                {NABAWAI_IMAGES[current].caption}
+                            </p>
                         </motion.div>
                     </AnimatePresence>
+                </motion.div>
+            </div>
 
-                    {/* Caption overlay */}
-                    <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8 z-10">
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={`caption-${current}`}
-                                initial={{ opacity: 0, y: 15 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -10 }}
-                                transition={{ duration: 0.5, delay: 0.2 }}
-                            >
-                                <h3 className="text-white text-xl md:text-2xl font-serif mb-1" style={{ fontWeight: 300 }}>
-                                    {NABAWAI_IMAGES[current].title}
-                                </h3>
-                                <p className="text-white/60 text-sm md:text-base italic font-serif">
-                                    {NABAWAI_IMAGES[current].caption}
-                                </p>
-                            </motion.div>
-                        </AnimatePresence>
-                    </div>
+            {/* Navigation arrows */}
+            <button
+                onClick={prevSlide}
+                className="absolute left-5 md:left-10 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-black/30 hover:bg-primary/40 backdrop-blur-md border border-white/10 text-white transition-all hover:scale-110 active:scale-95"
+            >
+                <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
+            </button>
+            <button
+                onClick={nextSlide}
+                className="absolute right-5 md:right-10 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-black/30 hover:bg-primary/40 backdrop-blur-md border border-white/10 text-white transition-all hover:scale-110 active:scale-95"
+            >
+                <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
+            </button>
 
-                    {/* Navigation arrows inside the image */}
+            {/* Dot indicators */}
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
+                {NABAWAI_IMAGES.map((_, i) => (
                     <button
-                        onClick={prevSlide}
-                        className="absolute left-3 top-1/2 -translate-y-1/2 z-20 p-2.5 rounded-full bg-black/30 hover:bg-primary/30 backdrop-blur-md border border-white/10 text-white transition-all hover:scale-110 active:scale-95"
-                    >
-                        <ChevronLeft className="w-5 h-5" />
-                    </button>
-                    <button
-                        onClick={nextSlide}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 z-20 p-2.5 rounded-full bg-black/30 hover:bg-primary/30 backdrop-blur-md border border-white/10 text-white transition-all hover:scale-110 active:scale-95"
-                    >
-                        <ChevronRight className="w-5 h-5" />
-                    </button>
-                </div>
-
-                {/* Dot indicators below */}
-                <div className="flex items-center justify-center gap-2 mt-6">
-                    {NABAWAI_IMAGES.map((_, i) => (
-                        <button
-                            key={i}
-                            onClick={() => goTo(i)}
-                            className={`h-1.5 rounded-full transition-all duration-500 ${i === current ? 'w-8 bg-primary' : 'w-2 bg-muted-foreground/20 hover:bg-muted-foreground/40'}`}
-                        />
-                    ))}
-                </div>
+                        key={i}
+                        onClick={() => goTo(i)}
+                        className={`h-1.5 rounded-full transition-all duration-500 ${i === current ? 'w-8 bg-primary' : 'w-2 bg-white/30 hover:bg-white/50'}`}
+                    />
+                ))}
             </div>
         </section>
     );
